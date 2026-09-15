@@ -1,0 +1,6 @@
+données-échantillons-et-statistiques-descriptives
+probabilités
+inférence
+incertitudes
+tests
+annexes
