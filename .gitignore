@@ -14,3 +14,8 @@ _book
 *.epub
 *.mobi
 *.pdf
+
+# R files
+.Rproj.user
+.Rhistory
+.RData
