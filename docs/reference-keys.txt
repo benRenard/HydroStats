@@ -1,4 +1,8 @@
-données-échantillons-et-statistiques-descriptives
+eq:filtering
+fig:filtering
+données-et-statistiques-descriptives
+définition-de-variables-hydrologiques
+filtrage-et-autre-pré-traitements
 probabilités
 inférence
 incertitudes

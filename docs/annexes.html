@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-09-15" />
+<meta name="date" content="2026-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -59,6 +59,29 @@
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -77,7 +100,13 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Préambule</a></li>
-<li class="chapter" data-level="1" data-path="données-échantillons-et-statistiques-descriptives.html"><a href="données-échantillons-et-statistiques-descriptives.html"><i class="fa fa-check"></i><b>1</b> Données, échantillons et statistiques descriptives</a></li>
+<li class="chapter" data-level="1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html"><i class="fa fa-check"></i><b>1</b> Données et statistiques descriptives</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#définition-de-variables-hydrologiques"><i class="fa fa-check"></i><b>1.1</b> Définition de variables hydrologiques</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#filtrage-et-autre-pré-traitements"><i class="fa fa-check"></i><b>1.1.1</b> Filtrage et autre pré-traitements</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="probabilités.html"><a href="probabilités.html"><i class="fa fa-check"></i><b>2</b> Probabilités</a></li>
 <li class="chapter" data-level="3" data-path="inférence.html"><a href="inférence.html"><i class="fa fa-check"></i><b>3</b> Inférence</a></li>
 <li class="chapter" data-level="4" data-path="incertitudes.html"><a href="incertitudes.html"><i class="fa fa-check"></i><b>4</b> Incertitudes</a></li>
@@ -107,6 +136,11 @@
 <div id="annexes" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapitre 6</span> Annexes<a href="annexes.html#annexes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div class="csl-entry">
+Renard, Benjamin. 2026. <em>HydroPortailStats: HydroPortail Statistical Functions</em>. <a href="https://github.com/benRenard/HydroPortailStats">https://github.com/benRenard/HydroPortailStats</a>.
+</div>
+</div>
 </div>
             </section>
 
@@ -158,6 +192,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

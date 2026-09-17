@@ -9,6 +9,8 @@ node_modules
 
 # Book build output
 #_book
+_bookdown_files
+_main_files
 
 # eBook build output
 *.epub

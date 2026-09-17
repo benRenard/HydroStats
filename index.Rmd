@@ -16,3 +16,32 @@ github-repo: benRenard/HydroStats
 # Préambule {.unnumbered}
 
 XXX 
+Station fil rouge: U464 4010 (Azergue à Lozanne)
+ou K264 4010 : L'Ailloux à Manglieu 
+
+Passer direct aux variables continues
+
+Mettre le tableau quelle loi pour quelle variable (dans le diapo aussi ?)
+
+Insister plus sur les definitions et les usages QMNA - VCN3.
+
+package [HydroPortailStats](https://github.com/benRenard/HydroPortailStats) [@R-HydroPortailStats]
+
+```{r packages, include=FALSE}
+# Load required packages and data
+library(ggplot2);library(patchwork)
+library(HydroPortailStats)
+library(dplyr)
+load(file.path('data','HydroStats.RData'))
+```
+
+```{r utils, include=FALSE}
+# Define utilities
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'HydroPortailStats'
+), 'packages.bib')
+```
