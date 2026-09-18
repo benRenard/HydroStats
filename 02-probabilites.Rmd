@@ -1,2 +1,14 @@
 # Probabilités
 
+## Motivations
+
+## Théorie des probabilités
+
+## Distribution des valeurs « moyennes » : la loi normale
+
+## Distribution log-normale 
+
+## Distributions des valeurs extrêmes : maxima
+
+## Distributions des valeurs extrêmes : dépassements de seuil
+

@@ -1,2 +1,22 @@
 # Inférence
 
+## Estimation de paramètres
+
+### Principes de l’estimation
+
+### Formulaire des estimateurs usuels
+
+### Estimation par la méthode des moments
+
+### Estimation par la méthode du maximum de vraisemblance
+
+### Quel estimateur choisir ?
+
+## Estimation de débits caractéristiques
+
+### Quantiles et périodes de retour 
+
+### Calcul des débits caractéristiques 
+
+### Contrôle et Validation 
+
