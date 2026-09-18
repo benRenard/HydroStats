@@ -2,7 +2,7 @@
 
 Les chroniques de débit issues de stations hydrométriques constitueront les données de base utilisées dans ce document. Dans un souci de simplicité, la plupart des exemples utilisent des débits journaliers, mais les méthodes statistiques présentées s’appliquent également à des débits à d’autres pas de temps (horaire, mensuel ou pas de temps variable). De manière plus générale, elles s’appliquent également à d’autres variables hydrométéorologiques (pluies, températures, vent, etc.) et sont également utilisées dans de nombreux autres domaines (sociologie, economie etc.).
 
-La plupart des analyses statistiques ne s’effectuent pas directement sur la chronique initiale, mais plutôt sur des séries de **variables hydrologiques** qui sont extraites, par exemple, de la chronique de débits journaliers. Ces variables ont pour but de caractériser de manière quantitative le phénomène étudié (les crues, les étiages, la ressource). L’objectif de ce chapitreest tout d’abord de présenter quelques approches permettant de définir des variables hydrologiques en basses, moyennes et hautes eaux. Cette présentation ne sera pas exhaustive (les possibilités sont infinies…), et cherchera plutôt à illustrer la grande diversité de variables que l’hydrologue peut être amené à étudier. Dans un second temps, nous présenterons quelques méthodes de statistiques descriptives qui visent à résumer l’information contenue dans les séries de variables.
+La plupart des analyses statistiques ne s’effectuent pas directement sur la chronique initiale, mais plutôt sur des séries de **variables hydrologiques** qui sont extraites, par exemple, de la chronique de débits journaliers. Ces variables ont pour but de caractériser de manière quantitative le phénomène étudié (les crues, les étiages, la ressource). L’objectif de ce chapitre est tout d’abord de présenter quelques approches permettant de définir des variables hydrologiques en basses, moyennes et hautes eaux. Cette présentation ne sera pas exhaustive (les possibilités sont infinies…), et cherchera plutôt à illustrer la grande diversité de variables que l’hydrologue peut être amené à étudier. Dans un second temps, nous présenterons quelques méthodes de statistiques descriptives qui visent à résumer l’information contenue dans les séries de variables.
 
 ## Définition de variables hydrologiques
 
@@ -28,7 +28,7 @@ Dans le cas du filtrage par moyenne ou minimum mobile, la série filtrée $S_t$ 
 
 $$
 \begin{equation} 
-\text{Moyenne mobile sur } d \text{ jours : } S_t=\frac{\sum_\limits{k=t-d/2}^{t+d/2}q_k }{d} \\
+\text{Moyenne mobile sur } d \text{ jours : } S_t=\frac{1}{d} \sum_\limits{k=t-d/2}^{t+d/2}q_k  \\
 \text{Minimum mobile sur } d \text{ jours : } S_t=\min_{k \in [t-d/2;t+d/2]}{q_k} 
 (\#eq:filtering)
 \end{equation}

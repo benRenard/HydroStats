@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-09-17" />
+<meta name="date" content="2026-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,29 +58,6 @@
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -136,7 +113,7 @@ div.csl-indent {
 <div id="données-et-statistiques-descriptives" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapitre 1</span> Données et statistiques descriptives<a href="données-et-statistiques-descriptives.html#données-et-statistiques-descriptives" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Les chroniques de débit issues de stations hydrométriques constitueront les données de base utilisées dans ce document. Dans un souci de simplicité, la plupart des exemples utilisent des débits journaliers, mais les méthodes statistiques présentées s’appliquent également à des débits à d’autres pas de temps (horaire, mensuel ou pas de temps variable). De manière plus générale, elles s’appliquent également à d’autres variables hydrométéorologiques (pluies, températures, vent, etc.) et sont également utilisées dans de nombreux autres domaines (sociologie, economie etc.).</p>
-<p>La plupart des analyses statistiques ne s’effectuent pas directement sur la chronique initiale, mais plutôt sur des séries de <strong>variables hydrologiques</strong> qui sont extraites, par exemple, de la chronique de débits journaliers. Ces variables ont pour but de caractériser de manière quantitative le phénomène étudié (les crues, les étiages, la ressource). L’objectif de ce chapitreest tout d’abord de présenter quelques approches permettant de définir des variables hydrologiques en basses, moyennes et hautes eaux. Cette présentation ne sera pas exhaustive (les possibilités sont infinies…), et cherchera plutôt à illustrer la grande diversité de variables que l’hydrologue peut être amené à étudier. Dans un second temps, nous présenterons quelques méthodes de statistiques descriptives qui visent à résumer l’information contenue dans les séries de variables.</p>
+<p>La plupart des analyses statistiques ne s’effectuent pas directement sur la chronique initiale, mais plutôt sur des séries de <strong>variables hydrologiques</strong> qui sont extraites, par exemple, de la chronique de débits journaliers. Ces variables ont pour but de caractériser de manière quantitative le phénomène étudié (les crues, les étiages, la ressource). L’objectif de ce chapitre est tout d’abord de présenter quelques approches permettant de définir des variables hydrologiques en basses, moyennes et hautes eaux. Cette présentation ne sera pas exhaustive (les possibilités sont infinies…), et cherchera plutôt à illustrer la grande diversité de variables que l’hydrologue peut être amené à étudier. Dans un second temps, nous présenterons quelques méthodes de statistiques descriptives qui visent à résumer l’information contenue dans les séries de variables.</p>
 <div id="définition-de-variables-hydrologiques" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Définition de variables hydrologiques<a href="données-et-statistiques-descriptives.html#définition-de-variables-hydrologiques" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En général, une variable hydrologique est calculée en deux étapes :</p>
@@ -158,7 +135,7 @@ div.csl-indent {
 <p>Dans le cas du filtrage par moyenne ou minimum mobile, la série filtrée <span class="math inline">\(S_t\)</span> est obtenue à partir de la chronique journalière initiale <span class="math inline">\(q_t\)</span> de la manière suivante :</p>
 <p><span class="math display" id="eq:filtering">\[
 \begin{equation}
-\text{Moyenne mobile sur } d \text{ jours : } S_t=\frac{\sum_\limits{k=t-d/2}^{t+d/2}q_k }{d} \\
+\text{Moyenne mobile sur } d \text{ jours : } S_t=\frac{1}{d} \sum_\limits{k=t-d/2}^{t+d/2}q_k  \\
 \text{Minimum mobile sur } d \text{ jours : } S_t=\min_{k \in [t-d/2;t+d/2]}{q_k}
 \tag{1.1}
 \end{equation}

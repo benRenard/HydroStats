@@ -15,10 +15,6 @@ github-repo: benRenard/HydroStats
 
 # Préambule {.unnumbered}
 
-XXX 
-Station fil rouge: U464 4010 (Azergue à Lozanne)
-ou K264 4010 : L'Ailloux à Manglieu 
-
 Passer direct aux variables continues
 
 Mettre le tableau quelle loi pour quelle variable (dans le diapo aussi ?)
