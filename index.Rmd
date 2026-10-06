@@ -27,7 +27,7 @@ package [HydroPortailStats](https://github.com/benRenard/HydroPortailStats) [@R-
 # Load required packages and data
 library(ggplot2);library(patchwork)
 library(HydroPortailStats)
-library(dplyr)
+library(dplyr);library(lubridate)
 load(file.path('data','HydroStats.RData'))
 ```
 

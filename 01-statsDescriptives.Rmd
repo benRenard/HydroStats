@@ -125,22 +125,55 @@ Nous allons nous intéresser aux deux principales techniques utilisées par les 
 
 L’échantillonnage MAXAN consiste à sélectionner chaque année le débit observé le plus fort. L’échantillonnage SUPSEUIL consiste quant à lui à choisir un seuil de haut débit, puis à sélectionner les pointes des évènements dépassant ce seuil. Dans la pratique, plutôt qu’un seuil, on se donne en général un nombre d’évènements à sélectionner par an (en moyenne), et par itérations successives, on calcule le seuil conduisant à cet objectif.
 
-Chacune de ces méthodes présente des avantages et des inconvénients, notamment dans l’optique d’une analyse statistique. La mise en œuvre de l’approche MAXAN est très simple. En ne sélectionnant qu’un unique événement par an, on évite le risque de sélectionner deux valeurs de débits correspondant au même événement de crue (le risque de sélectionner, par exemple, un débit le 31 décembre 2000 et un autre le 1er janvier 2001 est limité par l’utilisation d’années hydrologiques). L’inconvénient est d’ignorer un certain nombre d’évènements lors des années où beaucoup de crues se sont produites (par exemple, année XXX-XXX dans la Figure \@ref(fig:MAXANvsSUPSEUIL)), et inversement de prendre en compte des évènements peu importants lors des années peu actives (par exemple, année XXX-XXX). L’homogénéité de l’échantillon n’est donc pas optimale.
+Chacune de ces méthodes présente des avantages et des inconvénients, notamment dans l’optique d’une analyse statistique. La mise en œuvre de l’approche MAXAN est très simple. En ne sélectionnant qu’un unique événement par an, on évite le risque de sélectionner deux valeurs de débits correspondant au même événement de crue (le risque de sélectionner, par exemple, un débit le 31 décembre 2000 et un autre le 1er janvier 2001 est limité par l’utilisation d’années hydrologiques). L’inconvénient est d’ignorer un certain nombre d’évènements lors des années où beaucoup de crues se sont produites (par exemple, année 2004-2005 dans la Figure \@ref(fig:MAXANvsSUPSEUIL)), et inversement de prendre en compte des évènements peu importants lors des années peu actives (par exemple, année 2006-2007). L’homogénéité de l’échantillon n’est donc pas optimale.
 
-```{r MAXANvsSUPSEUIL, echo=FALSE, fig.align='center', fig.asp=0.75, fig.cap="Illustration des échantillonnages MAXAN et SUPSEUIL pour l'Azergues à Lozanne.", out.width='100%',warning=FALSE}
-# XXX 2DO
-ggplot()
+```{r MAXANvsSUPSEUIL, echo=FALSE, fig.align='center', fig.asp=1, fig.cap="Illustration des échantillonnages MAXAN et SUPSEUIL pour l'Azergues à Lozanne.", out.width='100%',warning=FALSE}
+DF=Azergues_QJ %>% mutate(civil=year(date),month=month(date),day=day(date),year=civil-ifelse(month<9,1,0),value=debit)
+# MAXAN
+MAXAN=DF %>% group_by(year) %>% 
+  summarise(debit=max(value),i=ifelse(length(which.max(value))==0,NA,which.max(value)),date=date[i])
+# SUPSEUIL
+foo=BFunk::getOTevents(DF$value,threshold=50,minIEduration=15,IEminval=10)
+POT=DF %>% mutate(event=foo) %>% filter(event>0) %>%  group_by(event) %>%
+  summarise(debit=max(value),i=ifelse(length(which.max(value))==0,NA,which.max(value)),date=date[i])
+# Plot
+g0=ggplot(DF,aes(date,debit))+
+  geom_line() +
+  scale_color_brewer('Année Hydrologique',palette='Set1')+
+  labs(x='Date',y='Débit (m3/s)')+
+  geom_vline(xintercept=as.Date(paste0(1965:2025,'-09-01')),linetype=2,color='gray')+
+  coord_cartesian(xlim=c(as.Date('2000-01-01'),as.Date('2009-05-01')),ylim=c(0,300))+
+  theme_bw()+theme(panel.grid=element_blank())
+gmax=g0+geom_point(data=MAXAN,color='red',size=5)+labs(title='MAXAN')
+gpot=g0+geom_point(data=POT,color='darkgreen',size=5,shape=17)+
+  labs(title='SUPSEUIL')+geom_hline(yintercept=50,color='darkgreen')
+final=wrap_plots(gmax,gpot,nrow=2)
+print(final) 
 ```
 
 L’approche SUPSEUIL est plus difficile à mettre en œuvre. En effet, il faut ajouter des contraintes d’indépendance afin de ne pas échantillonner plusieurs fois le même événement hydrologique (cf. exemple en \@ref(fig:SUPSEUIL)). On impose en général une contrainte d’espacement temporel minimal entre deux pointes sélectionnées, ainsi qu’une contrainte de redescente vers un débit de base. Bien choisies, ces contraintes permettent de garantir l’indépendance de l’échantillon (cf. @Lang1995 pour un état de l’art sur la technique d’échantillonnage SUPSEUIL). Néanmoins, l’approche SUPSEUIL possède plusieurs avantages par rapport à l’échantillonnage MAXAN :
 
 * Il est possible d’étoffer l’échantillon disponible pour l’analyse statistique en choisissant, en moyenne, plus d’un événement par an.
-* Cet échantillon sera également plus homogène que celui fournit par la méthode MAXAN : ainsi, il sera possible de ne sélectionner aucune valeur pour les années peu actives (par exemple, année XXX-XXX dans la Figure \@ref(fig:MAXANvsSUPSEUIL)), et inversement d’en sélectionner plusieurs pour les années ayant connu plusieurs événements importants (par exemple, année XXX-XXX).
+* Cet échantillon sera également plus homogène que celui fournit par la méthode MAXAN : ainsi, il sera possible de ne sélectionner aucune valeur pour les années peu actives (par exemple, année 2006-2007 dans la Figure \@ref(fig:MAXANvsSUPSEUIL)), et inversement d’en sélectionner plusieurs pour les années ayant connu plusieurs événements importants (par exemple, année 2004-2005).
 * L’approche SUPSEUIL conduit à s’intéresser au processus d’occurrence des crues : on peut par exemple définir les variables « nombre d’événements sélectionnés chaque année », ou « durée entre deux événements successifs ».
 
 ```{r SUPSEUIL, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Illustration de la nécessité des contraintes d’indépendance pour l’échantillonnage SUPSEUIL.", out.width='100%',warning=FALSE}
-# XXX 2DO
-ggplot()
+# SUPSEUIL sans contraintes
+foo=BFunk::getOTevents(DF$value,threshold=50)
+POT=DF %>% mutate(event=foo) %>% filter(event>0) %>%  group_by(event) %>%
+  summarise(debit=max(value),i=ifelse(length(which.max(value))==0,NA,which.max(value)),date=date[i])
+# Plot
+g0=ggplot(DF,aes(date,debit))+
+  geom_line() +
+  scale_color_brewer('Année Hydrologique',palette='Set1')+
+  labs(x='Date',y='Débit (m3/s)')+
+  geom_vline(xintercept=as.Date(paste0(1965:2025,'-09-01')),linetype=2,color='gray')+
+  coord_cartesian(xlim=c(as.Date('2004-10-01'),as.Date('2005-05-01')),ylim=c(0,180))+
+  scale_x_date(date_breaks = "1 month", date_labels =  "%m/%Y") +
+  theme_bw()+theme(panel.grid=element_blank())
+gpot=g0+geom_point(data=POT,color='darkgreen',size=5,shape=17)+
+  labs(title='SUPSEUIL')+geom_hline(yintercept=50,color='darkgreen')
+print(gpot) 
 ```
 
 Signalons que les approches MAXAN et SUPSEUIL peuvent s’appliquer sur des séries préalablement filtrées. On peut notamment appliquer les filtres moyenne / minimum mobile sur une durée $d$ (avec par exemple $d$ = durée caractéristique de crue). De plus, il existe de très nombreuses autres variables visant à caractériser les crues. Citons notamment :
