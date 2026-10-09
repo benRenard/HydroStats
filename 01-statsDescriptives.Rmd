@@ -66,13 +66,17 @@ L’objectif du BFS est d’estimer le débit de base dans l’hydrogramme des d
 
 L’algorithme BFS dépend de deux paramètres $d$ et $w$. @Tallaksen2004 recommandent des valeurs typiques égales à $d$ = 5 jours et $w = 0.9$, qui donnent généralement des résultats très satisfaisants. 
 
-La Figure \@ref(fig:BFS) présente un exemple d’application de ce filtre à une série de débits journaliers, pour un bassin à forte influence nivale (la Garonne à Montrejeau, 2100 km$^2$). Ce filtre est particulièrement intéressant si l’on s’intéresse à la caractérisation de l’onde de fonte nivale, puisqu’il permet de gommer les variations de débit vraisemblablement dues à des pluies. Par exemple, le maximum annuel de la série filtrée par BSF est une variable plus robuste pour caractériser l’onde de fonte que le maximum annuel des débits bruts.
+La Figure \@ref(fig:BFS) présente un exemple d’application de ce filtre à une série de débits journaliers, pour un bassin à forte influence nivale (La Durance à l'Argentière-la-Bessée, 963 km$^2$). Ce filtre est particulièrement intéressant si l’on s’intéresse à la caractérisation de l’onde de fonte nivale, puisqu’il permet de gommer les variations de débit vraisemblablement dues à des pluies. Par exemple, le maximum annuel de la série filtrée par BSF est une variable plus robuste pour caractériser l’onde de fonte que le maximum annuel des débits bruts.
 
 Signalons que le BFS est également à la base d’un indice couramment utilisé, nommé le *Base Flow Index* (BFI), définit comme le ratio entre le débit de base (estimé par l’algorithme BFS) et le débit total. Le BFI mesure ainsi la part des apports stockés (e.g. apports souterrains ou écoulements de fonte) par rapport aux débits issus du ruissellement rapide.
 
-```{r BFS, echo=FALSE, fig.align='center', fig.asp=0.75, fig.cap='Application du filtre BFS pour un bassin à influence nivale', out.width='100%',warning=FALSE}
-# XXX 2DO
-ggplot()
+```{r BFS, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap='Application du filtre BFS pour un bassin à influence nivale', out.width='100%',warning=FALSE}
+DF=Durance_QJ %>% mutate(bf=HydroPortailStats::applyBFS(x=debit))
+ggplot(DF,aes(x=date))+
+  geom_line(aes(y=debit),col='gray') + 
+  geom_line(aes(y=bf),col='blue') + 
+  coord_cartesian(xlim=c(as.Date('1991-03-01'),as.Date('1992-12-31')),ylim=c(10,100))+
+  labs(title="La Durance à l'Argentière-la-Bessée",x='Date',y='Débit (m3/s)')+ theme_bw()+theme(panel.grid=element_blank())
 ```
 
 Le filtre SPA est quant à lui plutôt orienté vers l’étude des étiages. Selon @Tallaksen2004, cet algorithme a été initialement développé pour le dimensionnement des réservoirs, mais il peut aussi être appliqué pour cumuler le déficit de volume d’une série de débits journaliers par rapport à un seuil de bas débit (que l’on appellera ici $q_0$).

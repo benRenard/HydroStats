@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-10-06" />
+<meta name="date" content="2026-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -226,7 +226,7 @@ L’objectif du BFS est d’estimer le débit de base dans l’hydrogramme des d
 <li>La série filtrée est finalement obtenue en interpolant linéairement entre les points pivots.</li>
 </ul>
 <p>L’algorithme BFS dépend de deux paramètres <span class="math inline">\(d\)</span> et <span class="math inline">\(w\)</span>. <span class="citation">Tallaksen and Van Lanen (<a href="#ref-Tallaksen2004">2004</a>)</span> recommandent des valeurs typiques égales à <span class="math inline">\(d\)</span> = 5 jours et <span class="math inline">\(w = 0.9\)</span>, qui donnent généralement des résultats très satisfaisants.</p>
-<p>La Figure <a href="données-et-statistiques-descriptives.html#fig:BFS">1.2</a> présente un exemple d’application de ce filtre à une série de débits journaliers, pour un bassin à forte influence nivale (la Garonne à Montrejeau, 2100 km<span class="math inline">\(^2\)</span>). Ce filtre est particulièrement intéressant si l’on s’intéresse à la caractérisation de l’onde de fonte nivale, puisqu’il permet de gommer les variations de débit vraisemblablement dues à des pluies. Par exemple, le maximum annuel de la série filtrée par BSF est une variable plus robuste pour caractériser l’onde de fonte que le maximum annuel des débits bruts.</p>
+<p>La Figure <a href="données-et-statistiques-descriptives.html#fig:BFS">1.2</a> présente un exemple d’application de ce filtre à une série de débits journaliers, pour un bassin à forte influence nivale (La Durance à l’Argentière-la-Bessée, 963 km<span class="math inline">\(^2\)</span>). Ce filtre est particulièrement intéressant si l’on s’intéresse à la caractérisation de l’onde de fonte nivale, puisqu’il permet de gommer les variations de débit vraisemblablement dues à des pluies. Par exemple, le maximum annuel de la série filtrée par BSF est une variable plus robuste pour caractériser l’onde de fonte que le maximum annuel des débits bruts.</p>
 <p>Signalons que le BFS est également à la base d’un indice couramment utilisé, nommé le <em>Base Flow Index</em> (BFI), définit comme le ratio entre le débit de base (estimé par l’algorithme BFS) et le débit total. Le BFI mesure ainsi la part des apports stockés (e.g. apports souterrains ou écoulements de fonte) par rapport aux débits issus du ruissellement rapide.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:BFS"></span>
 <img src="_main_files/figure-html/BFS-1.png" alt="Application du filtre BFS pour un bassin à influence nivale" width="100%" />
