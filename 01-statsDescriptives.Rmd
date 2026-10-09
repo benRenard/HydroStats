@@ -205,14 +205,22 @@ Il correspond au pic de l’étiage, et constitue l’équivalent de l’approch
 
 #### Variables relatives à un seuil de bas débit (INFSEUIL)
 
-De manière similaire à l’approche SUPSEUIL utilisée pour l’étude des crues, on peut identifier des événements d’étiage comme des périodes durant lesquelles le débit est resté inférieur à un seuil donné. Néanmoins, contrairement à l’approche SUPSEUIL, il est très difficile de  sélectionner plusieurs étiages indépendants au cours d’une même année. La Figure \@ref(fig:INFSEUIL) illustre la définition de ces événements d’étiage : au cours d’une année hydrologique donnée, XXX événements sont identifiés dans cet exemple. Il est néanmoins discutable d’étudier ces cinq événements séparément : d’un point de vue hydrologique, il s’agit en fait du même événement d’étiage, entrecoupé par quelques remontées de débit dues à des pluies isolées. Pour cette raison, on préférera cumuler les caractéristiques de ces cinq événements sur l’année. Plus précisément, on peut calculer les variables suivantes:
+De manière similaire à l’approche SUPSEUIL utilisée pour l’étude des crues, on peut identifier des événements d’étiage comme des périodes durant lesquelles le débit est resté inférieur à un seuil donné. Néanmoins, contrairement à l’approche SUPSEUIL, il est très difficile de  sélectionner plusieurs étiages indépendants au cours d’une même année. La Figure \@ref(fig:INFSEUIL) illustre la définition de ces événements d’étiage : au cours d’une année hydrologique donnée, sept événements sont identifiés dans cet exemple. Il est néanmoins discutable d’étudier ces sept événements séparément : d’un point de vue hydrologique, il s’agit en fait du même événement d’étiage, entrecoupé par quelques remontées de débit dues à des pluies isolées. Pour cette raison, on préférera cumuler les caractéristiques de ces sept événements sur l’année. Plus précisément, on peut calculer les variables suivantes:
 
 * **Déficit de volume** : Il s’agit du déficit de volume par rapport au seuil de bas débit, cumulé sur la totalité de l’année hydrologique (aire en rouge sur la Figure \@ref(fig:INFSEUIL)). 
-* **Durée de l’étiage** : Elle est définie comme le nombre de jours où le débit est resté inférieur au seuil de bas débit (somme des durées des XXX événements d’étiage sur la Figure \@ref(fig:INFSEUIL)). 
+* **Durée de l’étiage** : Elle est définie comme le nombre de jours où le débit est resté inférieur au seuil de bas débit (somme des durées des sept événements d’étiage sur la Figure \@ref(fig:INFSEUIL)). 
     
-```{r INFSEUIL, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Identification des périodes d’étiages à partir d’un seuil de bas débit.", out.width='100%',warning=FALSE}
-# XXX 2DO
-ggplot()
+```{r INFSEUIL, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Identification des périodes d’étiages à partir d’un seuil de bas débit pour pour l’Azergues à Lozanne.", out.width='100%',warning=FALSE}
+DF=Azergues_QJ %>% mutate(seuil=5,deficit=ifelse(debit<seuil,debit,seuil))
+glow=ggplot(DF,aes(x=date))+
+  geom_line(aes(y=debit)) +
+  geom_line(aes(y=seuil),color='red') +
+  geom_ribbon(aes(ymin=deficit,ymax=seuil),fill='red')+
+  labs(x='Date',y='Débit (m3/s)')+
+  coord_cartesian(xlim=c(as.Date('1995-01-01'),as.Date('1995-12-31')),ylim=c(0,75),expand=FALSE)+
+  scale_x_date(date_breaks = "1 month", date_labels =  "%m/%Y") +
+  theme_bw()+theme(panel.grid=element_blank())
+print(glow)
 ```
 
 #### Variables basées sur la série filtrée par SPA
@@ -229,11 +237,18 @@ Des variables de saisonnalité peuvent aisément être déduites des variables d
 
 Cette définition peut aisément être généralisée d’une part pour l’étude d’autres types d’événements hydrologiques (crues ou étiages), d’autre part pour caractériser le début et la fin des événements (sans se limiter au « pic » de l’événement).
 
-Dans le cas des étiages par exemple, on définira le centre de masse à $p$% comme la date à laquelle $p$% du déficit de volume annuel est atteint. En utilisant par exemple les centres de masse à 10%, 50% et 90%, on définit respectivement le début, le centre et la fin de la période d’étiage (Figure \@ref(fig:CoM). On procèdera de même pour les crues, mais en considérant plutôt le volume écoulé au-dessus d’un seuil de haut débit. 
+Dans le cas des étiages par exemple, on définira le centre de masse à $p$% comme la date à laquelle $p$% du déficit de volume annuel est atteint. En utilisant par exemple les centres de masse à 10%, 50% et 90%, on définit respectivement le début, le centre et la fin de la période d’étiage (Figure \@ref(fig:CoM)). On procèdera de même pour les crues, mais en considérant plutôt le volume écoulé au-dessus d’un seuil de haut débit. 
 
 ```{r CoM, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemple d’indices de saisonnalité : dates de début, centre et fin d’étiage.", out.width='100%',warning=FALSE}
-# XXX 2DO
-ggplot()
+yend=50
+glow+
+  annotate(geom='segment',x=as.Date('1995-05-25'),y=0,yend=yend)+
+    annotate(geom='text',x=as.Date('1995-05-25'),y=yend,label='début ',hjust=1)+
+    annotate(geom='segment',x=as.Date('1995-08-25'),y=0,yend=yend)+
+    annotate(geom='text',x=as.Date('1995-08-25'),y=yend,label='centre ',hjust=1)+
+    annotate(geom='segment',x=as.Date('1995-11-15'),y=0,yend=yend)+
+    annotate(geom='text',x=as.Date('1995-11-15'),y=yend,label='fin ',hjust=1)
+
 ```
 
 ### Discussion : choix des variables hydrologiques

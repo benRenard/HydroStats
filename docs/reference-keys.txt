@@ -7,7 +7,6 @@ fig:FDC
 fig:MAXANvsSUPSEUIL
 fig:SUPSEUIL
 fig:INFSEUIL
-fig:1921
 fig:CoM
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
