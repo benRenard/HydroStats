@@ -265,5 +265,24 @@ Les principaux éléments guidant le choix du ou des variables à étudier sont 
 
 ## Statistiques descriptives
 
-Dans cette partie, nous allons nous intéresser à la description d’une série de données représentant une des variables hydrologiques présentées précédemment. L’objectif est notamment de présenter quelques graphiques classiques, et de résumer l’information contenue dans les données grâce à quelques grandeurs caractéristiques.
+L'objectif des **statistiques descriptives** est de résumer l'information portée par une série de données représentant une des variables hydrologiques présentées précédemment, sur la base de quelques graphiques ou grandeurs caractéristiques.
+
+### Représentations graphiques
+
+Il existe une infinité de façons de représenter graphiquement un jeu de données : diagrammes en bâtons, courbes, nuages de point... Tout dépend de la structure des données, mais également de l’information que l’on souhaite transmettre. La première représentation graphique dans le cas d'une série temporelle consiste généralement à tracer les données chronologiquement, comme illustré en Figure \@ref(fig:Ncrues) pour la variable hydrologique "Nombre annuel de crues". Cette représentation permet une première visualisation des données qui peut parfois permettre de detecter des problèmes comme des données aberrantes ou des changements marqués dans la série.
+
+```{r Ncrues, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Nombre de crues se produisant chaque année hydrologique sur l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
+DF=POT %>% mutate(year=year(date),month=month(date),hyear=ifelse(month<8,year-1,year)) %>%
+  group_by(hyear) %>% summarise(n=n()) %>% right_join(data.frame(hyear=1964:2023)) %>%
+  arrange(hyear) %>% mutate(n=ifelse(is.na(n),0,n))
+
+ggplot(DF,aes(hyear,n))+geom_point()+geom_line()+
+  labs(x='Année hydrologique',y='Nombre de crues')+
+  theme_bw()+theme(panel.grid=element_blank())
+```
+
+
+
+
+
 

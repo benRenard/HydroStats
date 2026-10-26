@@ -8,6 +8,7 @@ fig:MAXANvsSUPSEUIL
 fig:SUPSEUIL
 fig:INFSEUIL
 fig:CoM
+fig:Ncrues
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements
@@ -20,6 +21,7 @@ variables-basées-sur-la-série-filtrée-par-spa
 variables-de-saisonnalité
 discussion-choix-des-variables-hydrologiques
 statistiques-descriptives
+représentations-graphiques
 probabilités
 motivations
 théorie-des-probabilités
