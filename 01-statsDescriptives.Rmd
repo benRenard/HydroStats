@@ -281,8 +281,18 @@ ggplot(DF,aes(hyear,n))+geom_point()+geom_line()+
   theme_bw()+theme(panel.grid=element_blank())
 ```
 
+En plus du tracé chronologique des données, deux représentations sont importantes pour les données quantitatives car elles peuvent être reliées `auxà des notions probabilistes dont nous parlerons prochainement : l’**histogramme** et la **courbe des fréquences cumulées**.
 
+L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. Il est également possible de cumuler ces fréquences par ordre croissant des valeurs rencontrées : on peut ainsi tracer la courbe des fréquences cumulées, qui représente, à chaque abscisse, la proportion de valeurs de l’échantillon inférieures ou égales à cette abscisse.
 
-
-
+```{r Ncrues_table, echo=FALSE}
+freq=data.frame(table(DF$n))
+names(freq) <- c('Valeur','Effectif')
+freq=freq %>% mutate(Valeur=as.numeric(Valeur)) %>%
+  mutate(Frequence=Effectif/sum(Effectif),Frequence_cumulee=cumsum(Frequence))
+knitr::kable(
+  freq, booktabs = TRUE,
+  caption = 'Effectifs, fréquences et fréquences cumulées.'
+)
+```
 
