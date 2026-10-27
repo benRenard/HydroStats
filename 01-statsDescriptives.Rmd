@@ -283,16 +283,40 @@ ggplot(DF,aes(hyear,n))+geom_point()+geom_line()+
 
 En plus du tracé chronologique des données, deux représentations sont importantes pour les données quantitatives car elles peuvent être reliées `auxà des notions probabilistes dont nous parlerons prochainement : l’**histogramme** et la **courbe des fréquences cumulées**.
 
-L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. Il est également possible de cumuler ces fréquences par ordre croissant des valeurs rencontrées : on peut ainsi tracer la courbe des fréquences cumulées, qui représente, à chaque abscisse, la proportion de valeurs de l’échantillon inférieures ou égales à cette abscisse.
 
-```{r Ncrues_table, echo=FALSE}
+L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. L’effectif d’une valeur donnée est le nombre de fois où cette valeur a été observée, la fréquence est égale à l’effectif divisé par la taille de la série analysée. Par exemple, pour les données de la Figure \@ref(fig:Ncrues), la valeur « 0 » est d’effectif 15 et de fréquence 15/60=0.25. 
+Il est également possible de cumuler ces fréquences par ordre croissant des valeurs possibles : par exemple fréquence(0)=0.25, fréquence(1)=0.25, et donc fréquence cumulée(1) = 0.25 + 0.25=0.5. 
+
+La notion de fréquence cumulée est extrêmement importante puisque nous verrons ultérieurement que les notions de quantiles et de période de retour y sont étroitement liées. En hydrologie, la fréquence cumulée est souvent appelée **fréquence au non-dépassement** : en effet, la fréquence cumulée d’une valeur est égale au pourcentage de données dans l’échantillon qui sont inférieures ou égales à cette valeur. Notons qu’il peut sembler arbitraire d’utiliser « inférieur ou égal » plutôt qu’ « inférieur strict » dans la définition de la fréquence cumulée : nous reviendrons sur ce point ultérieurement.
+
+La Table \@ref(tab:NcruesTable) montre le calcul de ces quantités, tandis que la Figure \@ref(fig:NcruesFig) montre les représentations graphiques associées.
+
+```{r NcruesTable, echo=FALSE}
 freq=data.frame(table(DF$n))
 names(freq) <- c('Valeur','Effectif')
-freq=freq %>% mutate(Valeur=as.numeric(Valeur)) %>%
+freq=freq %>% mutate(Valeur=as.numeric(as.character(Valeur))) %>%
   mutate(Frequence=Effectif/sum(Effectif),Frequence_cumulee=cumsum(Frequence))
+freq=rbind(freq,c(max(freq$Valeur)+1,0,0,1))
 knitr::kable(
   freq, booktabs = TRUE,
   caption = 'Effectifs, fréquences et fréquences cumulées.'
 )
+```
+
+L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. Il est également possible de cumuler ces fréquences par ordre croissant des valeurs rencontrées : on peut ainsi tracer la courbe des fréquences cumulées, qui représente, à chaque abscisse, la proportion de valeurs de l’échantillon inférieures ou égales à cette abscisse. La Table \@ref(tab:NcruesTable) montre le calcul de ces quantités, tandis que la Figure \@ref(fig:NcruesFig) montre les représentations graphiques associées.
+
+```{r NcruesFig, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Histogramme des fréquences et courbe des fréquences cumulées.", message=FALSE, warning=FALSE, out.width='110%'}
+
+g1=ggplot(freq,aes(Valeur,Frequence))+geom_col()+
+  labs(x='Nombre de crues',y='Fréquence',title='(a) Histogramme des fréquences')+
+  theme_bw()+theme(panel.grid=element_blank())
+
+g2=ggplot(freq,aes(Valeur,Frequence_cumulee))+geom_point()+geom_line()+
+  labs(x='Nombre de crues',y='Fréquence cumulée',title='(b) Courbe des fréquences cumulées')+
+  ylim(0,1)+
+  theme_bw()+theme(panel.grid=element_blank())
+
+g1+g2
+
 ```
 

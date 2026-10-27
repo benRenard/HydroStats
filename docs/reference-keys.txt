@@ -51,3 +51,6 @@ annexes
 distributions-usuelles
 estimateurs-usuels
 tests-statistiques
+tab:Ncruestable
+tab:NcruesTable
+fig:NcruesFig
