@@ -9,6 +9,9 @@ fig:SUPSEUIL
 fig:INFSEUIL
 fig:CoM
 fig:Ncrues
+tab:NcruesTable
+fig:NcruesFig
+fig:maxanQt
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements
@@ -51,6 +54,3 @@ annexes
 distributions-usuelles
 estimateurs-usuels
 tests-statistiques
-tab:Ncruestable
-tab:NcruesTable
-fig:NcruesFig
