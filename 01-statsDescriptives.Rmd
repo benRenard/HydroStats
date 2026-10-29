@@ -144,7 +144,7 @@ Chacune de ces méthodes présente des avantages et des inconvénients, notammen
 DF=Azergues_QJ %>% mutate(civil=year(date),month=month(date),day=day(date),year=civil-ifelse(month<9,1,0),value=debit)
 # MAXAN
 MAXAN=DF %>% group_by(year) %>% 
-  summarise(debit=max(value),i=ifelse(length(which.max(value))==0,NA,which.max(value)),date=date[i])
+  summarise(debit=max(value),i=ifelse(length(which.max(value))==0,NA,which.max(value)),date=date[i]) %>% filter(year<max(DF$year))
 # SUPSEUIL
 foo=BFunk::getOTevents(DF$value,threshold=50,minIEduration=15,IEminval=10)
 POT=DF %>% mutate(event=foo) %>% filter(event>0) %>%  group_by(event) %>%
@@ -275,6 +275,11 @@ Il existe une infinité de façons de représenter graphiquement un jeu de donn�
 DF=POT %>% mutate(year=year(date),month=month(date),hyear=ifelse(month<8,year-1,year)) %>%
   group_by(hyear) %>% summarise(n=n()) %>% right_join(data.frame(hyear=1964:2023)) %>%
   arrange(hyear) %>% mutate(n=ifelse(is.na(n),0,n))
+nas=Azergues_QJ %>% 
+  mutate(year=year(date),month=month(date),hyear=ifelse(month<8,year-1,year)) %>% 
+  group_by(hyear) %>% summarise(pmv=mean(is.na(debit)))
+DF=DF %>% left_join(nas)
+DF$n[DF$pmv>0]=NA
 
 ggplot(DF,aes(hyear,n))+geom_point()+geom_line()+
   labs(x='Année hydrologique',y='Nombre de crues')+
@@ -284,8 +289,8 @@ ggplot(DF,aes(hyear,n))+geom_point()+geom_line()+
 En plus du tracé chronologique des données, deux représentations sont importantes pour les données quantitatives car elles peuvent être reliées `auxà des notions probabilistes dont nous parlerons prochainement : l’**histogramme** et la **courbe des fréquences cumulées**.
 
 
-L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. L’effectif d’une valeur donnée est le nombre de fois où cette valeur a été observée, la fréquence est égale à l’effectif divisé par la taille de la série analysée. Par exemple, pour les données de la Figure \@ref(fig:Ncrues), la valeur « 0 » est d’effectif 15 et de fréquence 15/60=0.25. 
-Il est également possible de cumuler ces fréquences par ordre croissant des valeurs possibles : par exemple fréquence(0)=0.25, fréquence(1)=0.25, et donc fréquence cumulée(1) = 0.25 + 0.25=0.5. La Table \@ref(tab:NcruesTable) montre le calcul de ces quantités pour toutes les données de la Figure \@ref(fig:Ncrues).
+L’histogramme consiste à représenter la **fréquence** (ou parfois l’**effectif**) de chaque valeur que l’échantillon peut prendre. L’effectif d’une valeur donnée est le nombre de fois où cette valeur a été observée, la fréquence est égale à l’effectif divisé par la taille de la série analysée. Par exemple, pour les données de la Figure \@ref(fig:Ncrues), la valeur « 0 » est d’effectif 13 et de fréquence 13/56 $\approx$ 0.23. 
+Il est également possible de cumuler ces fréquences par ordre croissant des valeurs possibles : par exemple fréquence(0) $\approx$ 0.23, fréquence(1) $\approx$ 0.27, et donc fréquence cumulée(1) $\approx$ 0.23 + 0.27=0.5. La Table \@ref(tab:NcruesTable) montre le calcul de ces quantités pour toutes les données de la Figure \@ref(fig:Ncrues).
 
 La notion de fréquence cumulée est extrêmement importante puisque nous verrons ultérieurement que les notions de quantiles et de période de retour y sont étroitement liées. En hydrologie, la fréquence cumulée est souvent appelée **fréquence au non-dépassement** : en effet, la fréquence cumulée d’une valeur est égale au pourcentage de données dans l’échantillon qui sont inférieures ou égales à cette valeur. Notons qu’il peut sembler arbitraire d’utiliser « inférieur ou égal » plutôt qu’ « inférieur strict » dans la définition de la fréquence cumulée : nous reviendrons sur ce point ultérieurement.
 
@@ -322,8 +327,8 @@ g1+g2
 Ces premiers calculs et graphiques élémentaires permettent d’apporter des éléments de réponse à des questions qui sont régulièrement posées à l’hydrologue, par exemple :
 
 
-* « *Quelle est la probabilité de ne pas observer de crue au cours de l’année* ? » : la fréquence observée de la valeur 0 valant 0.25, on serait tenté de répondre que cette probabilité vaut 0.25.
-* « *Quel nombre annuel de crue a une probabilité 1/10 d’être dépassé* ? » : on peut répondre à cette question en recherchant la valeur dont la fréquence au dépassement vaut 0.1, ou de manière équivalente dont la fréquence au non-dépassement vaut 1-0.1 = 0.9. En observant la Table \@ref(tab:NcruesTable), on constate que la fréquence cumulée 0.9 est atteinte pour une valeur de 4 crues par an.
+* « *Quelle est la probabilité de ne pas observer de crue au cours de l’année* ? » : la fréquence observée de la valeur 0 valant 0.23, on serait tenté de répondre que cette probabilité vaut 0.23.
+* « *Quel nombre annuel de crue a une probabilité 1/10 d’être dépassé* ? » : on peut répondre à cette question en recherchant la valeur dont la fréquence au dépassement vaut 0.1, ou de manière équivalente dont la fréquence au non-dépassement vaut 1-0.1 = 0.9. En observant la Table \@ref(tab:NcruesTable), on constate que la fréquence cumulée 0.9 est atteinte entre les valeurs de 3 et 4 crues par an. 
 * « *Quelle est la probabilité d’observer 8 crues ou plus au cours d’une même année* ? » : Au cours des 60 années d’observation, on n’a jamais observé plus de 7 crues. On serait donc tenté de répondre que la probabilité d’en observer 8 ou plus est nulle. Néanmoins, on peut légitimement douter de cette estimation : un événement qui n’a jamais été observé est-il pour autant de probabilité nulle, c’est à dire impossible ?
 
 Le dernier point soulevé ci-dessus illustre une distinction importante. La question posée est en effet exprimée en termes de *probabilité*. Or, la réponse est donnée en termes de *fréquence*. Il se trouve que **les deux notions ne sont pas identiques**, ce qui explique la gêne exprimée dans le dernier point. Un événement peut très bien n’avoir jamais été observé (fréquence nulle), mais être de probabilité non-nulle ! La notion de fréquence se rapporte au monde des observations (qui sont en nombre limité), tandis que la notion de probabilité se rapporte à un monde plus théorique, gouverné par la théorie des probabilités, et que nous aborderons au chapitre suivant.
@@ -332,7 +337,6 @@ L'exemple du nombre annuel de crues utilisé jusqu'ici est particulier car il ut
 
 
 ```{r maxanQt, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Série chronologique des débits journaliers maxima annuels pour l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
-
 ggplot(MAXAN,aes(year,debit))+geom_point()+geom_line()+
   labs(x='Année hydrologique',y='Débit maximum annuel [m3/s]')+
   theme_bw()+theme(panel.grid=element_blank())
