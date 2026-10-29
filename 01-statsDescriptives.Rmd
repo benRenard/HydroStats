@@ -307,21 +307,21 @@ knitr::kable(
 )
 ```
 
-Les chiffres calculés dans la Table \@ref(tab:NcruesTable) peuvent être reprśentés graphiquement comme illustré en Figure \@ref(fig:NcruesFig): à gauche, l’histogramme consiste à représenter la fréquence (ou parfois l’effectif) associée à chaque valeur, tandis que le graphique de droite montre la courbe des fréquences cumulées.
+Les chiffres calculés dans la Table \@ref(tab:NcruesTable) peuvent être représentés graphiquement comme illustré en Figure \@ref(fig:NcruesFig): à gauche, l’histogramme consiste à représenter la fréquence (ou parfois l’effectif) associée à chaque valeur, tandis que le graphique de droite montre la courbe des fréquences cumulées.
 
 ```{r NcruesFig, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Histogramme des fréquences et courbe des fréquences cumulées.", message=FALSE, warning=FALSE, out.width='110%'}
 
 g1=ggplot(freq,aes(Valeur,Frequence))+geom_col()+
   labs(x='Nombre de crues',y='Fréquence',title='(a) Histogramme des fréquences')+
-  theme_bw()+theme(panel.grid=element_blank())
+  theme_bw()
 
 g2=ggplot(freq,aes(Valeur,Frequence_cumulee))+geom_point()+geom_line()+
   labs(x='Nombre de crues',y='Fréquence cumulée',title='(b) Courbe des fréquences cumulées')+
   ylim(0,1)+
-  theme_bw()+theme(panel.grid=element_blank())
+  theme_bw()
 
-g1+g2
-
+g=wrap_plots(g1,g2,nrow=1)
+g&theme(panel.grid=element_blank(),plot.title=element_text(size=12))
 ```
 
 Ces premiers calculs et graphiques élémentaires permettent d’apporter des éléments de réponse à des questions qui sont régulièrement posées à l’hydrologue, par exemple :
@@ -336,7 +336,7 @@ Le dernier point soulevé ci-dessus illustre une distinction importante. La ques
 L'exemple du nombre annuel de crues utilisé jusqu'ici est particulier car il utilise une variable discrète. Un second exemple correspondant au cas plus courant d’une variable hydrologique continue est à présent utilisé, en l’occurrence les débits journaliers maximum annuels pour l’Azergues à Lozanne. Les données sont représentées dans la Figure ci-dessous.
 
 
-```{r maxanQt, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Série chronologique des débits journaliers maxima annuels pour l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
+```{r maxanQt, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Série chronologique des débits journaliers maximum annuels pour l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
 ggplot(MAXAN,aes(year,debit))+geom_point()+geom_line()+
   labs(x='Année hydrologique',y='Débit maximum annuel [m3/s]')+
   theme_bw()+theme(panel.grid=element_blank())
