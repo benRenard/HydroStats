@@ -342,3 +342,15 @@ ggplot(MAXAN,aes(year,debit))+geom_point()+geom_line()+
   theme_bw()+theme(panel.grid=element_blank())
 ```
 
+Pour une variable continue, chaque valeur n’apparaît généralement qu’une seule fois (à quelques ex-aquo éventuels près). Le calcul de l'effectif et de la fréquence associée à chaque valeur n'est donc pas intéressant. Par contre on peut toujours calculer la fréquence au non-dépassement associée à chaque valeur. Pour la $i^{ème}$ valeur (par ordre croissant, appelée également valeur de rang $i$) cette fréquence est égale à $i/n$, où $n$ est la taille de l’échantillon (égale à 55 ici). Ce calcul est dátaillé dans le tableau ci-dessous.
+
+```{r maxanTable, echo=FALSE}
+foo=MAXAN %>% na.omit() %>% arrange(debit) 
+tab=data.frame(Valeur=foo$debit,Rang=1:NROW(foo),Fcumul=round((1:NROW(foo))/NROW(foo),3))
+m=ceiling(NROW(foo)/3)
+knitr::kable(
+  list(tab[1:m,],tab[(m+1):(m+m),],tab[(2*m+1):NROW(foo),]), booktabs = TRUE,
+  caption = 'Valeurs, rangs et fréquences cumulées.',row.names = FALSE
+)
+```
+
