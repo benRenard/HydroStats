@@ -13,6 +13,7 @@ tab:NcruesTable
 fig:NcruesFig
 fig:maxanQt
 tab:maxanTable
+fig:maxanFig
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements

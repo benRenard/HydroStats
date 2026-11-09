@@ -354,3 +354,20 @@ knitr::kable(
 )
 ```
 
+On peut alors tracer comme précédemment la courbe des fréquences cumulées repréentée en Figure \@ref(fig:maxanFig)(b). Pour l'histogramme, on effectue un regroupement des valeurs en classes, ce qui revient à « discrétiser » la variable continue. Le choix des classes reste arbitraire, même si certaines certaines règles empiriques ont été proposées (par exemple https://fr.wikipedia.org/wiki/Histogramme#Construction). L’histogramme des fréquences pour des classes d’étendue 50 $m³.s^{-1}$ est donné en Figure \@ref(fig:maxanFig)(a). 
+
+```{r maxanFig, echo=FALSE,fig.align='center', fig.asp=0.5, fig.cap="Histogramme des fréquences et courbe des fréquences cumulées pour les débits maximum annuels de l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
+htab=hist(tab$Valeur,plot=FALSE,breaks=seq(0,max(tab$Valeur+50),50))
+DF=data.frame(x=htab$mids,y=htab$counts/sum(htab$counts))
+g1=ggplot(DF,aes(x,y))+geom_col()+
+  labs(x='Débit (m3/s)',y='Fréquence',title='(a) Histogramme des fréquences')+
+  theme_bw()
+
+g2=ggplot(tab,aes(Valeur,Fcumul))+geom_point()+geom_line()+
+  labs(x='Débit (m3/s)',y='Fréquence cumulée',title='(b) Courbe des fréquences cumulées')+
+  ylim(0,1)+
+  theme_bw()
+
+g=wrap_plots(g1,g2,nrow=1)
+g&theme(panel.grid=element_blank(),plot.title=element_text(size=12))
+```
