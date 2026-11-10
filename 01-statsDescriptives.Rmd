@@ -385,17 +385,91 @@ En plus des représentations graphiques présentées précédemment, on souhaite
 
 #### Indicateurs de localisation
 
-Nous nous intéressons dans un premier temps aux indicateurs dits de localisation.
+Nous nous intéressons dans un premier temps aux indicateurs dits de localisation. Soient $(x_1,\ldots,x_n)$ les données à analyser. Le premier indicateur calculé est généralement la **moyenne**, souvent notée $\bar{x}$.
+
+
+$$
+\begin{equation} 
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
+(\#eq:mean)
+\end{equation}
+$$
+
+La **médiane** est la valeur qui sépare l’échantillon ordonné en deux sous-parties de même effectif. Par exemple, la médiane des valeurs 10, 15, 18, 19, 20 vaut 18. Si le nombre de valeurs est pair, on calculera la demi-somme entre les deux valeurs du milieu, soit une médiane de 16.5 pour l’échantillon des quatre premières valeurs ci-dessus. La médiane peut également être lue sur la courbe des fréquences cumulées : c’est la valeur correspondant à une fréquence cumulée de 0.5. Par rapport à la moyenne, la médiane est beaucoup moins sensible à la présence de valeurs extrêmes dans l’échantillon. Par exemple, si l’on remplace la valeur « 20 » par « 2000 » dans l’exemple ci-dessus, la médiane est inchangée, alors que la moyenne sera évidemment très différente. L’exemple classique pour illustrer la différence entre la moyenne et la médiane est le salaire des Français : la moyenne vaut environ 2730 €, la médiane 2180 € (salaires nets en 2024 dans le secteur privé, source INSEE).
+
+Un troisième indicateur est parfois utilisé, surtout pour les données discrètes, il s’agit du **mode**, qui est la valeur (pas forcément unique) la plus fréquente dans l’échantillon. Pour des données quantitatives continues, il faut (comme pour l’histogramme) procéder à un regroupement des individus. L’inconvénient est que le mode devient dépendant du regroupement arbitraire effectué.
+
+Le dernier indicateur est particulièrement important dans le domaine de l’hydrologie : le **quantile d’ordre p** est la valeur de l’échantillon dont la fréquence cumulée vaut p. Le quantile peut donc être lu sur la courbe des fréquences cumulées, en faisant éventuellement une interpolation linéaire entre deux points. La médiane est ainsi le quantile d’ordre 0.5.
+
+Enfin, on reporte fréquemment le **minimum** et le **maximum** d’un échantillon.
 
 #### Indicateurs de dispersion
 
-XXX
+Les indicateurs de dispersion ont pour but de décrire la variabilité des données.
+La **variance** permet de mesurer la façon dont les données se dispersent autour de la moyenne :
+
+$$
+\begin{equation} 
+V_x=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2
+(\#eq:var)
+\end{equation}
+$$
+
+On trouve parfois une définition alternative dans laquelle le $\frac{1}{n}$ est remplacé par $\frac{1}{n-1}$. Ces deux définitions deviennent équivalentes lorsque n est grand.
+
+L’**écart-type** est défini comme la racine carrée de la variance, et a l’avantage de s'exprimer dans la même unité que les données. 
+
+$$
+\begin{equation} 
+S_x=\sqrt{V_x}= \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}
+(\#eq:sdev)
+\end{equation}
+$$
+Le **coefficient de variation** est également utilisé pour comparer en relatif la variabilité de plusieurs séries de données dont les ordres de grandeurs ne sont pas comparables. Il est plutôt adapté aux données positives (les débits par exemple !) et n’est pas défini pour les données dont la moyenne est nulle. Il est généralement exprimé en pourcentage.
+
+$$
+\begin{equation} 
+CV_x=\frac{S_x}{\bar{x}}
+(\#eq:cv)
+\end{equation}
+$$
 
 #### Autres indicateurs
 
-XXX
+Mentionnons finalement quelques indicateurs supplémentaires, qui n’ont pas de signification aussi claire que les indicateurs de localisation ou de dispersion, mais qui sont importants en Statistiques, notamment dans le cadre de la théorie de l’estimation.
 
+Le **moment d’ordre k** est défini de la manière suivante :
 
+$$
+\begin{equation} 
+m_k=\frac{1}{n}\sum_{i=1}^{n}x_i^k
+(\#eq:moment)
+\end{equation}
+$$
+Pour $k=1$, on reconnaît la moyenne. On définit de même le **moment centré d’ordre k** :
 
+$$
+\begin{equation} 
+m^\prime_k=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^k
+(\#eq:cmoment)
+\end{equation}
+$$
 
+Pour $k=2$, on reconnaît la variance. Les moments centrés sont utilisés pour calculer deux indicateurs relatifs à la forme de l’histogramme : 
 
+$$
+\begin{equation} 
+\textbf{Asymétrie}: A_x=\frac{m^\prime_3}{S_x^3}
+(\#eq:skew)
+\end{equation}
+$$
+
+$$
+\begin{equation} 
+\textbf{Aplatissement} \text{ ou } \textbf{Kurtosis} : K_x=\frac{m^\prime_4}{S_x^4}
+(\#eq:kurt)
+\end{equation}
+$$
+Comme son nom l’indique, l’asymétrie décrit le caractère symétrique de l’histogramme (l’asymétrie est nulle pour des données distribuées symétriquement). L’aplatissement décrit quant à lui le caractère plus ou moins « pointu » de l’histogramme.
+
+En guise d’illustration, le Tableau ci-dessous fournit un résumé statistique pour les maxima annuels de l’Azergues à Lozanne étudiées précédemment. Fournir ce type de résumé lors de toute analyse statistique est une bonne pratique.

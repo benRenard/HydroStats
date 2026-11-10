@@ -14,6 +14,14 @@ fig:NcruesFig
 fig:maxanQt
 tab:maxanTable
 fig:maxanFig
+eq:mean
+eq:var
+eq:sdev
+eq:cv
+eq:moment
+eq:cmoment
+eq:skew
+eq:kurt
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements

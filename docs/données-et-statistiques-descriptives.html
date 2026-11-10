@@ -801,15 +801,76 @@ Figure 1.12: Histogramme des fréquences et courbe des fréquences cumulées pou
 <p>En plus des représentations graphiques présentées précédemment, on souhaite généralement résumer les données analysées sur la base de quelques indicateurs quantitatifs, renseignant sur l’ordre de grandeur des observations, leur variabilité, etc.</p>
 <div id="indicateurs-de-localisation" class="section level4 hasAnchor" number="1.2.2.1">
 <h4><span class="header-section-number">1.2.2.1</span> Indicateurs de localisation<a href="données-et-statistiques-descriptives.html#indicateurs-de-localisation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Nous nous intéressons dans un premier temps aux indicateurs dits de localisation.</p>
+<p>Nous nous intéressons dans un premier temps aux indicateurs dits de localisation. Soient <span class="math inline">\((x_1,\ldots,x_n)\)</span> les données à analyser. Le premier indicateur calculé est généralement la <strong>moyenne</strong>, souvent notée <span class="math inline">\(\bar{x}\)</span>.</p>
+<p><span class="math display" id="eq:mean">\[
+\begin{equation}
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
+\tag{1.3}
+\end{equation}
+\]</span></p>
+<p>La <strong>médiane</strong> est la valeur qui sépare l’échantillon ordonné en deux sous-parties de même effectif. Par exemple, la médiane des valeurs 10, 15, 18, 19, 20 vaut 18. Si le nombre de valeurs est pair, on calculera la demi-somme entre les deux valeurs du milieu, soit une médiane de 16.5 pour l’échantillon des quatre premières valeurs ci-dessus. La médiane peut également être lue sur la courbe des fréquences cumulées : c’est la valeur correspondant à une fréquence cumulée de 0.5. Par rapport à la moyenne, la médiane est beaucoup moins sensible à la présence de valeurs extrêmes dans l’échantillon. Par exemple, si l’on remplace la valeur « 20 » par « 2000 » dans l’exemple ci-dessus, la médiane est inchangée, alors que la moyenne sera évidemment très différente. L’exemple classique pour illustrer la différence entre la moyenne et la médiane est le salaire des Français : la moyenne vaut environ 2730 €, la médiane 2180 € (salaires nets en 2024 dans le secteur privé, source INSEE).</p>
+<p>Un troisième indicateur est parfois utilisé, surtout pour les données discrètes, il s’agit du <strong>mode</strong>, qui est la valeur (pas forcément unique) la plus fréquente dans l’échantillon. Pour des données quantitatives continues, il faut (comme pour l’histogramme) procéder à un regroupement des individus. L’inconvénient est que le mode devient dépendant du regroupement arbitraire effectué.</p>
+<p>Le dernier indicateur est particulièrement important dans le domaine de l’hydrologie : le <strong>quantile d’ordre p</strong> est la valeur de l’échantillon dont la fréquence cumulée vaut p. Le quantile peut donc être lu sur la courbe des fréquences cumulées, en faisant éventuellement une interpolation linéaire entre deux points. La médiane est ainsi le quantile d’ordre 0.5.</p>
+<p>Enfin, on reporte fréquemment le <strong>minimum</strong> et le <strong>maximum</strong> d’un échantillon.</p>
 </div>
 <div id="indicateurs-de-dispersion" class="section level4 hasAnchor" number="1.2.2.2">
 <h4><span class="header-section-number">1.2.2.2</span> Indicateurs de dispersion<a href="données-et-statistiques-descriptives.html#indicateurs-de-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>XXX</p>
+<p>Les indicateurs de dispersion ont pour but de décrire la variabilité des données.
+La <strong>variance</strong> permet de mesurer la façon dont les données se dispersent autour de la moyenne :</p>
+<p><span class="math display" id="eq:var">\[
+\begin{equation}
+V_x=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2
+\tag{1.4}
+\end{equation}
+\]</span></p>
+<p>On trouve parfois une définition alternative dans laquelle le <span class="math inline">\(\frac{1}{n}\)</span> est remplacé par <span class="math inline">\(\frac{1}{n-1}\)</span>. Ces deux définitions deviennent équivalentes lorsque n est grand.</p>
+<p>L’<strong>écart-type</strong> est défini comme la racine carrée de la variance, et a l’avantage de s’exprimer dans la même unité que les données.</p>
+<p><span class="math display" id="eq:sdev">\[
+\begin{equation}
+S_x=\sqrt{V_x}= \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}
+\tag{1.5}
+\end{equation}
+\]</span>
+Le <strong>coefficient de variation</strong> est également utilisé pour comparer en relatif la variabilité de plusieurs séries de données dont les ordres de grandeurs ne sont pas comparables. Il est plutôt adapté aux données positives (les débits par exemple !) et n’est pas défini pour les données dont la moyenne est nulle. Il est généralement exprimé en pourcentage.</p>
+<p><span class="math display" id="eq:cv">\[
+\begin{equation}
+CV_x=\frac{S_x}{\bar{x}}
+\tag{1.6}
+\end{equation}
+\]</span></p>
 </div>
 <div id="autres-indicateurs" class="section level4 hasAnchor" number="1.2.2.3">
 <h4><span class="header-section-number">1.2.2.3</span> Autres indicateurs<a href="données-et-statistiques-descriptives.html#autres-indicateurs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>XXX</p>
+<p>Mentionnons finalement quelques indicateurs supplémentaires, qui n’ont pas de signification aussi claire que les indicateurs de localisation ou de dispersion, mais qui sont importants en Statistiques, notamment dans le cadre de la théorie de l’estimation.</p>
+<p>Le <strong>moment d’ordre k</strong> est défini de la manière suivante :</p>
+<p><span class="math display" id="eq:moment">\[
+\begin{equation}
+m_k=\frac{1}{n}\sum_{i=1}^{n}x_i^k
+\tag{1.7}
+\end{equation}
+\]</span>
+Pour <span class="math inline">\(k=1\)</span>, on reconnaît la moyenne. On définit de même le <strong>moment centré d’ordre k</strong> :</p>
+<p><span class="math display" id="eq:cmoment">\[
+\begin{equation}
+m^\prime_k=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^k
+\tag{1.8}
+\end{equation}
+\]</span></p>
+<p>Pour <span class="math inline">\(k=2\)</span>, on reconnaît la variance. Les moments centrés sont utilisés pour calculer deux indicateurs relatifs à la forme de l’histogramme :</p>
+<p><span class="math display" id="eq:skew">\[
+\begin{equation}
+\textbf{Asymétrie}: A_x=\frac{m^\prime_3}{S_x^3}
+\tag{1.9}
+\end{equation}
+\]</span></p>
+<p><span class="math display" id="eq:kurt">\[
+\begin{equation}
+\textbf{Aplatissement} \text{ ou } \textbf{Kurtosis} : K_x=\frac{m^\prime_4}{S_x^4}
+\tag{1.10}
+\end{equation}
+\]</span>
+Comme son nom l’indique, l’asymétrie décrit le caractère symétrique de l’histogramme (l’asymétrie est nulle pour des données distribuées symétriquement). L’aplatissement décrit quant à lui le caractère plus ou moins « pointu » de l’histogramme.</p>
+<p>En guise d’illustration, le Tableau ci-dessous fournit un résumé statistique pour les maxima annuels de l’Azergues à Lozanne étudiées précédemment. Fournir ce type de résumé lors de toute analyse statistique est une bonne pratique.</p>
 
 </div>
 </div>
