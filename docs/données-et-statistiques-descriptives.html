@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-09" />
+<meta name="date" content="2026-11-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -114,6 +114,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.2" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#statistiques-descriptives"><i class="fa fa-check"></i><b>1.2</b> Statistiques descriptives</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#représentations-graphiques"><i class="fa fa-check"></i><b>1.2.1</b> Représentations graphiques</a></li>
+<li class="chapter" data-level="1.2.2" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#indicateurs-numériques"><i class="fa fa-check"></i><b>1.2.2</b> Indicateurs numériques</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="probabilités.html"><a href="probabilités.html"><i class="fa fa-check"></i><b>2</b> Probabilités</a>
@@ -456,7 +457,7 @@ Figure 1.10: Histogramme des fréquences et courbe des fréquences cumulées.
 Figure 1.11: Série chronologique des débits journaliers maximum annuels pour l’Azergues à Lozanne
 </p>
 </div>
-<p>Pour une variable continue, chaque valeur n’apparaît généralement qu’une seule fois (à quelques ex-aquo éventuels près). Le calcul de l’effectif et de la fréquence associée à chaque valeur n’est donc pas intéressant. Par contre on peut toujours calculer la fréquence au non-dépassement associée à chaque valeur. Pour la <span class="math inline">\(i^{ème}\)</span> valeur (par ordre croissant, appelée également valeur de rang <span class="math inline">\(i\)</span>) cette fréquence est égale à <span class="math inline">\(i/n\)</span>, où <span class="math inline">\(n\)</span> est la taille de l’échantillon (égale à 55 ici). Ce calcul est dátaillé dans le tableau ci-dessous.</p>
+<p>Pour une variable continue, chaque valeur n’apparaît généralement qu’une seule fois (à quelques ex-aquo éventuels près). Le calcul de l’effectif et de la fréquence associée à chaque valeur n’est donc pas intéressant. Par contre on peut toujours calculer la fréquence au non-dépassement associée à chaque valeur. Pour la <span class="math inline">\(i^{ème}\)</span> valeur (par ordre croissant, appelée également valeur de rang <span class="math inline">\(i\)</span>) cette fréquence est égale à <span class="math inline">\(i/n\)</span>, où <span class="math inline">\(n\)</span> est la taille de l’échantillon (égale à 55 ici). Ce calcul est détaillé dans le tableau ci-dessous.</p>
 <table class="kable_wrapper">
 <caption>
 <span id="tab:maxanTable">Table 1.2: </span>Valeurs, rangs et fréquences cumulées.
@@ -780,14 +781,37 @@ Figure 1.11: Série chronologique des débits journaliers maximum annuels pour l
 </tr>
 </tbody>
 </table>
-<p>On peut alors tracer comme précédemment la courbe des fréquences cumulées repréentée en Figure <a href="données-et-statistiques-descriptives.html#fig:maxanFig">1.12</a>(b). Pour l’histogramme, on effectue un regroupement des valeurs en classes, ce qui revient à « discrétiser » la variable continue. Le choix des classes reste arbitraire, même si certaines certaines règles empiriques ont été proposées (par exemple <a href="https://fr.wikipedia.org/wiki/Histogramme#Construction" class="uri">https://fr.wikipedia.org/wiki/Histogramme#Construction</a>). L’histogramme des fréquences pour des classes d’étendue 50 <span class="math inline">\(m³.s^{-1}\)</span> est donné en Figure <a href="données-et-statistiques-descriptives.html#fig:maxanFig">1.12</a>(a).</p>
+<p>On peut alors tracer comme précédemment la courbe des fréquences cumulées repréentée en Figure <a href="données-et-statistiques-descriptives.html#fig:maxanFig">1.12</a>(b). Pour l’histogramme, on effectue un regroupement des valeurs en classes, ce qui revient à « discrétiser » la variable continue. Le choix des classes reste arbitraire, même si certaines certaines règles empiriques ont été proposées (par exemple <a href="https://fr.wikipedia.org/wiki/Histogramme#Construction" class="uri">https://fr.wikipedia.org/wiki/Histogramme#Construction</a>). L’histogramme des fréquences pour des classes d’étendue 50 <span class="math inline">\(m^3.s^{-1}\)</span> est donné en Figure <a href="données-et-statistiques-descriptives.html#fig:maxanFig">1.12</a>(a).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:maxanFig"></span>
 <img src="_main_files/figure-html/maxanFig-1.png" alt="Histogramme des fréquences et courbe des fréquences cumulées pour les débits maximum annuels de l'Azergues à Lozanne" width="100%" />
 <p class="caption">
 Figure 1.12: Histogramme des fréquences et courbe des fréquences cumulées pour les débits maximum annuels de l’Azergues à Lozanne
 </p>
 </div>
+<p>Comme précédemment, ces calculs permettent d’apporter des éléments de réponse à des questions qui sont régulièrement posées à l’hydrologue :</p>
+<ul>
+<li>« <em>Quel débit de crue a une probabilité 1/10 d’être dépassé</em> ? » (débit décennal) : on recherche la valeur ayant une fréquence au non-dépassement égale à 1-1/10=0.9. On trouve environ 160 <span class="math inline">\(m^3.s^{-1}\)</span>, ce qui fournit une première estimation.</li>
+<li>« <em>Quel débit de crue a une probabilité 1/100 d’être dépassé</em> ? » (débit centennal) : on recherche la valeur ayant une fréquence au non-dépassement égale à 1-1/100=0.99. On peut alors donner la fourchette 244-266 <span class="math inline">\(m^3.s^{-1}\)</span>.</li>
+<li>« <em>Quelle est la probabilité d’observer une crue supérieure à 200 <span class="math inline">\(m^3.s^{-1}\)</span></em> ? » : en se basant sur la Figure <a href="données-et-statistiques-descriptives.html#fig:maxanFig">1.12</a>(b), on trouve une fréquence au non-dépassement d’environ 0.95. La probabilité recherchée est donc de l’ordre de 0.05.</li>
+<li>« <em>Quelle est la probabilité d’observer une crue supérieure à 300 <span class="math inline">\(m^3.s^{-1}\)</span></em> ? » : on serait tenté de répondre « zéro » puisque la valeur observée maximale est de 266 <span class="math inline">\(m^3.s^{-1}\)</span>… mais comme expliqué précédemment, cette estimation n’est pas raisonnable, et illustre une des limitations de l’approche basée sur la seule description empirique des données : il faudrait se doter d’un outil pour pouvoir <strong>extrapoler</strong> au-delà de la valeur la plus forte. Nous y reviendrons dans la suite de ce document.</li>
+</ul>
+</div>
+<div id="indicateurs-numériques" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Indicateurs numériques<a href="données-et-statistiques-descriptives.html#indicateurs-numériques" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En plus des représentations graphiques présentées précédemment, on souhaite généralement résumer les données analysées sur la base de quelques indicateurs quantitatifs, renseignant sur l’ordre de grandeur des observations, leur variabilité, etc.</p>
+<div id="indicateurs-de-localisation" class="section level4 hasAnchor" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> Indicateurs de localisation<a href="données-et-statistiques-descriptives.html#indicateurs-de-localisation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Nous nous intéressons dans un premier temps aux indicateurs dits de localisation.</p>
+</div>
+<div id="indicateurs-de-dispersion" class="section level4 hasAnchor" number="1.2.2.2">
+<h4><span class="header-section-number">1.2.2.2</span> Indicateurs de dispersion<a href="données-et-statistiques-descriptives.html#indicateurs-de-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>XXX</p>
+</div>
+<div id="autres-indicateurs" class="section level4 hasAnchor" number="1.2.2.3">
+<h4><span class="header-section-number">1.2.2.3</span> Autres indicateurs<a href="données-et-statistiques-descriptives.html#autres-indicateurs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>XXX</p>
 
+</div>
 </div>
 </div>
 </div>

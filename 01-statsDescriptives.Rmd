@@ -342,7 +342,7 @@ ggplot(MAXAN,aes(year,debit))+geom_point()+geom_line()+
   theme_bw()+theme(panel.grid=element_blank())
 ```
 
-Pour une variable continue, chaque valeur n’apparaît généralement qu’une seule fois (à quelques ex-aquo éventuels près). Le calcul de l'effectif et de la fréquence associée à chaque valeur n'est donc pas intéressant. Par contre on peut toujours calculer la fréquence au non-dépassement associée à chaque valeur. Pour la $i^{ème}$ valeur (par ordre croissant, appelée également valeur de rang $i$) cette fréquence est égale à $i/n$, où $n$ est la taille de l’échantillon (égale à 55 ici). Ce calcul est dátaillé dans le tableau ci-dessous.
+Pour une variable continue, chaque valeur n’apparaît généralement qu’une seule fois (à quelques ex-aquo éventuels près). Le calcul de l'effectif et de la fréquence associée à chaque valeur n'est donc pas intéressant. Par contre on peut toujours calculer la fréquence au non-dépassement associée à chaque valeur. Pour la $i^{ème}$ valeur (par ordre croissant, appelée également valeur de rang $i$) cette fréquence est égale à $i/n$, où $n$ est la taille de l’échantillon (égale à 55 ici). Ce calcul est détaillé dans le tableau ci-dessous.
 
 ```{r maxanTable, echo=FALSE}
 foo=MAXAN %>% na.omit() %>% arrange(debit) 
@@ -354,7 +354,7 @@ knitr::kable(
 )
 ```
 
-On peut alors tracer comme précédemment la courbe des fréquences cumulées repréentée en Figure \@ref(fig:maxanFig)(b). Pour l'histogramme, on effectue un regroupement des valeurs en classes, ce qui revient à « discrétiser » la variable continue. Le choix des classes reste arbitraire, même si certaines certaines règles empiriques ont été proposées (par exemple https://fr.wikipedia.org/wiki/Histogramme#Construction). L’histogramme des fréquences pour des classes d’étendue 50 $m³.s^{-1}$ est donné en Figure \@ref(fig:maxanFig)(a). 
+On peut alors tracer comme précédemment la courbe des fréquences cumulées repréentée en Figure \@ref(fig:maxanFig)(b). Pour l'histogramme, on effectue un regroupement des valeurs en classes, ce qui revient à « discrétiser » la variable continue. Le choix des classes reste arbitraire, même si certaines certaines règles empiriques ont été proposées (par exemple https://fr.wikipedia.org/wiki/Histogramme#Construction). L’histogramme des fréquences pour des classes d’étendue 50 $m^3.s^{-1}$ est donné en Figure \@ref(fig:maxanFig)(a). 
 
 ```{r maxanFig, echo=FALSE,fig.align='center', fig.asp=0.5, fig.cap="Histogramme des fréquences et courbe des fréquences cumulées pour les débits maximum annuels de l'Azergues à Lozanne", message=FALSE, warning=FALSE, out.width='100%'}
 htab=hist(tab$Valeur,plot=FALSE,breaks=seq(0,max(tab$Valeur+50),50))
@@ -371,3 +371,31 @@ g2=ggplot(tab,aes(Valeur,Fcumul))+geom_point()+geom_line()+
 g=wrap_plots(g1,g2,nrow=1)
 g&theme(panel.grid=element_blank(),plot.title=element_text(size=12))
 ```
+
+Comme précédemment, ces calculs permettent d’apporter des éléments de réponse à des questions qui sont régulièrement posées à l’hydrologue :
+
+* « *Quel débit de crue a une probabilité 1/10 d’être dépassé* ? » (débit décennal) : on recherche la valeur ayant une fréquence au non-dépassement égale à 1-1/10=0.9. On trouve environ 160 $m^3.s^{-1}$, ce qui fournit une première estimation. 
+* « *Quel débit de crue a une probabilité 1/100 d’être dépassé* ? » (débit centennal) : on recherche la valeur ayant une fréquence au non-dépassement égale à 1-1/100=0.99. On peut alors donner la fourchette 244-266 $m^3.s^{-1}$.
+* « *Quelle est la probabilité d’observer une crue supérieure à 200 $m^3.s^{-1}$* ? » : en se basant sur la Figure \@ref(fig:maxanFig)(b), on trouve une fréquence au non-dépassement d’environ 0.95.  La probabilité recherchée est donc de l’ordre de 0.05.
+* « *Quelle est la probabilité d’observer une crue supérieure à 300 $m^3.s^{-1}$* ? » : on serait tenté de répondre « zéro » puisque la valeur observée maximale est de 266 $m^3.s^{-1}$... mais comme expliqué précédemment, cette estimation n’est pas raisonnable, et illustre une des limitations de l’approche basée sur la seule description empirique des données : il faudrait se doter d’un outil pour pouvoir **extrapoler** au-delà de la valeur la plus forte. Nous y reviendrons dans la suite de ce document.
+
+### Indicateurs numériques
+
+En plus des représentations graphiques présentées précédemment, on souhaite généralement résumer les données analysées sur la base de quelques indicateurs quantitatifs, renseignant sur l’ordre de grandeur des observations, leur variabilité, etc. 
+
+#### Indicateurs de localisation
+
+Nous nous intéressons dans un premier temps aux indicateurs dits de localisation.
+
+#### Indicateurs de dispersion
+
+XXX
+
+#### Autres indicateurs
+
+XXX
+
+
+
+
+
