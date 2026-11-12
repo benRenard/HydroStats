@@ -473,3 +473,18 @@ $$
 Comme son nom l’indique, l’asymétrie décrit le caractère symétrique de l’histogramme (l’asymétrie est nulle pour des données distribuées symétriquement). L’aplatissement décrit quant à lui le caractère plus ou moins « pointu » de l’histogramme.
 
 En guise d’illustration, le Tableau ci-dessous fournit un résumé statistique pour les maxima annuels de l’Azergues à Lozanne étudiées précédemment. Fournir ce type de résumé lors de toute analyse statistique est une bonne pratique.
+
+```{r summaryTable, echo=FALSE,out.width='50%'}
+x=MAXAN$debit[!is.na(MAXAN$debit)]
+foo=data.frame(value=c(mean(x),min(x),quantile(x,0.25),median(x),
+                       quantile(x,0.75),max(x),
+                       sd(x),sd(x)/mean(x),var(x),
+                       skewness(x),kurtosis(x),length(x)))
+row.names(foo) <- c('Moyenne','Minimum','Quantile 25%','Médiane',
+                    'Quantile 75%','Maximum',
+                    'Ecart-type','Coefficient de variation',
+                    'Variance','Asymétrie','Applatissement','N')
+knitr::kable(foo, booktabs = TRUE,digits=2,col.names=NULL,
+  caption = 'Résumé statistique des valeurs maximales annuelles pour l’Azergues à Lozanne.'
+) %>% kableExtra::kable_styling(full_width=FALSE)
+```

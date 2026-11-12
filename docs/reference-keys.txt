@@ -22,6 +22,7 @@ eq:moment
 eq:cmoment
 eq:skew
 eq:kurt
+tab:summaryTable
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements

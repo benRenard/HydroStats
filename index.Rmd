@@ -15,19 +15,21 @@ github-repo: benRenard/HydroStats
 
 # Préambule {.unnumbered}
 
-Passer direct aux variables continues
+<!-- Passer direct aux variables continues
 
 Mettre le tableau quelle loi pour quelle variable (dans le diapo aussi ?)
 
 Insister plus sur les definitions et les usages QMNA - VCN3.
 
 package [HydroPortailStats](https://github.com/benRenard/HydroPortailStats) [@R-HydroPortailStats]
+-->
 
 ```{r packages, include=FALSE}
 # Load required packages and data
 library(ggplot2);library(patchwork)
 library(HydroPortailStats)
 library(dplyr);library(lubridate)
+library(moments)
 load(file.path('data','HydroStats.RData'))
 ```
 
