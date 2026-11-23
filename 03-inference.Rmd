@@ -1,5 +1,7 @@
 # Inférence
 
+Ce chapitre présente quelques méthodes pour l’estimation des paramètres des distributions présentées dans le chapitre précédent. Un résumé des estimateurs classiques est également fourni en Annexe \@ref(annexe:estimateurs).
+
 ## Estimation de paramètres
 
 ### Principes de l’estimation

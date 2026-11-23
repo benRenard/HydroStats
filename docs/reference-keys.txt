@@ -69,3 +69,17 @@ annexes
 distributions-usuelles
 estimateurs-usuels
 tests-statistiques
+annexe:distributions
+sec:theorie-proba
+sec:gauss
+sec:logN
+sec:GEV
+sec:GPD
+quelle-formule-pour-la-fréquence-au-non-dépassement
+sec:cfc
+interpolation-et-extrapolation
+variabilité-déchantillonnage-et-incertitudes
+annexe:estimateurs
+annexe:tests
+fig:var-echantillonnage
+probabilité

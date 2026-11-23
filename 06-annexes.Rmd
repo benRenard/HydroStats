@@ -1,7 +1,7 @@
 # Annexes
 
-## Distributions usuelles
+## Distributions usuelles {#annexe:distributions}
 
-## Estimateurs usuels
+## Estimateurs usuels {#annexe:estimateurs}
 
-## Tests statistiques
+## Tests statistiques {#annexe:tests}

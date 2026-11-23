@@ -35,6 +35,8 @@ load(file.path('data','HydroStats.RData'))
 
 ```{r utils, include=FALSE}
 # Define utilities
+myred='#e41a1c'
+myblue='#377eb8'
 ```
 
 ```{r include=FALSE}
