@@ -53,10 +53,145 @@ print(final)
 
 ## Théorie des probabilités {#sec:theorie-proba}
 
-Nous présentons dans cette section les concepts issus de la théorie des Probabilités qui seront utiles à l’hydrologue.
+Cette section présente les concepts issus de la théorie des probabilités qui sont utiles à l’hydrologue.
 
 ### Probabilité
 
+En termes intuitifs, une **probabilité** est un instrument de mesure du hasard : elle évalue le caractère probable (ou improbable) d’**événements** que l’on peut (ou que l’on choisit) de considérer comme **aléatoires**.
+
+Une probabilité varie entre 0 et 1 : plus la probabilité est proche de 1, plus l’événement a des chances de se produire ; inversement, une probabilité proche de zéro dénote un événement ayant peu de chance de se produire. Un événement impossible a une probabilité nulle, un événement certain a une probabilité égale à 1.
+
+La notion de probabilité peut également être formalisée de façon plus mathématique. Une **probabilité** sur un ensemble $\Omega$ est une fonction $\Pr:\wp(\Omega) \mapsto [0;1]$ qui vérifie les trois axiomes suivants :
+
+1. $\Pr(A) \geq 0, \forall A \subset \Omega$
+2. $\Pr(\Omega)=1$
+3. Soit $(A_i)$ une suite de sous-ensembles de $\Omega$ deux à deux disjoints, c’est à dire que $A_i \cap A_j=\emptyset, \forall i \neq j$. Alors:
+$$\Pr \left( \bigcup_{i=1}^{+\infty} A_i\right)=\sum_{i=1}^{+\infty} \Pr \left( A_i\right)$$
+
+Dans la définition ci-dessus, $\Omega$ représente l’ensemble des issues possibles de l’expérience aléatoire, il est appelé **univers** ou **ensemble fondamental**. Un sous-ensemble A de $\Omega$ est appelé un **événement**. La notation $\wp(\Omega)$ représente l’ensemble des parties de $\Omega$, c’est à dire l’ensemble de tous les sous-ensembles possibles de $\Omega$, ou encore l’ensemble des événements.
+
+Les trois axiomes des probabilités conduisent aux propriétés suivantes :
+
+* $\Pr(A)\in [0;1], \forall A \subset \Omega$
+* $\Pr(\emptyset)=0$
+* $A \subset B \implies \Pr(A) \leq \Pr(B)$
+* $\Pr(A^c)=1 - \Pr(A)$
+* $\Pr(A \cup B)=\Pr(A)+\Pr(B)-\Pr(A \cap B)$
+
+*Remarque 1* : la définition donnée ci-dessus est en fait abusive d’un point de vue strictement mathématique, car il peut exister des sous-ensembles de $\Omega$ pour lesquels la probabilité n’est pas définie (sous-ensembles non-mesurables). Il faut alors définir en ensemble d’évènements mesurables, ce qui requiert des outils mathématiques trop sophistiqués pour être évoqués dans ce cours.
+
+*Remarque 2* : Un événement impossible a une probabilité nulle, un événement certain a une probabilité égale à 1. La réciproque n’est cependant pas vrai du point de vue mathématique : des événements de probabilité nulle ne sont pas nécessairement impossibles, dans le sens où des sous-ensembles non vides de $\Omega$ peuvent être de probabilité nulle. Par exemple, la probabilité de « tirer au hasard » un nombre entier dans l’ensemble des nombres réels est nulle, bien que l’ensemble des nombres entiers ne soit pas vide.
+
+
+### Variable aléatoire
+
+En termes intuitifs, une variable aléatoire permet de décrire de manière quantitative l’ensemble des résultats possibles d’une expérience aléatoire. Supposons par exemple que nous lancions deux dés, et que nous nous intéressions à la somme des deux faces observées. La variable aléatoire « $X$ := Somme des deux dés » prend ainsi des valeurs entières comprises entre 2 et 12. Nous nous intéresserons au calcul de probabilité d’événements du type « la somme des deux dés vaut 4 » (noté $\Pr(X = 4)$) ou « la somme des deux dés est strictement inférieure à 6 » (noté $\Pr(X < 6)$).
+
+D’un point de vue plus hydrologique, une variable aléatoire $X$ représentera tout simplement la variable que nous souhaitons étudier, par exemple « Nombre de crues observées en une année » ou « débit maximum annuel » (cf. exemples dans le chapitre précédent). Il est par contre important de bien faire la différence entre la variable aléatoire $X$  et les observations $(x_1,\ldots,x_n)$ : la variable aléatoire $X$ est un objet mathématique abstrait, que l’on considère comme le « générateur » des données observées $(x_1,\ldots,x_n)$. On dit d’ailleurs que $(x_1,\ldots,x_n)$ sont des **réalisations** de la variable aléatoire $X$. Les notations utilisées dans ce document utilisent des lettres capitales pour les variables aléatoires, des lettres minuscules pour leurs réalisations.
+
+En termes plus mathématiques, une **variable aléatoire réelle** est une fonction définie sur l’univers $\Omega$ et à valeurs réelles, $X:\Omega \mapsto(-\infty;+\infty)$. Dans l’exemple des dés utilisé ci-dessus, l’ensemble $\Omega$ est égal à l’ensemble des couples $(a, b)$, où $a$ et $b$ sont des entiers entre 1 et 6. $X$ sera la fonction somme :
+
+$$
+\begin{align} 
+X:(1,\ldots,6) \times (1,\ldots,6) &\mapsto (2,\ldots,12) \\
+(a,b) &\mapsto a+b
+\end{align} 
+$$
+
+Ainsi, l’événement « la somme des deux dés vaut 4 » correspond à l’ensemble des couples $(a, b)$ pour lesquels $a+b=4$, soit $X^{-1}(\{4\})=\{(1, 3), (3, 1), (2, 2)\}$. Notons que nous utiliserons l’abus de notation $X=4$ au lieu de la notation $X^{-1}(\{4\})$. Dans cet exemple précis, $X$ ne prend pas ses valeurs dans l’ensemble de tous les nombres réels, mais seulement dans un sous-ensemble de l’ensemble des entiers : il s’agit d’une **variable aléatoire discrète**. 
+
+### Distribution d’une variable aléatoire discrète
+
+Soit $X$ une variable aléatoire discrète, à valeurs dans un ensemble dénombrable ordonné $\{x_i,i=1,2,\ldots  \}$. La **loi de probabilité** de $X$ est la donnée des quantités $f(x_i)=\Pr(X=x_i), \forall i=1,2,\ldots$ 
+
+La **fonction de répartition** de $X$ est définie par : $F(x_i)=\Pr(X \leq x_i), \forall i=1,2,\ldots$
+
+Ces deux fonctions sont illustrées dans la Figure \@ref(fig:pmf).
+
+
+```{r pmf, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Loi de probabilité et fonction de répartition pour une variable aléatoire discrète.", out.width='100%',warning=FALSE}
+DF=data.frame(x=0:7) %>% 
+  mutate(y=c(0,0.3,0.4,0.15,0.1,0.04,0.01,0),z=cumsum(y))
+labs=paste0('x',DF$x)
+g1=ggplot(DF)+geom_col(aes(x,y),width=0.5)+
+  labs(x='x',y='Pr(X=x)',title='(a) Loi de probabilité')+
+  scale_x_continuous(breaks=DF$x[-1],labels=labs[-1])+
+  theme_bw()+theme(panel.grid=element_blank())
+g2=ggplot(DF)+geom_step(aes(x,z))+
+  labs(x='x',y='Pr(X≤x)',title='(b) Fonction de répartition')+
+  scale_x_continuous(breaks=DF$x[-1],labels=labs[-1])+
+  theme_bw()+theme(panel.grid=element_blank())
+final=wrap_plots(g1,g2,nrow=1)
+print(final) 
+```
+
+Il existe une analogie entre la loi de probabilité représentée en Figure \@ref(fig:pmf) et l'histogramme présenté dans le chapitre précédent, où nous avions reporté les fréquences (en ordonnées) de chaque observation (en abscisses): nous aurons l’occasion de revenir à plusieurs reprises sur cette analogie fréquence / probabilité. L’objectif d’un modèle probabiliste est justement de remplacer les fréquences observées par des probabilités issues du modèle, pour les raisons exposées en section \@ref(motivations).
+
+Concernant la fonction de répartition, il est aisé de démontrer la relation suivante : $F(x_i)=\sum_{k=1}^{i}f(x_i)$. Autrement dit, la fonction de répartition est égale au cumul des probabilités individuelles de chaque valeur possible. On retrouve encore une fois l’analogie avec la courbe des fréquences cumulées : la fonction de répartition calculée en une valeur $x$ est l’analogue de la fréquence au non-dépassement d’une observation $x$. 
+En corollaire, $F$ est une fonction croissante, qui part de $0$ et tend vers $1$ en l’infini. 
+
+De ces deux définitions découlent quelques grandeurs caractéristiques de la variable aléatoire $X$ (notez encore une fois l’analogie avec le chapitre précédent !) :
+
+* L’**espérance**, $E(X)=\sum_{i=1}^{+\infty}x_i f(x_i)$
+* La **variance**, $Var(X)=\sum_{i=1}^{+\infty}(x_i-E(X))^2 f(x_i)$, et l’**écart type**, $\sigma(X)=\sqrt{\left( Var(X) \right)}$
+* Le **quantile d’ordre $p$**, noté $x_p$, qui vérifie $F(x_p)=p$
+* Les **moments d’ordre $k$**, $\mu_k(X)=\sum_{i=1}^{+\infty}x_i^k f(x_i)$. Si $k=1$, on reconnaît l’espérance.
+* Les **moments centrés d’ordre $k$**, $\mu^\prime_k(X)=\sum_{i=1}^{+\infty}(x_i-E(X))^k f(x_i)$. Si $k=2$, on reconnaît la variance.
+
+*Remarque 1* : notez la distinction, en termes de vocabulaire, entre l’espérance (de la variable aléatoire) et la moyenne (des données). Malheureusement, cette distinction explicite s’arrête là et le même mot variance (par exemple) est utilisé à la fois pour la variable aléatoire et pour les données. On utilise donc un adjectif pour marquer cette différence : on parle de variance **théorique** ou « **de la population** » pour une variable aléatoire, et de variance **empirique**, **expérimentale** ou « **de l’échantillon** » pour celle calculée sur les données.
+
+*Remarque 2* : Etant donné que la fonction de répartition $F$ est en escalier, le quantile d’ordre $p$ n’est pas forcément défini (si $p$ tombe « entre les marches » de l’escalier).
+
+*Remarque 3* : Les quantités faisant intervenir des sommes infinies peuvent ne pas exister.
+
+### Distribution d’une variable aléatoire continue
+
+Les notions de loi de probabilité et de fonction de répartition décrites précédemment peuvent se généraliser au cas d’une variable continue, avec quelques différences liées au passage du discret au continu. Nous allons commencer cette fois ci par définir la distribution d’une variable aléatoire continue X comme la donnée d’une **fonction de répartition** $F$, telle que $F(x)=\Pr(X \leq x)$. La **densité de probabilité** de $X$ sera alors la fonction $f$ telle que : $f(x)=\int_{-\infty}^{x}F(u)\text{d} u$. En d’autres termes, la densité $f$ est la dérivée de la fonction de répartition $F$ (Figure \@ref(fig:pdf)).
+
+```{r pdf, echo=FALSE, fig.align='center', fig.asp=0.75, fig.cap="Densité de probabilité (haut) et fonction de répartition (bas) pour une variable aléatoire continue.", out.width='75%',warning=FALSE}
+DF=data.frame(x=seq(0.01,2.5,0.01)) %>% 
+  mutate(y=dlnorm(x,sdlog=0.3),z=plnorm(x,sdlog=0.3))
+g1=ggplot(DF)+  geom_hline(yintercept=0,color='lightgray')+
+  geom_line(aes(x,y),width=0.5)+
+  geom_ribbon(data=DF%>%filter(x<=1),aes(x=x,ymin=0,ymax=y),fill=myred)+
+  geom_vline(xintercept=1,linetype=2)+
+  annotate('text',x=1,y=0,label=' a',hjust=0,vjust=0,size=6)+
+  annotate('text',x=0.5,y=1,label='F(a)',size=6)+
+  annotate('segment',x=0.6,xend=0.8,y=1,arrow=arrow(type='closed'))+
+  labs(x='x',y='f(x)')+
+  scale_x_continuous(breaks=NULL)+
+  scale_y_continuous(breaks=0)+
+  theme_bw()+theme(panel.grid=element_blank(),
+                   axis.text=element_text(size=12),
+                   axis.title=element_text(size=16))
+g2=ggplot(DF)+  geom_hline(yintercept=c(0,1),color='lightgray')+
+  geom_line(aes(x,z))+
+  geom_vline(xintercept=1,linetype=2)+
+  labs(x='x',y='F(x)')+
+   scale_x_continuous(breaks=NULL)+
+  scale_y_continuous(breaks=c(0,1))+
+  theme_bw()+theme(panel.grid=element_blank(),
+                   axis.text=element_text(size=12),
+                   axis.title=element_text(size=16))
+final=wrap_plots(g1,g2,nrow=2)+plot_layout(axis='collect')
+print(final) 
+```
+
+*Propriété* : si $f$ est continue, alors $\Pr(a<X \leq b)=\int_{a}^{b} f(x) \text{d}x = F(b)-F(a)$.
+
+Dans le cas continu, on voit ainsi apparaître une analogie entre la probabilité d’un événement et l’aire sous la courbe de la densité. Cette analogie implique en particulier que $\Pr(X=a)=0, \forall a \in \mathbb{R}$. C’est la raison pour laquelle il n’est pas possible de définir la loi de probabilité directement à partir des probabilités des éléments de $\Omega$, ce qui conduit à raisonner sur des intervalles. On remarque encore une fois l’analogie avec les histogrammes dans le cas continu du chapitre précédent, où nous étions obligés de procéder à des regroupements en classes.
+
+Une densité de probabilité est nécessairement une fonction positive (ou nulle), dont l’aire totale sous la courbe vaut 1. Par contre, rien n’interdit que certaines valeurs  soient supérieures à 1 : en effet, la fonction $f$ ne représente pas une probabilité, mais une densité (d’où son nom !). La fonction de répartition est quant à elle une fonction croissante entre 0 et 1.
+
+A partir de la densité de probabilité, il est possible de définir les mêmes grandeurs caractéristiques que dans le cas discret, en remplaçant les sommes par des intégrales :
+
+* L’**espérance**, $E(X)=\int_{-\infty}^{+\infty}x f(x)\text{d}x$
+* La **variance**, $Var(X)=\int_{-\infty}^{+\infty}(x-E(X))^2 f(x)\text{d}x$, et l’**écart type**, $\sigma(X)=\sqrt{\left( Var(X) \right)}$
+* Le **quantile d’ordre $p$**, noté $x_p$, qui vérifie $F(x_p)=p$. De manière équivalente, le quantile d’ordre $p$ est égal à l’inverse de la fonction de répartition prise en $p$, $x_p=F^{-1}(p)$. 
+* Les **moments d’ordre $k$**, $\mu_k(X)=\int_{-\infty}^{+\infty}x^k f(x)\text{d}x$. Si $k=1$, on reconnaît l’espérance.
+* Les **moments centrés d’ordre $k$**, $\mu^\prime_k(X)=\int_{-\infty}^{+\infty}(x-E(X))^k f(x)\text{d}x$. Si $k=2$, on reconnaît la variance.
+
+*Remarque* : Encore une fois, rien ne garantit l’existence des intégrales infinies. De plus, certaines lois ne sont pas définies sur $\mathbb{R}$ tout entier, ces intégrales doivent alors être réduites aux supports de ces lois.
 
 ## Distribution des valeurs « moyennes » : la loi normale {#sec:gauss}
 

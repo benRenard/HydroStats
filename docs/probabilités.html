@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-23" />
+<meta name="date" content="2026-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -105,6 +105,9 @@
 <li class="chapter" data-level="2.2" data-path="probabilités.html"><a href="probabilités.html#sec:theorie-proba"><i class="fa fa-check"></i><b>2.2</b> Théorie des probabilités</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="probabilités.html"><a href="probabilités.html#probabilité"><i class="fa fa-check"></i><b>2.2.1</b> Probabilité</a></li>
+<li class="chapter" data-level="2.2.2" data-path="probabilités.html"><a href="probabilités.html#variable-aléatoire"><i class="fa fa-check"></i><b>2.2.2</b> Variable aléatoire</a></li>
+<li class="chapter" data-level="2.2.3" data-path="probabilités.html"><a href="probabilités.html#distribution-dune-variable-aléatoire-discrète"><i class="fa fa-check"></i><b>2.2.3</b> Distribution d’une variable aléatoire discrète</a></li>
+<li class="chapter" data-level="2.2.4" data-path="probabilités.html"><a href="probabilités.html#distribution-dune-variable-aléatoire-continue"><i class="fa fa-check"></i><b>2.2.4</b> Distribution d’une variable aléatoire continue</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probabilités.html"><a href="probabilités.html#sec:gauss"><i class="fa fa-check"></i><b>2.3</b> Distribution des valeurs « moyennes » : la loi normale</a></li>
 <li class="chapter" data-level="2.4" data-path="probabilités.html"><a href="probabilités.html#sec:logN"><i class="fa fa-check"></i><b>2.4</b> Distribution log-normale</a></li>
@@ -197,9 +200,90 @@ Figure 2.1: Illustration du concept de variabilité d’échantillonnage : valeu
 </div>
 <div id="sec:theorie-proba" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Théorie des probabilités<a href="probabilités.html#sec:theorie-proba" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Nous présentons dans cette section les concepts issus de la théorie des Probabilités qui seront utiles à l’hydrologue.</p>
+<p>Cette section présente les concepts issus de la théorie des probabilités qui sont utiles à l’hydrologue.</p>
 <div id="probabilité" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Probabilité<a href="probabilités.html#probabilité" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En termes intuitifs, une <strong>probabilité</strong> est un instrument de mesure du hasard : elle évalue le caractère probable (ou improbable) d’<strong>événements</strong> que l’on peut (ou que l’on choisit) de considérer comme <strong>aléatoires</strong>.</p>
+<p>Une probabilité varie entre 0 et 1 : plus la probabilité est proche de 1, plus l’événement a des chances de se produire ; inversement, une probabilité proche de zéro dénote un événement ayant peu de chance de se produire. Un événement impossible a une probabilité nulle, un événement certain a une probabilité égale à 1.</p>
+<p>La notion de probabilité peut également être formalisée de façon plus mathématique. Une <strong>probabilité</strong> sur un ensemble <span class="math inline">\(\Omega\)</span> est une fonction <span class="math inline">\(\Pr:\wp(\Omega) \mapsto [0;1]\)</span> qui vérifie les trois axiomes suivants :</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\Pr(A) \geq 0, \forall A \subset \Omega\)</span></li>
+<li><span class="math inline">\(\Pr(\Omega)=1\)</span></li>
+<li>Soit <span class="math inline">\((A_i)\)</span> une suite de sous-ensembles de <span class="math inline">\(\Omega\)</span> deux à deux disjoints, c’est à dire que <span class="math inline">\(A_i \cap A_j=\emptyset, \forall i \neq j\)</span>. Alors:
+<span class="math display">\[\Pr \left( \bigcup_{i=1}^{+\infty} A_i\right)=\sum_{i=1}^{+\infty} \Pr \left( A_i\right)\]</span></li>
+</ol>
+<p>Dans la définition ci-dessus, <span class="math inline">\(\Omega\)</span> représente l’ensemble des issues possibles de l’expérience aléatoire, il est appelé <strong>univers</strong> ou <strong>ensemble fondamental</strong>. Un sous-ensemble A de <span class="math inline">\(\Omega\)</span> est appelé un <strong>événement</strong>. La notation <span class="math inline">\(\wp(\Omega)\)</span> représente l’ensemble des parties de <span class="math inline">\(\Omega\)</span>, c’est à dire l’ensemble de tous les sous-ensembles possibles de <span class="math inline">\(\Omega\)</span>, ou encore l’ensemble des événements.</p>
+<p>Les trois axiomes des probabilités conduisent aux propriétés suivantes :</p>
+<ul>
+<li><span class="math inline">\(\Pr(A)\in [0;1], \forall A \subset \Omega\)</span></li>
+<li><span class="math inline">\(\Pr(\emptyset)=0\)</span></li>
+<li><span class="math inline">\(A \subset B \implies \Pr(A) \leq \Pr(B)\)</span></li>
+<li><span class="math inline">\(\Pr(A^c)=1 - \Pr(A)\)</span></li>
+<li><span class="math inline">\(\Pr(A \cup B)=\Pr(A)+\Pr(B)-\Pr(A \cap B)\)</span></li>
+</ul>
+<p><em>Remarque 1</em> : la définition donnée ci-dessus est en fait abusive d’un point de vue strictement mathématique, car il peut exister des sous-ensembles de <span class="math inline">\(\Omega\)</span> pour lesquels la probabilité n’est pas définie (sous-ensembles non-mesurables). Il faut alors définir en ensemble d’évènements mesurables, ce qui requiert des outils mathématiques trop sophistiqués pour être évoqués dans ce cours.</p>
+<p><em>Remarque 2</em> : Un événement impossible a une probabilité nulle, un événement certain a une probabilité égale à 1. La réciproque n’est cependant pas vrai du point de vue mathématique : des événements de probabilité nulle ne sont pas nécessairement impossibles, dans le sens où des sous-ensembles non vides de <span class="math inline">\(\Omega\)</span> peuvent être de probabilité nulle. Par exemple, la probabilité de « tirer au hasard » un nombre entier dans l’ensemble des nombres réels est nulle, bien que l’ensemble des nombres entiers ne soit pas vide.</p>
+</div>
+<div id="variable-aléatoire" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Variable aléatoire<a href="probabilités.html#variable-aléatoire" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En termes intuitifs, une variable aléatoire permet de décrire de manière quantitative l’ensemble des résultats possibles d’une expérience aléatoire. Supposons par exemple que nous lancions deux dés, et que nous nous intéressions à la somme des deux faces observées. La variable aléatoire « <span class="math inline">\(X\)</span> := Somme des deux dés » prend ainsi des valeurs entières comprises entre 2 et 12. Nous nous intéresserons au calcul de probabilité d’événements du type « la somme des deux dés vaut 4 » (noté <span class="math inline">\(\Pr(X = 4)\)</span>) ou « la somme des deux dés est strictement inférieure à 6 » (noté <span class="math inline">\(\Pr(X &lt; 6)\)</span>).</p>
+<p>D’un point de vue plus hydrologique, une variable aléatoire <span class="math inline">\(X\)</span> représentera tout simplement la variable que nous souhaitons étudier, par exemple « Nombre de crues observées en une année » ou « débit maximum annuel » (cf. exemples dans le chapitre précédent). Il est par contre important de bien faire la différence entre la variable aléatoire <span class="math inline">\(X\)</span> et les observations <span class="math inline">\((x_1,\ldots,x_n)\)</span> : la variable aléatoire <span class="math inline">\(X\)</span> est un objet mathématique abstrait, que l’on considère comme le « générateur » des données observées <span class="math inline">\((x_1,\ldots,x_n)\)</span>. On dit d’ailleurs que <span class="math inline">\((x_1,\ldots,x_n)\)</span> sont des <strong>réalisations</strong> de la variable aléatoire <span class="math inline">\(X\)</span>. Les notations utilisées dans ce document utilisent des lettres capitales pour les variables aléatoires, des lettres minuscules pour leurs réalisations.</p>
+<p>En termes plus mathématiques, une <strong>variable aléatoire réelle</strong> est une fonction définie sur l’univers <span class="math inline">\(\Omega\)</span> et à valeurs réelles, <span class="math inline">\(X:\Omega \mapsto(-\infty;+\infty)\)</span>. Dans l’exemple des dés utilisé ci-dessus, l’ensemble <span class="math inline">\(\Omega\)</span> est égal à l’ensemble des couples <span class="math inline">\((a, b)\)</span>, où <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> sont des entiers entre 1 et 6. <span class="math inline">\(X\)</span> sera la fonction somme :</p>
+<p><span class="math display">\[
+\begin{align}
+X:(1,\ldots,6) \times (1,\ldots,6) &amp;\mapsto (2,\ldots,12) \\
+(a,b) &amp;\mapsto a+b
+\end{align}
+\]</span></p>
+<p>Ainsi, l’événement « la somme des deux dés vaut 4 » correspond à l’ensemble des couples <span class="math inline">\((a, b)\)</span> pour lesquels <span class="math inline">\(a+b=4\)</span>, soit <span class="math inline">\(X^{-1}(\{4\})=\{(1, 3), (3, 1), (2, 2)\}\)</span>. Notons que nous utiliserons l’abus de notation <span class="math inline">\(X=4\)</span> au lieu de la notation <span class="math inline">\(X^{-1}(\{4\})\)</span>. Dans cet exemple précis, <span class="math inline">\(X\)</span> ne prend pas ses valeurs dans l’ensemble de tous les nombres réels, mais seulement dans un sous-ensemble de l’ensemble des entiers : il s’agit d’une <strong>variable aléatoire discrète</strong>.</p>
+</div>
+<div id="distribution-dune-variable-aléatoire-discrète" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Distribution d’une variable aléatoire discrète<a href="probabilités.html#distribution-dune-variable-aléatoire-discrète" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Soit <span class="math inline">\(X\)</span> une variable aléatoire discrète, à valeurs dans un ensemble dénombrable ordonné <span class="math inline">\(\{x_i,i=1,2,\ldots  \}\)</span>. La <strong>loi de probabilité</strong> de <span class="math inline">\(X\)</span> est la donnée des quantités <span class="math inline">\(f(x_i)=\Pr(X=x_i), \forall i=1,2,\ldots\)</span></p>
+<p>La <strong>fonction de répartition</strong> de <span class="math inline">\(X\)</span> est définie par : <span class="math inline">\(F(x_i)=\Pr(X \leq x_i), \forall i=1,2,\ldots\)</span></p>
+<p>Ces deux fonctions sont illustrées dans la Figure <a href="probabilités.html#fig:pmf">2.2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pmf"></span>
+<img src="_main_files/figure-html/pmf-1.png" alt="Loi de probabilité et fonction de répartition pour une variable aléatoire discrète." width="100%" />
+<p class="caption">
+Figure 2.2: Loi de probabilité et fonction de répartition pour une variable aléatoire discrète.
+</p>
+</div>
+<p>Il existe une analogie entre la loi de probabilité représentée en Figure <a href="probabilités.html#fig:pmf">2.2</a> et l’histogramme présenté dans le chapitre précédent, où nous avions reporté les fréquences (en ordonnées) de chaque observation (en abscisses): nous aurons l’occasion de revenir à plusieurs reprises sur cette analogie fréquence / probabilité. L’objectif d’un modèle probabiliste est justement de remplacer les fréquences observées par des probabilités issues du modèle, pour les raisons exposées en section <a href="probabilités.html#motivations">2.1</a>.</p>
+<p>Concernant la fonction de répartition, il est aisé de démontrer la relation suivante : <span class="math inline">\(F(x_i)=\sum_{k=1}^{i}f(x_i)\)</span>. Autrement dit, la fonction de répartition est égale au cumul des probabilités individuelles de chaque valeur possible. On retrouve encore une fois l’analogie avec la courbe des fréquences cumulées : la fonction de répartition calculée en une valeur <span class="math inline">\(x\)</span> est l’analogue de la fréquence au non-dépassement d’une observation <span class="math inline">\(x\)</span>.
+En corollaire, <span class="math inline">\(F\)</span> est une fonction croissante, qui part de <span class="math inline">\(0\)</span> et tend vers <span class="math inline">\(1\)</span> en l’infini.</p>
+<p>De ces deux définitions découlent quelques grandeurs caractéristiques de la variable aléatoire <span class="math inline">\(X\)</span> (notez encore une fois l’analogie avec le chapitre précédent !) :</p>
+<ul>
+<li>L’<strong>espérance</strong>, <span class="math inline">\(E(X)=\sum_{i=1}^{+\infty}x_i f(x_i)\)</span></li>
+<li>La <strong>variance</strong>, <span class="math inline">\(Var(X)=\sum_{i=1}^{+\infty}(x_i-E(X))^2 f(x_i)\)</span>, et l’<strong>écart type</strong>, <span class="math inline">\(\sigma(X)=\sqrt{\left( Var(X) \right)}\)</span></li>
+<li>Le <strong>quantile d’ordre <span class="math inline">\(p\)</span></strong>, noté <span class="math inline">\(x_p\)</span>, qui vérifie <span class="math inline">\(F(x_p)=p\)</span></li>
+<li>Les <strong>moments d’ordre <span class="math inline">\(k\)</span></strong>, <span class="math inline">\(\mu_k(X)=\sum_{i=1}^{+\infty}x_i^k f(x_i)\)</span>. Si <span class="math inline">\(k=1\)</span>, on reconnaît l’espérance.</li>
+<li>Les <strong>moments centrés d’ordre <span class="math inline">\(k\)</span></strong>, <span class="math inline">\(\mu^\prime_k(X)=\sum_{i=1}^{+\infty}(x_i-E(X))^k f(x_i)\)</span>. Si <span class="math inline">\(k=2\)</span>, on reconnaît la variance.</li>
+</ul>
+<p><em>Remarque 1</em> : notez la distinction, en termes de vocabulaire, entre l’espérance (de la variable aléatoire) et la moyenne (des données). Malheureusement, cette distinction explicite s’arrête là et le même mot variance (par exemple) est utilisé à la fois pour la variable aléatoire et pour les données. On utilise donc un adjectif pour marquer cette différence : on parle de variance <strong>théorique</strong> ou « <strong>de la population</strong> » pour une variable aléatoire, et de variance <strong>empirique</strong>, <strong>expérimentale</strong> ou « <strong>de l’échantillon</strong> » pour celle calculée sur les données.</p>
+<p><em>Remarque 2</em> : Etant donné que la fonction de répartition <span class="math inline">\(F\)</span> est en escalier, le quantile d’ordre <span class="math inline">\(p\)</span> n’est pas forcément défini (si <span class="math inline">\(p\)</span> tombe « entre les marches » de l’escalier).</p>
+<p><em>Remarque 3</em> : Les quantités faisant intervenir des sommes infinies peuvent ne pas exister.</p>
+</div>
+<div id="distribution-dune-variable-aléatoire-continue" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Distribution d’une variable aléatoire continue<a href="probabilités.html#distribution-dune-variable-aléatoire-continue" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les notions de loi de probabilité et de fonction de répartition décrites précédemment peuvent se généraliser au cas d’une variable continue, avec quelques différences liées au passage du discret au continu. Nous allons commencer cette fois ci par définir la distribution d’une variable aléatoire continue X comme la donnée d’une <strong>fonction de répartition</strong> <span class="math inline">\(F\)</span>, telle que <span class="math inline">\(F(x)=\Pr(X \leq x)\)</span>. La <strong>densité de probabilité</strong> de <span class="math inline">\(X\)</span> sera alors la fonction <span class="math inline">\(f\)</span> telle que : <span class="math inline">\(f(x)=\int_{-\infty}^{x}F(u)\text{d} u\)</span>. En d’autres termes, la densité <span class="math inline">\(f\)</span> est la dérivée de la fonction de répartition <span class="math inline">\(F\)</span> (Figure <a href="probabilités.html#fig:pdf">2.3</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pdf"></span>
+<img src="_main_files/figure-html/pdf-1.png" alt="Densité de probabilité (haut) et fonction de répartition (bas) pour une variable aléatoire continue." width="75%" />
+<p class="caption">
+Figure 2.3: Densité de probabilité (haut) et fonction de répartition (bas) pour une variable aléatoire continue.
+</p>
+</div>
+<p><em>Propriété</em> : si <span class="math inline">\(f\)</span> est continue, alors <span class="math inline">\(\Pr(a&lt;X \leq b)=\int_{a}^{b} f(x) \text{d}x = F(b)-F(a)\)</span>.</p>
+<p>Dans le cas continu, on voit ainsi apparaître une analogie entre la probabilité d’un événement et l’aire sous la courbe de la densité. Cette analogie implique en particulier que <span class="math inline">\(\Pr(X=a)=0, \forall a \in \mathbb{R}\)</span>. C’est la raison pour laquelle il n’est pas possible de définir la loi de probabilité directement à partir des probabilités des éléments de <span class="math inline">\(\Omega\)</span>, ce qui conduit à raisonner sur des intervalles. On remarque encore une fois l’analogie avec les histogrammes dans le cas continu du chapitre précédent, où nous étions obligés de procéder à des regroupements en classes.</p>
+<p>Une densité de probabilité est nécessairement une fonction positive (ou nulle), dont l’aire totale sous la courbe vaut 1. Par contre, rien n’interdit que certaines valeurs soient supérieures à 1 : en effet, la fonction <span class="math inline">\(f\)</span> ne représente pas une probabilité, mais une densité (d’où son nom !). La fonction de répartition est quant à elle une fonction croissante entre 0 et 1.</p>
+<p>A partir de la densité de probabilité, il est possible de définir les mêmes grandeurs caractéristiques que dans le cas discret, en remplaçant les sommes par des intégrales :</p>
+<ul>
+<li>L’<strong>espérance</strong>, <span class="math inline">\(E(X)=\int_{-\infty}^{+\infty}x f(x)\text{d}x\)</span></li>
+<li>La <strong>variance</strong>, <span class="math inline">\(Var(X)=\int_{-\infty}^{+\infty}(x-E(X))^2 f(x)\text{d}x\)</span>, et l’<strong>écart type</strong>, <span class="math inline">\(\sigma(X)=\sqrt{\left( Var(X) \right)}\)</span></li>
+<li>Le <strong>quantile d’ordre <span class="math inline">\(p\)</span></strong>, noté <span class="math inline">\(x_p\)</span>, qui vérifie <span class="math inline">\(F(x_p)=p\)</span>. De manière équivalente, le quantile d’ordre <span class="math inline">\(p\)</span> est égal à l’inverse de la fonction de répartition prise en <span class="math inline">\(p\)</span>, <span class="math inline">\(x_p=F^{-1}(p)\)</span>.</li>
+<li>Les <strong>moments d’ordre <span class="math inline">\(k\)</span></strong>, <span class="math inline">\(\mu_k(X)=\int_{-\infty}^{+\infty}x^k f(x)\text{d}x\)</span>. Si <span class="math inline">\(k=1\)</span>, on reconnaît l’espérance.</li>
+<li>Les <strong>moments centrés d’ordre <span class="math inline">\(k\)</span></strong>, <span class="math inline">\(\mu^\prime_k(X)=\int_{-\infty}^{+\infty}(x-E(X))^k f(x)\text{d}x\)</span>. Si <span class="math inline">\(k=2\)</span>, on reconnaît la variance.</li>
+</ul>
+<p><em>Remarque</em> : Encore une fois, rien ne garantit l’existence des intégrales infinies. De plus, certaines lois ne sont pas définies sur <span class="math inline">\(\mathbb{R}\)</span> tout entier, ces intégrales doivent alors être réduites aux supports de ces lois.</p>
 </div>
 </div>
 <div id="sec:gauss" class="section level2 hasAnchor" number="2.3">

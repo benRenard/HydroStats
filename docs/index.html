@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-23" />
+<meta name="date" content="2026-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,12 +52,37 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -102,7 +127,10 @@
 <li class="chapter" data-level="2.1.2" data-path="probabilités.html"><a href="probabilités.html#interpolation-et-extrapolation"><i class="fa fa-check"></i><b>2.1.2</b> Interpolation et extrapolation</a></li>
 <li class="chapter" data-level="2.1.3" data-path="probabilités.html"><a href="probabilités.html#variabilité-déchantillonnage-et-incertitudes"><i class="fa fa-check"></i><b>2.1.3</b> Variabilité d’échantillonnage et incertitudes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="probabilités.html"><a href="probabilités.html#sec:theorie-proba"><i class="fa fa-check"></i><b>2.2</b> Théorie des probabilités</a></li>
+<li class="chapter" data-level="2.2" data-path="probabilités.html"><a href="probabilités.html#sec:theorie-proba"><i class="fa fa-check"></i><b>2.2</b> Théorie des probabilités</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="probabilités.html"><a href="probabilités.html#probabilité"><i class="fa fa-check"></i><b>2.2.1</b> Probabilité</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="probabilités.html"><a href="probabilités.html#sec:gauss"><i class="fa fa-check"></i><b>2.3</b> Distribution des valeurs « moyennes » : la loi normale</a></li>
 <li class="chapter" data-level="2.4" data-path="probabilités.html"><a href="probabilités.html#sec:logN"><i class="fa fa-check"></i><b>2.4</b> Distribution log-normale</a></li>
 <li class="chapter" data-level="2.5" data-path="probabilités.html"><a href="probabilités.html#sec:GEV"><i class="fa fa-check"></i><b>2.5</b> Distributions des valeurs extrêmes : maxima</a></li>
@@ -166,7 +194,7 @@
 <div id="header">
 <h1 class="title">Probabilités et Statistiques appliquées à l’Hydrologie</h1>
 <p class="author"><em>Benjamin Renard</em></p>
-<p class="date"><em>2026-11-23</em></p>
+<p class="date"><em>2026-11-24</em></p>
 </div>
 <div id="préambule" class="section level1 unnumbered hasAnchor">
 <h1>Préambule<a href="index.html#préambule" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -230,6 +258,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
