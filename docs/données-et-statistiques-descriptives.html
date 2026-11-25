@@ -137,6 +137,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.3" data-path="probabilités.html"><a href="probabilités.html#sec:gauss"><i class="fa fa-check"></i><b>2.3</b> Distribution des valeurs « moyennes » : la loi normale</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="probabilités.html"><a href="probabilités.html#définition"><i class="fa fa-check"></i><b>2.3.1</b> Définition</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probabilités.html"><a href="probabilités.html#justification-théorique"><i class="fa fa-check"></i><b>2.3.2</b> Justification théorique</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="probabilités.html"><a href="probabilités.html#sec:logN"><i class="fa fa-check"></i><b>2.4</b> Distribution log-normale</a></li>
 <li class="chapter" data-level="2.5" data-path="probabilités.html"><a href="probabilités.html#sec:GEV"><i class="fa fa-check"></i><b>2.5</b> Distributions des valeurs extrêmes : maxima</a></li>
@@ -220,13 +221,11 @@ div.csl-indent {
 </ul>
 <p>Le premier filtre est largement connu et utilisé en routine pour le calcul de débits caractéristiques. Les filtres suivants sont moins utilisés en pratique, mais sont présentés afin d’illustrer d’autres choix possibles pour le calcul de variables hydrologiques.</p>
 <p>Dans le cas du filtrage par moyenne ou minimum mobile, la série filtrée <span class="math inline">\(S_t\)</span> est obtenue à partir de la chronique journalière initiale <span class="math inline">\(q_t\)</span> de la manière suivante :</p>
-<p><span class="math display" id="eq:filtering">\[
-\begin{equation}
-\text{Moyenne mobile sur } d \text{ jours : } S_t=\frac{1}{d} \sum_\limits{k=t-d/2}^{t+d/2}q_k  \\
-\text{Minimum mobile sur } d \text{ jours : } S_t=\min_{k \in [t-d/2;t+d/2]}{q_k}
+<p><span class="math display" id="eq:filtering">\[\begin{align}
+\text{Moyenne mobile sur } d \text{ jours : } S_t&amp;=\frac{1}{d} \sum_{k=t-d/2}^{t+d/2}q_k  \\
+\text{Minimum mobile sur } d \text{ jours : } S_t&amp;=\min_{k \in [t-d/2;t+d/2]}{q_k}
 \tag{1.1}
-\end{equation}
-\]</span></p>
+\end{align}\]</span></p>
 <p>Dans l’équation <a href="données-et-statistiques-descriptives.html#eq:filtering">(1.1)</a>, la fenêtre de calcul est centrée sur le pas de temps courant <span class="math inline">\(t\)</span>. Il est fréquent (notamment en statistiques) de calculer la moyenne ou le minimum sur une fenêtre <span class="math inline">\([t-d ;t]\)</span> précédant le pas de temps courant <span class="math inline">\(t\)</span>. Ceci ne modifie que marginalement la série filtrée. Ces deux filtres ont pour effet de lisser les hydrogrammes en limitant les variations de débit à l’échelle journalière (cf. exemples en Figure <a href="données-et-statistiques-descriptives.html#fig:filtering">1.1</a>). Le débit moyen sur <span class="math inline">\(d\)</span> jours est proportionnel à un volume, alors que le débit minimum sur <span class="math inline">\(d\)</span> jours peut être interprété comme la valeur continûment dépassée sur <span class="math inline">\(d\)</span> jours consécutifs. Ce dernier filtre est notamment utilisé pour l’étude des crues.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:filtering"></span>
 <img src="_main_files/figure-html/filtering-1.png" alt="Exemples de filtres appliqués à une chronique de débits journaliers (l'Azergues à Lozanne)." width="100%" />
@@ -256,12 +255,10 @@ Figure 1.2: Application du filtre BFS pour un bassin à influence nivale
 </div>
 <p>Le filtre SPA est quant à lui plutôt orienté vers l’étude des étiages. Selon <span class="citation">Tallaksen and Van Lanen (<a href="#ref-Tallaksen2004">2004</a>)</span>, cet algorithme a été initialement développé pour le dimensionnement des réservoirs, mais il peut aussi être appliqué pour cumuler le déficit de volume d’une série de débits journaliers par rapport à un seuil de bas débit (que l’on appellera ici <span class="math inline">\(q_0\)</span>).</p>
 <p>Soient <span class="math inline">\(q_t\)</span> le débit journalier et <span class="math inline">\(q_0\)</span> un seuil de bas débit. La série filtrée par SPA est définie par :</p>
-<p><span class="math display" id="eq:SPA">\[
-\begin{equation}
+<p><span class="math display" id="eq:SPA">\[\begin{equation}
 S_t=\max(0;S_{t-1}+q_0-q_t)
 \tag{1.2}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>La Figure <a href="données-et-statistiques-descriptives.html#fig:SPA">1.3</a> illustre l’application du filtre SPA. Les périodes durant lesquelles la série filtrée est nulle correspondent aux périodes de débits soutenus. Inversement, les événements d’étiages correspondent à des valeurs de SPA positives. Ce filtre possède donc la particularité intéressante d’ « inverser » l’hydrogramme, les plus fortes valeurs correspondant aux étiages les plus sévères. L’inconvénient de ce filtre est sa sensibilité aux données manquantes, du fait de sa définition récursive.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:SPA"></span>
 <img src="_main_files/figure-html/SPA-1.png" alt="Exemple d’application du filtre SPA sur une chronique de débits journaliers." width="100%" />
@@ -818,12 +815,10 @@ Figure 1.12: Histogramme des fréquences et courbe des fréquences cumulées pou
 <div id="indicateurs-de-localisation" class="section level4 hasAnchor" number="1.2.2.1">
 <h4><span class="header-section-number">1.2.2.1</span> Indicateurs de localisation<a href="données-et-statistiques-descriptives.html#indicateurs-de-localisation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Nous nous intéressons dans un premier temps aux indicateurs dits de localisation. Soient <span class="math inline">\((x_1,\ldots,x_n)\)</span> les données à analyser. Le premier indicateur calculé est généralement la <strong>moyenne</strong>, souvent notée <span class="math inline">\(\bar{x}\)</span>.</p>
-<p><span class="math display" id="eq:mean">\[
-\begin{equation}
+<p><span class="math display" id="eq:mean">\[\begin{equation}
 \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
 \tag{1.3}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>La <strong>médiane</strong> est la valeur qui sépare l’échantillon ordonné en deux sous-parties de même effectif. Par exemple, la médiane des valeurs 10, 15, 18, 19, 20 vaut 18. Si le nombre de valeurs est pair, on calculera la demi-somme entre les deux valeurs du milieu, soit une médiane de 16.5 pour l’échantillon des quatre premières valeurs ci-dessus. La médiane peut également être lue sur la courbe des fréquences cumulées : c’est la valeur correspondant à une fréquence cumulée de 0.5. Par rapport à la moyenne, la médiane est beaucoup moins sensible à la présence de valeurs extrêmes dans l’échantillon. Par exemple, si l’on remplace la valeur « 20 » par « 2000 » dans l’exemple ci-dessus, la médiane est inchangée, alors que la moyenne sera évidemment très différente. L’exemple classique pour illustrer la différence entre la moyenne et la médiane est le salaire des Français : la moyenne vaut environ 2730 €, la médiane 2180 € (salaires nets en 2024 dans le secteur privé, source INSEE).</p>
 <p>Un troisième indicateur est parfois utilisé, surtout pour les données discrètes, il s’agit du <strong>mode</strong>, qui est la valeur (pas forcément unique) la plus fréquente dans l’échantillon. Pour des données quantitatives continues, il faut (comme pour l’histogramme) procéder à un regroupement des individus. L’inconvénient est que le mode devient dépendant du regroupement arbitraire effectué.</p>
 <p>Le dernier indicateur est particulièrement important dans le domaine de l’hydrologie : le <strong>quantile d’ordre p</strong> est la valeur de l’échantillon dont la fréquence cumulée vaut p. Le quantile peut donc être lu sur la courbe des fréquences cumulées, en faisant éventuellement une interpolation linéaire entre deux points. La médiane est ainsi le quantile d’ordre 0.5.</p>
@@ -833,59 +828,45 @@ Figure 1.12: Histogramme des fréquences et courbe des fréquences cumulées pou
 <h4><span class="header-section-number">1.2.2.2</span> Indicateurs de dispersion<a href="données-et-statistiques-descriptives.html#indicateurs-de-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Les indicateurs de dispersion ont pour but de décrire la variabilité des données.
 La <strong>variance</strong> permet de mesurer la façon dont les données se dispersent autour de la moyenne :</p>
-<p><span class="math display" id="eq:var">\[
-\begin{equation}
+<p><span class="math display" id="eq:var">\[\begin{equation}
 V_x=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2
 \tag{1.4}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>On trouve parfois une définition alternative dans laquelle le <span class="math inline">\(\frac{1}{n}\)</span> est remplacé par <span class="math inline">\(\frac{1}{n-1}\)</span>. Ces deux définitions deviennent équivalentes lorsque n est grand.</p>
 <p>L’<strong>écart-type</strong> est défini comme la racine carrée de la variance, et a l’avantage de s’exprimer dans la même unité que les données.</p>
-<p><span class="math display" id="eq:sdev">\[
-\begin{equation}
+<p><span class="math display" id="eq:sdev">\[\begin{equation}
 S_x=\sqrt{V_x}= \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2}
 \tag{1.5}
-\end{equation}
-\]</span>
-Le <strong>coefficient de variation</strong> est également utilisé pour comparer en relatif la variabilité de plusieurs séries de données dont les ordres de grandeurs ne sont pas comparables. Il est plutôt adapté aux données positives (les débits par exemple !) et n’est pas défini pour les données dont la moyenne est nulle. Il est généralement exprimé en pourcentage.</p>
-<p><span class="math display" id="eq:cv">\[
-\begin{equation}
+\end{equation}\]</span></p>
+<p>Le <strong>coefficient de variation</strong> est également utilisé pour comparer en relatif la variabilité de plusieurs séries de données dont les ordres de grandeurs ne sont pas comparables. Il est plutôt adapté aux données positives (les débits par exemple !) et n’est pas défini pour les données dont la moyenne est nulle. Il est généralement exprimé en pourcentage.</p>
+<p><span class="math display" id="eq:cv">\[\begin{equation}
 CV_x=\frac{S_x}{\bar{x}}
 \tag{1.6}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 </div>
 <div id="autres-indicateurs" class="section level4 hasAnchor" number="1.2.2.3">
 <h4><span class="header-section-number">1.2.2.3</span> Autres indicateurs<a href="données-et-statistiques-descriptives.html#autres-indicateurs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Mentionnons finalement quelques indicateurs supplémentaires, qui n’ont pas de signification aussi claire que les indicateurs de localisation ou de dispersion, mais qui sont importants en Statistiques, notamment dans le cadre de la théorie de l’estimation.</p>
 <p>Le <strong>moment d’ordre k</strong> est défini de la manière suivante :</p>
-<p><span class="math display" id="eq:moment">\[
-\begin{equation}
+<p><span class="math display" id="eq:moment">\[\begin{equation}
 m_k=\frac{1}{n}\sum_{i=1}^{n}x_i^k
 \tag{1.7}
-\end{equation}
-\]</span>
-Pour <span class="math inline">\(k=1\)</span>, on reconnaît la moyenne. On définit de même le <strong>moment centré d’ordre k</strong> :</p>
-<p><span class="math display" id="eq:cmoment">\[
-\begin{equation}
+\end{equation}\]</span></p>
+<p>Pour <span class="math inline">\(k=1\)</span>, on reconnaît la moyenne. On définit de même le <strong>moment centré d’ordre k</strong> :</p>
+<p><span class="math display" id="eq:cmoment">\[\begin{equation}
 m^\prime_k=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^k
 \tag{1.8}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>Pour <span class="math inline">\(k=2\)</span>, on reconnaît la variance. Les moments centrés sont utilisés pour calculer deux indicateurs relatifs à la forme de l’histogramme :</p>
-<p><span class="math display" id="eq:skew">\[
-\begin{equation}
+<p><span class="math display" id="eq:skew">\[\begin{equation}
 \textbf{Asymétrie}: A_x=\frac{m^\prime_3}{S_x^3}
 \tag{1.9}
-\end{equation}
-\]</span></p>
-<p><span class="math display" id="eq:kurt">\[
-\begin{equation}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:kurt">\[\begin{equation}
 \textbf{Aplatissement} \text{ ou } \textbf{Kurtosis} : K_x=\frac{m^\prime_4}{S_x^4}
 \tag{1.10}
-\end{equation}
-\]</span>
-Comme son nom l’indique, l’asymétrie décrit le caractère symétrique de l’histogramme (l’asymétrie est nulle pour des données distribuées symétriquement). L’aplatissement décrit quant à lui le caractère plus ou moins « pointu » de l’histogramme.</p>
+\end{equation}\]</span></p>
+<p>Comme son nom l’indique, l’asymétrie décrit le caractère symétrique de l’histogramme (l’asymétrie est nulle pour des données distribuées symétriquement). L’aplatissement décrit quant à lui le caractère plus ou moins « pointu » de l’histogramme.</p>
 <p>En guise d’illustration, le Tableau ci-dessous fournit un résumé statistique pour les maxima annuels de l’Azergues à Lozanne étudiées précédemment. Fournir ce type de résumé lors de toute analyse statistique est une bonne pratique.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>

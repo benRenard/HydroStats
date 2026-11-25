@@ -11,11 +11,8 @@ node_modules
 #_book
 _bookdown_files
 /_main_files
-
-# eBook build output
-*.epub
-*.mobi
-*.pdf
+*.aux
+*.toc
 
 # R files
 .Rproj.user

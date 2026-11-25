@@ -91,12 +91,10 @@ D’un point de vue plus hydrologique, une variable aléatoire $X$ représentera
 
 En termes plus mathématiques, une **variable aléatoire réelle** est une fonction définie sur l’univers $\Omega$ et à valeurs réelles, $X:\Omega \mapsto(-\infty;+\infty)$. Dans l’exemple des dés utilisé ci-dessus, l’ensemble $\Omega$ est égal à l’ensemble des couples $(a, b)$, où $a$ et $b$ sont des entiers entre 1 et 6. $X$ sera la fonction somme :
 
-$$
 \begin{align} 
 X:(1,\ldots,6) \times (1,\ldots,6) &\mapsto (2,\ldots,12) \\
 (a,b) &\mapsto a+b
 \end{align} 
-$$
 
 Ainsi, l’événement « la somme des deux dés vaut 4 » correspond à l’ensemble des couples $(a, b)$ pour lesquels $a+b=4$, soit $X^{-1}(\{4\})=\{(1, 3), (3, 1), (2, 2)\}$. Notons que nous utiliserons l’abus de notation $X=4$ au lieu de la notation $X^{-1}(\{4\})$. Dans cet exemple précis, $X$ ne prend pas ses valeurs dans l’ensemble de tous les nombres réels, mais seulement dans un sous-ensemble de l’ensemble des entiers : il s’agit d’une **variable aléatoire discrète**. 
 
@@ -201,16 +199,14 @@ La **loi de Gauss** (également appelée **loi normale**) est centrale en statis
 
 La loi normale, notée $\mathcal{N}(\mu,\sigma)$, possède les propriétés suivantes :
 
-$$
-\begin{equation}
-f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
-F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
-\sigma >0 \\
-E(X)=\mu\\
-Var(X)=\sigma^2
+\begin{align}
+&f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
+&F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
+&\sigma >0 \\
+&E(X)=\mu\\
+&Var(X)=\sigma^2
 (\#eq:gauss)
-\end{equation}
-$$
+\end{align}
 
 ```{r gauss, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi normale.", out.width='100%',warning=FALSE}
 x=seq(-3.5,3.5,0.01)
@@ -267,16 +263,14 @@ La distribution **log-normale**, également appelée **loi de Galton**, est une 
 
 La loi log-normale, notée $\mathcal{LN}(\mu,\sigma)$, possède les propriétés suivantes :
 
-$$
-\begin{equation}
-f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
-F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
-x>0, \sigma >0 \\
-E(X)=\exp(\mu+\sigma^2/2)\\
-Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
+\begin{align}
+&f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+&F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
+&x>0, \sigma >0 \\
+&E(X)=\exp(\mu+\sigma^2/2)\\
+&Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
 (\#eq:logN)
-\end{equation}
-$$
+\end{align}
 
 ```{r logN, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi log-normale.", out.width='100%',warning=FALSE}
 x=seq(0.01,10,0.1)

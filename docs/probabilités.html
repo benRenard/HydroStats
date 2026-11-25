@@ -52,12 +52,37 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -233,12 +258,10 @@ Figure 2.1: Illustration du concept de variabilité d’échantillonnage : valeu
 <p>En termes intuitifs, une variable aléatoire permet de décrire de manière quantitative l’ensemble des résultats possibles d’une expérience aléatoire. Supposons par exemple que nous lancions deux dés, et que nous nous intéressions à la somme des deux faces observées. La variable aléatoire « <span class="math inline">\(X\)</span> := Somme des deux dés » prend ainsi des valeurs entières comprises entre 2 et 12. Nous nous intéresserons au calcul de probabilité d’événements du type « la somme des deux dés vaut 4 » (noté <span class="math inline">\(\Pr(X = 4)\)</span>) ou « la somme des deux dés est strictement inférieure à 6 » (noté <span class="math inline">\(\Pr(X &lt; 6)\)</span>).</p>
 <p>D’un point de vue plus hydrologique, une variable aléatoire <span class="math inline">\(X\)</span> représentera tout simplement la variable que nous souhaitons étudier, par exemple « Nombre de crues observées en une année » ou « débit maximum annuel » (cf. exemples dans le chapitre précédent). Il est par contre important de bien faire la différence entre la variable aléatoire <span class="math inline">\(X\)</span> et les observations <span class="math inline">\((x_1,\ldots,x_n)\)</span> : la variable aléatoire <span class="math inline">\(X\)</span> est un objet mathématique abstrait, que l’on considère comme le « générateur » des données observées <span class="math inline">\((x_1,\ldots,x_n)\)</span>. On dit d’ailleurs que <span class="math inline">\((x_1,\ldots,x_n)\)</span> sont des <strong>réalisations</strong> de la variable aléatoire <span class="math inline">\(X\)</span>. Les notations utilisées dans ce document utilisent des lettres capitales pour les variables aléatoires, des lettres minuscules pour leurs réalisations.</p>
 <p>En termes plus mathématiques, une <strong>variable aléatoire réelle</strong> est une fonction définie sur l’univers <span class="math inline">\(\Omega\)</span> et à valeurs réelles, <span class="math inline">\(X:\Omega \mapsto(-\infty;+\infty)\)</span>. Dans l’exemple des dés utilisé ci-dessus, l’ensemble <span class="math inline">\(\Omega\)</span> est égal à l’ensemble des couples <span class="math inline">\((a, b)\)</span>, où <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> sont des entiers entre 1 et 6. <span class="math inline">\(X\)</span> sera la fonction somme :</p>
-<p><span class="math display">\[
-\begin{align}
+<p><span class="math display">\[\begin{align}
 X:(1,\ldots,6) \times (1,\ldots,6) &amp;\mapsto (2,\ldots,12) \\
 (a,b) &amp;\mapsto a+b
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 <p>Ainsi, l’événement « la somme des deux dés vaut 4 » correspond à l’ensemble des couples <span class="math inline">\((a, b)\)</span> pour lesquels <span class="math inline">\(a+b=4\)</span>, soit <span class="math inline">\(X^{-1}(\{4\})=\{(1, 3), (3, 1), (2, 2)\}\)</span>. Notons que nous utiliserons l’abus de notation <span class="math inline">\(X=4\)</span> au lieu de la notation <span class="math inline">\(X^{-1}(\{4\})\)</span>. Dans cet exemple précis, <span class="math inline">\(X\)</span> ne prend pas ses valeurs dans l’ensemble de tous les nombres réels, mais seulement dans un sous-ensemble de l’ensemble des entiers : il s’agit d’une <strong>variable aléatoire discrète</strong>.</p>
 </div>
 <div id="distribution-dune-variable-aléatoire-discrète" class="section level3 hasAnchor" number="2.2.3">
@@ -296,16 +319,14 @@ Figure 2.3: Densité de probabilité (haut) et fonction de répartition (bas) po
 <h3><span class="header-section-number">2.3.1</span> Définition<a href="probabilités.html#définition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La <strong>loi de Gauss</strong> (également appelée <strong>loi normale</strong>) est centrale en statistiques, puisqu’un grand nombre de phénomènes ont un comportement approximativement Gaussien. De plus, un théorème que nous verrons ultérieurement affirme qu’une moyenne (ou une somme) de variables aléatoires tend (presque) toujours en distribution vers une loi normale. Cette loi dépend de deux paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> représentant la moyenne et l’écart-type de la distribution (Figure <a href="probabilités.html#fig:gauss">2.4</a>). Elle est parfois utilisée en hydrologie pour modéliser des modules annuels.</p>
 <p>La loi normale, notée <span class="math inline">\(\mathcal{N}(\mu,\sigma)\)</span>, possède les propriétés suivantes :</p>
-<p><span class="math display" id="eq:gauss">\[
-\begin{equation}
-f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
-F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
-\sigma &gt;0 \\
-E(X)=\mu\\
-Var(X)=\sigma^2
+<p><span class="math display" id="eq:gauss">\[\begin{align}
+&amp;f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
+&amp;F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
+&amp;\sigma &gt;0 \\
+&amp;E(X)=\mu\\
+&amp;Var(X)=\sigma^2
 \tag{2.1}
-\end{equation}
-\]</span></p>
+\end{align}\]</span></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:gauss"></span>
 <img src="_main_files/figure-html/gauss-1.png" alt="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi normale." width="100%" />
 <p class="caption">
@@ -329,16 +350,14 @@ Figure 2.5: Illustration du théorème central limite.
 <h2><span class="header-section-number">2.4</span> Distribution log-normale<a href="probabilités.html#sec:logN" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La distribution <strong>log-normale</strong>, également appelée <strong>loi de Galton</strong>, est une distribution dérivée de la loi normale de la manière suivante : la loi log-normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> est la distribution de la variable <span class="math inline">\(\exp(X)\)</span>, où <span class="math inline">\(X\)</span> suit une loi normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span>. Inversement, le logarithme népérien d’une variable suivant une loi log-normale suit une loi normale. De par sa définition, une variable suivant une loi log-normale est strictement positive. Cette distribution est utilisée en hydrologie notamment pour modéliser des variables d’étiage ou parfois des modules annuels.</p>
 <p>La loi log-normale, notée <span class="math inline">\(\mathcal{LN}(\mu,\sigma)\)</span>, possède les propriétés suivantes :</p>
-<p><span class="math display" id="eq:logN">\[
-\begin{equation}
-f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
-F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
-x&gt;0, \sigma &gt;0 \\
-E(X)=\exp(\mu+\sigma^2/2)\\
-Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
+<p><span class="math display" id="eq:logN">\[\begin{align}
+&amp;f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+&amp;F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
+&amp;x&gt;0, \sigma &gt;0 \\
+&amp;E(X)=\exp(\mu+\sigma^2/2)\\
+&amp;Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
 \tag{2.2}
-\end{equation}
-\]</span></p>
+\end{align}\]</span></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logN"></span>
 <img src="_main_files/figure-html/logN-1.png" alt="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi log-normale." width="100%" />
 <p class="caption">
