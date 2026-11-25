@@ -195,7 +195,113 @@ A partir de la densité de probabilité, il est possible de définir les mêmes 
 
 ## Distribution des valeurs « moyennes » : la loi normale {#sec:gauss}
 
+### Définition
+
+La **loi de Gauss** (également appelée **loi normale**) est centrale en statistiques, puisqu’un grand nombre de phénomènes ont un comportement approximativement Gaussien. De plus, un théorème que nous verrons ultérieurement affirme qu’une moyenne (ou une somme) de variables aléatoires tend (presque) toujours en distribution vers une loi normale. Cette loi dépend de deux paramètres $\mu$ et $\sigma$ représentant la moyenne et l’écart-type de la distribution (Figure \@ref(fig:gauss)). Elle est parfois utilisée en hydrologie pour modéliser des modules annuels.
+
+La loi normale, notée $\mathcal{N}(\mu,\sigma)$, possède les propriétés suivantes :
+
+$$
+\begin{equation}
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
+F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
+\sigma >0 \\
+E(X)=\mu\\
+Var(X)=\sigma^2
+(\#eq:gauss)
+\end{equation}
+$$
+
+```{r gauss, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi normale.", out.width='100%',warning=FALSE}
+x=seq(-3.5,3.5,0.01)
+DF=data.frame(x=rep(x,3))
+DF$pdf=c(dnorm(x,0,1),dnorm(x,0,0.5),dnorm(x,1,1))
+DF$cdf=c(pnorm(x,0,1),pnorm(x,0,0.5),pnorm(x,1,1))
+DF$dist=rep(c('N(0,1)','N(0,0.5)','N(1,1)'),each=length(x))
+g1=ggplot(DF)+
+  geom_line(aes(x,pdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
+  labs(x='x',y='f(x)')
+g2=ggplot(DF)+
+  geom_line(aes(x,cdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen),guide=NULL)+
+  labs(x='x',y='F(x)')
+final=wrap_plots(g1,g2,nrow=1)
+final=final&
+  theme_bw()&
+  theme(panel.grid=element_blank(),axis.text=element_text(size=12),
+        axis.title=element_text(size=16),legend.position=c(0.99,0.99),
+        legend.justification=c(1,1),legend.text=element_text(size=12),
+        legend.background=element_rect(linewidth=0.2,color='black'))
+print(final) 
+```
+
+### Justification théorique
+
+Le rôle important joué par la loi de Gauss en statistiques appliquées peut s’expliquer par le théorème central limite. Ce théorème peut s’exprimer de la manière suivante. Soit $(X_1,\ldots,X_n)$ des variables aléatoires indépendantes et de même distribution (on notera **iid** pour *indépendantes et identiquement distribuées*), d’espérance $\mu$ et d’écart-type $\sigma$. Alors, **quelle que soit la distribution des $X_i$** (pourvu qu’espérance et variance existent), la distribution de la statistique « moyenne empirique » $\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i$ tend vers une loi Gaussienne quand $n$ augmente. En pratique, une trentaine d’observations (indépendantes) est souvent jugée suffisante pour appliquer l’approximation Gaussienne. Ce résultat très général implique que la distribution gaussienne est un choix naturel pour décrire des variables qui peuvent s'écrire comme la moyenne (ou la somme) d'un grand nombre de valeurs. 
+
+La Figure \@ref(fig:tcl) illustre le théorème central limite. Le panneau de gauche montre l'histogramme de 10 000 valeurs simulées dans une loi uniforme : sa forme est très différente de celui d'une loi gaussienne. On s'intéresse à présent à la moyenne de 2 valeurs tirées dans une loi uniforme. Le panneau du milieu montre l'histogramme correspondant, et indique que déjà l'histogramme prend une forme en cloche qui se rapproche un peu plus de celui d'une loi gaussienne. Si l'on refait l'exercice avec la moyenne de 10 valeurs tirées dans une loi uniforme, l'histogramme ressemble très fortement à celui d'une loi gaussienne. 
+
+```{r tcl, echo=FALSE, fig.align='center', fig.asp=0.4, fig.cap="Illustration du théorème central limite.", message=FALSE, warning=FALSE, out.width='100%'}
+n=10000
+x=runif(n)
+g1=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='Distribution parente')
+x=apply(matrix(runif(2*n),ncol=2),1,mean)
+g2=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='Moyenne de 2 valeurs')
+x=apply(matrix(runif(10*n),ncol=10),1,mean)
+g3=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='Moyenne de 10 valeurs')
+final=wrap_plots(g1,g2,g3,nrow=1)
+final=final&theme_bw()&theme(panel.grid=element_blank())
+print(final+plot_layout(axes='collect')) 
+```
+
 ## Distribution log-normale {#sec:logN}
+
+La distribution **log-normale**, également appelée **loi de Galton**, est une distribution dérivée de la loi normale de la manière suivante : la loi log-normale de paramètres $\mu$ et $\sigma$ est la distribution de la variable $\exp(X)$, où $X$ suit une loi normale de paramètres $\mu$ et $\sigma$. Inversement, le logarithme népérien d’une variable suivant une loi log-normale suit une loi normale. De par sa définition, une variable suivant une loi log-normale est strictement positive. Cette distribution est utilisée en hydrologie notamment pour modéliser des variables d’étiage ou parfois des modules annuels.
+
+La loi log-normale, notée $\mathcal{LN}(\mu,\sigma)$, possède les propriétés suivantes :
+
+$$
+\begin{equation}
+f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
+x>0, \sigma >0 \\
+E(X)=\exp(\mu+\sigma^2/2)\\
+Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
+(\#eq:logN)
+\end{equation}
+$$
+
+```{r logN, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi log-normale.", out.width='100%',warning=FALSE}
+x=seq(0.01,10,0.1)
+DF=data.frame(x=rep(x,3))
+DF$pdf=c(dlnorm(x,0,1),dlnorm(x,0,0.5),dlnorm(x,1,1))
+DF$cdf=c(plnorm(x,0,1),plnorm(x,0,0.5),plnorm(x,1,1))
+DF$dist=rep(c('LN(0,1)','LN(0,0.5)','LN(1,1)'),each=length(x))
+g1=ggplot(DF)+
+  geom_line(aes(x,pdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
+  labs(x='x',y='f(x)')
+g2=ggplot(DF)+
+  geom_line(aes(x,cdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen),guide=NULL)+
+  labs(x='x',y='F(x)')
+final=wrap_plots(g1,g2,nrow=1)
+final=final&
+  theme_bw()&
+  theme(panel.grid=element_blank(),axis.text=element_text(size=12),
+        axis.title=element_text(size=16),legend.position=c(0.99,0.99),
+        legend.justification=c(1,1),legend.text=element_text(size=12),
+        legend.background=element_rect(linewidth=0.2,color='black'))
+print(final) 
+```
+
 
 ## Distributions des valeurs extrêmes : maxima {#sec:GEV}
 

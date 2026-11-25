@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-24" />
+<meta name="date" content="2026-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -109,7 +109,11 @@
 <li class="chapter" data-level="2.2.3" data-path="probabilités.html"><a href="probabilités.html#distribution-dune-variable-aléatoire-discrète"><i class="fa fa-check"></i><b>2.2.3</b> Distribution d’une variable aléatoire discrète</a></li>
 <li class="chapter" data-level="2.2.4" data-path="probabilités.html"><a href="probabilités.html#distribution-dune-variable-aléatoire-continue"><i class="fa fa-check"></i><b>2.2.4</b> Distribution d’une variable aléatoire continue</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="probabilités.html"><a href="probabilités.html#sec:gauss"><i class="fa fa-check"></i><b>2.3</b> Distribution des valeurs « moyennes » : la loi normale</a></li>
+<li class="chapter" data-level="2.3" data-path="probabilités.html"><a href="probabilités.html#sec:gauss"><i class="fa fa-check"></i><b>2.3</b> Distribution des valeurs « moyennes » : la loi normale</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="probabilités.html"><a href="probabilités.html#définition"><i class="fa fa-check"></i><b>2.3.1</b> Définition</a></li>
+<li class="chapter" data-level="2.3.2" data-path="probabilités.html"><a href="probabilités.html#justification-théorique"><i class="fa fa-check"></i><b>2.3.2</b> Justification théorique</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="probabilités.html"><a href="probabilités.html#sec:logN"><i class="fa fa-check"></i><b>2.4</b> Distribution log-normale</a></li>
 <li class="chapter" data-level="2.5" data-path="probabilités.html"><a href="probabilités.html#sec:GEV"><i class="fa fa-check"></i><b>2.5</b> Distributions des valeurs extrêmes : maxima</a></li>
 <li class="chapter" data-level="2.6" data-path="probabilités.html"><a href="probabilités.html#sec:GPD"><i class="fa fa-check"></i><b>2.6</b> Distributions des valeurs extrêmes : dépassements de seuil</a></li>
@@ -288,9 +292,59 @@ Figure 2.3: Densité de probabilité (haut) et fonction de répartition (bas) po
 </div>
 <div id="sec:gauss" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Distribution des valeurs « moyennes » : la loi normale<a href="probabilités.html#sec:gauss" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="définition" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Définition<a href="probabilités.html#définition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>loi de Gauss</strong> (également appelée <strong>loi normale</strong>) est centrale en statistiques, puisqu’un grand nombre de phénomènes ont un comportement approximativement Gaussien. De plus, un théorème que nous verrons ultérieurement affirme qu’une moyenne (ou une somme) de variables aléatoires tend (presque) toujours en distribution vers une loi normale. Cette loi dépend de deux paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> représentant la moyenne et l’écart-type de la distribution (Figure <a href="probabilités.html#fig:gauss">2.4</a>). Elle est parfois utilisée en hydrologie pour modéliser des modules annuels.</p>
+<p>La loi normale, notée <span class="math inline">\(\mathcal{N}(\mu,\sigma)\)</span>, possède les propriétés suivantes :</p>
+<p><span class="math display" id="eq:gauss">\[
+\begin{equation}
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{(x-\mu)^2}{2\sigma^2}\right) \\
+F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
+\sigma &gt;0 \\
+E(X)=\mu\\
+Var(X)=\sigma^2
+\tag{2.1}
+\end{equation}
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gauss"></span>
+<img src="_main_files/figure-html/gauss-1.png" alt="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi normale." width="100%" />
+<p class="caption">
+Figure 2.4: Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi normale.
+</p>
+</div>
+</div>
+<div id="justification-théorique" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Justification théorique<a href="probabilités.html#justification-théorique" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le rôle important joué par la loi de Gauss en statistiques appliquées peut s’expliquer par le théorème central limite. Ce théorème peut s’exprimer de la manière suivante. Soit <span class="math inline">\((X_1,\ldots,X_n)\)</span> des variables aléatoires indépendantes et de même distribution (on notera <strong>iid</strong> pour <em>indépendantes et identiquement distribuées</em>), d’espérance <span class="math inline">\(\mu\)</span> et d’écart-type <span class="math inline">\(\sigma\)</span>. Alors, <strong>quelle que soit la distribution des <span class="math inline">\(X_i\)</span></strong> (pourvu qu’espérance et variance existent), la distribution de la statistique « moyenne empirique » <span class="math inline">\(\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i\)</span> tend vers une loi Gaussienne quand <span class="math inline">\(n\)</span> augmente. En pratique, une trentaine d’observations (indépendantes) est souvent jugée suffisante pour appliquer l’approximation Gaussienne. Ce résultat très général implique que la distribution gaussienne est un choix naturel pour décrire des variables qui peuvent s’écrire comme la moyenne (ou la somme) d’un grand nombre de valeurs.</p>
+<p>La Figure <a href="probabilités.html#fig:tcl">2.5</a> illustre le théorème central limite. Le panneau de gauche montre l’histogramme de 10 000 valeurs simulées dans une loi uniforme : sa forme est très différente de celui d’une loi gaussienne. On s’intéresse à présent à la moyenne de 2 valeurs tirées dans une loi uniforme. Le panneau du milieu montre l’histogramme correspondant, et indique que déjà l’histogramme prend une forme en cloche qui se rapproche un peu plus de celui d’une loi gaussienne. Si l’on refait l’exercice avec la moyenne de 10 valeurs tirées dans une loi uniforme, l’histogramme ressemble très fortement à celui d’une loi gaussienne.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tcl"></span>
+<img src="_main_files/figure-html/tcl-1.png" alt="Illustration du théorème central limite." width="100%" />
+<p class="caption">
+Figure 2.5: Illustration du théorème central limite.
+</p>
+</div>
+</div>
 </div>
 <div id="sec:logN" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Distribution log-normale<a href="probabilités.html#sec:logN" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La distribution <strong>log-normale</strong>, également appelée <strong>loi de Galton</strong>, est une distribution dérivée de la loi normale de la manière suivante : la loi log-normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> est la distribution de la variable <span class="math inline">\(\exp(X)\)</span>, où <span class="math inline">\(X\)</span> suit une loi normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span>. Inversement, le logarithme népérien d’une variable suivant une loi log-normale suit une loi normale. De par sa définition, une variable suivant une loi log-normale est strictement positive. Cette distribution est utilisée en hydrologie notamment pour modéliser des variables d’étiage ou parfois des modules annuels.</p>
+<p>La loi log-normale, notée <span class="math inline">\(\mathcal{LN}(\mu,\sigma)\)</span>, possède les propriétés suivantes :</p>
+<p><span class="math display" id="eq:logN">\[
+\begin{equation}
+f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
+x&gt;0, \sigma &gt;0 \\
+E(X)=\exp(\mu+\sigma^2/2)\\
+Var(X)=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)
+\tag{2.2}
+\end{equation}
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:logN"></span>
+<img src="_main_files/figure-html/logN-1.png" alt="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi log-normale." width="100%" />
+<p class="caption">
+Figure 2.6: Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi log-normale.
+</p>
+</div>
 </div>
 <div id="sec:GEV" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Distributions des valeurs extrêmes : maxima<a href="probabilités.html#sec:GEV" class="anchor-section" aria-label="Anchor link to header"></a></h2>
