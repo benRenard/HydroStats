@@ -357,13 +357,31 @@ Le paramètre de forme joue un rôle majeur dans l’estimation de quantiles de 
 
 De même que le rôle central de la loi normale pour les valeurs « moyennes » est dû à l’existence d’un théorème central limite, la loi GEV trouve sa justification dans un théorème limite appelé le théorème des valeurs extrêmes.
 
-Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » $\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i$ est remplacée par la statistique $M_n=\max(X_1,\ldots,X_n)$. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de $M_n$ converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes $GEV(\mu,\lambda,\xi)$. 
+Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » $\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i$ est remplacée par la statistique $M_n=\max(X_1,\ldots,X_n)$. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de $M_n$ converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes $GEV(\mu,\lambda,\xi)$. Ce résultat est vrai quelle que soit la loi parente dont est issu l’échantillon $(X_1,\ldots,X_n)$ : ce théorème justifie l’utilisation de la loi GEV pour décrire le comportement probabiliste des maxima annuels. 
 
-La Figure \@ref(fig:evt) permet d’illustrer cette convergence pour une loi normale $\mathcal{N}(0,1)$. 
+La Figure \@ref(fig:evt) permet d’illustrer cette convergence dans le cas d'une loi parente normale $\mathcal{N}(0,1)$. 
+Cette figure a été obtenue de manière analogue à la Figure  \@ref(fig:tcl). Le panneau de gauche montre l'histogramme de 10 000 valeurs simulées dans la loi parente. Dans le panneau du milieu, on s'intéresse au maximum de 10 valeurs tirées dans la loi parente: l'histogramme correspondant indique que la distribution de ce maximum est asymétrique et n'est donc plus gaussienne. Si l'on refait l'exercice avec le maximum de 365 valeurs tirées dans la loi parente, on obtient un histogramme encore plus asymétrique et on peut montrer qu'il s'agit dans ce cas d'une distribution de Gumbel. Si l'on change de distribution parente, la distribution du maximum convergera toujours vers une loi GEV, mais par forcément de paramètre de forme nul (Gumbel). Par exemple, une loi parente uniforme conduira à une loi GEV à paramètre de forme positif pour le maximum (distribution bornée à droite), tandis qu'une une loi parente log-normale conduira à une loi GEV à paramètre de forme négatif (distribution à queue lourde).
 
-dont les maximums convergent vers une GEV où le paramètre  est respectivement nul (=loi de Gumbel), positif (=loi de Weibull) et négatif (=Loi de Fréchet). Cette figure a été obtenue de manière analogue à la Figure  \@ref(fig:tcl) : pour les trois lois de probabilité (Normale, Uniforme et de Cauchy), nous avons simulé des échantillons de diverses tailles n, et calculé le maximum  de ces n valeurs. En répétant l’expérience un grand nombre de fois (1000 fois), on obtient les histogrammes de la Figure 2-27.
 
-Ce théorème justifie l’utilisation de ces lois en hydrologie des valeurs extrêmes, pour décrire le comportement probabiliste des crues. Notons qu’encore une fois, la loi limite du maximum (la loi GEV) ne dépend pas de la loi parente dont est issu l’échantillon.
+```{r evt, echo=FALSE, fig.align='center', fig.asp=0.4, fig.cap="Illustration du théorème des valeurs extrêmes.", message=FALSE, warning=FALSE, out.width='100%'}
+n=10000
+rfunk=rnorm
+x=rfunk(n)
+g1=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='Distribution parente')
+x=apply(matrix(rfunk(10*n),ncol=10),1,max)
+g2=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='maximum de 10 valeurs')
+x=apply(matrix(rfunk(365*n),ncol=365),1,max)
+g3=ggplot(data.frame(x))+
+  geom_histogram(aes(x))+
+  labs(x='valeur',y='fréquence',title='maximum de 365 valeurs')
+final=wrap_plots(g1,g2,g3,nrow=1)
+final=final&theme_bw()&theme(panel.grid=element_blank())
+print(final+plot_layout(axes='collect')) 
+```
 
 ## Distributions des valeurs extrêmes : dépassements de seuil {#sec:GPD}
 

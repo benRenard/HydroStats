@@ -33,6 +33,7 @@ eq:logN
 fig:logN
 eq:gumbel
 eq:GEV
+fig:gev
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements
@@ -66,6 +67,7 @@ justification-théorique
 sec:logN
 sec:GEV
 définitions
+justification-théorique-1
 sec:GPD
 inférence
 estimation-de-paramètres
@@ -89,5 +91,4 @@ annexes
 annexe:distributions
 annexe:estimateurs
 annexe:tests
-fig:gev
-justification-théorique-1
+fig:evt
