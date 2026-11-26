@@ -325,5 +325,45 @@ La **loi généralisée des valeurs extrêmes**, notée $GEV(\mu,\lambda,\xi)$,�
 (\#eq:GEV)
 \end{align}
 
+La Figure \@ref(fig:gev) présente les densités et fonctions de répartitions de trois lois GEV, qui possèdent les mêmes paramètres de position et d’échelle mais diffèrent par leur paramètre de forme $\xi$. Si $\xi<0$, la loi GEV est dite « de type Fréchet » : il s’agit d’une distribution bornée à gauche (i.e. elle possède une borne inférieure), que l’on qualifie de « distribution à queue lourde » pour signifier que la densité chute lentement vers zéro en l’infini. Si $\xi>0$, la loi GEV est dite « de type Weibull » : elle est bornée à droite (i.e. elle possède une borne supérieure). Enfin, lorsque $\xi$ tend vers zéro, la densité de la loi GEV tend vers la densité d’une loi de Gumbel. On pourra donc considérer que la loi de Gumbel est un cas particulier de la loi GEV, obtenu en prenant un paramètre de forme nul. Notons qu’il s’agit là d’un léger abus de langage, car les formules de l’équation \@ref(eq:GEV) ci-dessus ne sont pas définies pour $\xi=0$.
+
+```{r gev, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi GEV.", out.width='100%',warning=FALSE}
+x=seq(0,300)
+DF=data.frame(x=rep(x,3))
+DF$pdf=c(dgev(x,100,25,0.5),dgev(x,100,25,0),dgev(x,100,25,-0.5))
+DF$cdf=c(pgev(x,100,25,0.5),pgev(x,100,25,0),pgev(x,100,25,-0.5))
+DF$dist=rep(c('GEV(100,25,-0.5)','Gu(100,25)','GEV(100,25,0.5)'),each=length(x))
+g1=ggplot(DF)+
+  geom_line(aes(x,pdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen),guide=NULL)+
+  labs(x='x',y='f(x)')
+g2=ggplot(DF)+
+  geom_line(aes(x,cdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
+  labs(x='x',y='F(x)')
+final=wrap_plots(g1,g2,nrow=1)
+final=final&
+  theme_bw()&
+  theme(panel.grid=element_blank(),axis.text=element_text(size=12),
+        axis.title=element_text(size=16),legend.position=c(0.99,0.01),
+        legend.justification=c(1,0),legend.text=element_text(size=10),
+        legend.background=element_rect(linewidth=0.2,color='black'))
+print(final) 
+```
+
+Le paramètre de forme joue un rôle majeur dans l’estimation de quantiles de crues, car il gouverne leur comportement asymptotique. A titre d’illustration, la ligne horizontale en Figure \@ref(fig:gev) (droite) correspond à la probabilité 0.95. L’intersection avec les fonctions de répartition donne donc la valeur du quantile d’ordre 0.95 : suivant la valeur du paramètre de forme, ce quantile varie entre environ 140 (pour $\xi=0.5$), environ 175 (pour $\xi=0$), et jusqu’à plus de 250 (pour $\xi=-0.5$).
+
+### Justification théorique
+
+De même que le rôle central de la loi normale pour les valeurs « moyennes » est dû à l’existence d’un théorème central limite, la loi GEV trouve sa justification dans un théorème limite appelé le théorème des valeurs extrêmes.
+
+Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » $\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i$ est remplacée par la statistique $M_n=\max(X_1,\ldots,X_n)$. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de $M_n$ converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes $GEV(\mu,\lambda,\xi)$. 
+
+La Figure \@ref(fig:evt) permet d’illustrer cette convergence pour une loi normale $\mathcal{N}(0,1)$. 
+
+dont les maximums convergent vers une GEV où le paramètre  est respectivement nul (=loi de Gumbel), positif (=loi de Weibull) et négatif (=Loi de Fréchet). Cette figure a été obtenue de manière analogue à la Figure  \@ref(fig:tcl) : pour les trois lois de probabilité (Normale, Uniforme et de Cauchy), nous avons simulé des échantillons de diverses tailles n, et calculé le maximum  de ces n valeurs. En répétant l’expérience un grand nombre de fois (1000 fois), on obtient les histogrammes de la Figure 2-27.
+
+Ce théorème justifie l’utilisation de ces lois en hydrologie des valeurs extrêmes, pour décrire le comportement probabiliste des crues. Notons qu’encore une fois, la loi limite du maximum (la loi GEV) ne dépend pas de la loi parente dont est issu l’échantillon.
+
 ## Distributions des valeurs extrêmes : dépassements de seuil {#sec:GPD}
 

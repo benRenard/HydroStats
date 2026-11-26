@@ -29,7 +29,7 @@ package [HydroPortailStats](https://github.com/benRenard/HydroPortailStats) [@R-
 library(ggplot2);library(patchwork)
 library(HydroPortailStats)
 library(dplyr);library(lubridate)
-library(moments)
+library(moments);library(evd)
 load(file.path('data','HydroStats.RData'))
 ```
 

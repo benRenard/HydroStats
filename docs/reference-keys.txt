@@ -31,11 +31,13 @@ fig:gauss
 fig:tcl
 eq:logN
 fig:logN
+eq:gumbel
+eq:GEV
 données-et-statistiques-descriptives
 définition-de-variables-hydrologiques
 filtrage-et-autre-pré-traitements
 variables-pour-les-moyennes-eaux
-variables-pour-les-hautes-eaux
+sec:HE
 BE
 débit-minimum-annuel-minan
 variables-relatives-à-un-seuil-de-bas-débit-infseuil
@@ -63,6 +65,7 @@ définition
 justification-théorique
 sec:logN
 sec:GEV
+définitions
 sec:GPD
 inférence
 estimation-de-paramètres
@@ -86,7 +89,5 @@ annexes
 annexe:distributions
 annexe:estimateurs
 annexe:tests
-sec:HE
-définitions
-eq:gumbel
-eq:GEV
+fig:gev
+justification-théorique-1
