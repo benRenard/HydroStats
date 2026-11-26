@@ -128,7 +128,7 @@ g=ggplot(DF)+
 print(g) 
 ```
 
-### Variables pour les hautes eaux
+### Variables pour les hautes eaux {#sec:HE}
 
 Nous allons nous intéresser aux deux principales techniques utilisées par les hydrologues pour l’étude des crues: l’échantillonnage par valeurs maximales annuelles (MAXAN) et l’échantillonnage par valeurs supérieures à un seuil (SUPSEUIL).
 

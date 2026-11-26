@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-25" />
+<meta name="date" content="2026-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,37 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -108,7 +83,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#filtrage-et-autre-pré-traitements"><i class="fa fa-check"></i><b>1.1.1</b> Filtrage et autre pré-traitements</a></li>
 <li class="chapter" data-level="1.1.2" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-pour-les-moyennes-eaux"><i class="fa fa-check"></i><b>1.1.2</b> Variables pour les moyennes eaux</a></li>
-<li class="chapter" data-level="1.1.3" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-pour-les-hautes-eaux"><i class="fa fa-check"></i><b>1.1.3</b> Variables pour les hautes eaux</a></li>
+<li class="chapter" data-level="1.1.3" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#sec:HE"><i class="fa fa-check"></i><b>1.1.3</b> Variables pour les hautes eaux</a></li>
 <li class="chapter" data-level="1.1.4" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#BE"><i class="fa fa-check"></i><b>1.1.4</b> Variables pour les basses eaux</a></li>
 <li class="chapter" data-level="1.1.5" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-de-saisonnalité"><i class="fa fa-check"></i><b>1.1.5</b> Variables de saisonnalité</a></li>
 <li class="chapter" data-level="1.1.6" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#discussion-choix-des-variables-hydrologiques"><i class="fa fa-check"></i><b>1.1.6</b> Discussion : choix des variables hydrologiques</a></li>
@@ -140,7 +115,10 @@ div.csl-indent {
 <li class="chapter" data-level="2.3.2" data-path="probabilités.html"><a href="probabilités.html#justification-théorique"><i class="fa fa-check"></i><b>2.3.2</b> Justification théorique</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="probabilités.html"><a href="probabilités.html#sec:logN"><i class="fa fa-check"></i><b>2.4</b> Distribution log-normale</a></li>
-<li class="chapter" data-level="2.5" data-path="probabilités.html"><a href="probabilités.html#sec:GEV"><i class="fa fa-check"></i><b>2.5</b> Distributions des valeurs extrêmes : maxima</a></li>
+<li class="chapter" data-level="2.5" data-path="probabilités.html"><a href="probabilités.html#sec:GEV"><i class="fa fa-check"></i><b>2.5</b> Distributions des valeurs extrêmes : maxima</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="probabilités.html"><a href="probabilités.html#définitions"><i class="fa fa-check"></i><b>2.5.1</b> Définitions</a></li>
+</ul></li>
 <li class="chapter" data-level="2.6" data-path="probabilités.html"><a href="probabilités.html#sec:GPD"><i class="fa fa-check"></i><b>2.6</b> Distributions des valeurs extrêmes : dépassements de seuil</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="inférence.html"><a href="inférence.html"><i class="fa fa-check"></i><b>3</b> Inférence</a>
@@ -367,6 +345,29 @@ Figure 2.6: Exemples de densités (gauche) et de fonctions de répartition (droi
 </div>
 <div id="sec:GEV" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Distributions des valeurs extrêmes : maxima<a href="probabilités.html#sec:GEV" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Dans cette section, nous nous focalisons sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section <a href="données-et-statistiques-descriptives.html#sec:HE">1.1.3</a>). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).</p>
+<div id="définitions" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Définitions<a href="probabilités.html#définitions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>loi de Gumbel</strong>, notée <span class="math inline">\(Gu(\mu,\lambda)\)</span>, est  la première loi des valeurs extrêmes à avoir été utilisée pour l’étude des maxima annuels. Il s’agit d’une loi à deux paramètres, le <strong>paramètre de position</strong> <span class="math inline">\(\mu\)</span> et le <strong>paramètre d’échelle</strong> <span class="math inline">\(\lambda\)</span>. Ce dernier paramètre est également appelé le <strong>gradex</strong> en hydrologie francophone. La loi de Gumbel possède les propriétés suivantes :</p>
+<p><span class="math display" id="eq:gumbel">\[\begin{align}
+&amp;f(x)=\frac{1}{\lambda}\exp \left( -\frac{x-\mu}{\lambda} -\exp \left( -\frac{x-\mu}{\lambda} \right) \right) \\
+&amp;F(x)=\exp \left( - \exp \left( -\frac{x-\mu}{\lambda} \right) \right)\\
+&amp;\lambda &gt;0 \\
+&amp;E(X)=\mu + \gamma \lambda, \gamma \approx 0.5772 \text{ (constante d&#39;Euler-Mascheroni)}\\
+&amp;Var(X)=\frac{\pi^2}{6}\lambda^2
+\tag{2.3}
+\end{align}\]</span></p>
+<p>La <strong>loi généralisée des valeurs extrêmes</strong>, notée <span class="math inline">\(GEV(\mu,\lambda,\xi)\)</span>, généralise la loi de Gumbel en lui ajoutant un troisième paramètre appelé le <strong>paramètre de forme</strong>. Elle possède les propriétés suivantes :</p>
+<p><span class="math display" id="eq:GEV">\[\begin{align}
+&amp;\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda}\\
+&amp;f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right)\\
+&amp;F(x)=\exp \left( - z^{\frac{1}{\xi}}\right)\\
+&amp;z&gt;0,\lambda &gt;0,\xi \neq 0 \\
+&amp;E(X)=\mu + \frac{\lambda}{\xi} \left( 1-\Gamma(\xi+1)\right) \text{ (existe seulement si } \xi&gt; -1 \text{)}\\
+&amp;Var(X)= \left(\frac{\lambda}{\xi}\right)^2 \left( \Gamma(2\xi+1)-\Gamma^2(\xi+1)\right) \text{ (existe seulement si } \xi&gt; -\frac{1}{2} \text{)}
+\tag{2.4}
+\end{align}\]</span></p>
+</div>
 </div>
 <div id="sec:GPD" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Distributions des valeurs extrêmes : dépassements de seuil<a href="probabilités.html#sec:GPD" class="anchor-section" aria-label="Anchor link to header"></a></h2>

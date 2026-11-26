@@ -296,8 +296,34 @@ final=final&
 print(final) 
 ```
 
-
 ## Distributions des valeurs extrêmes : maxima {#sec:GEV}
+
+Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Dans cette section, nous nous focalisons sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section \@ref(sec:HE)). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).
+
+### Définitions
+
+La **loi de Gumbel**, notée $Gu(\mu,\lambda)$, est  la première loi des valeurs extrêmes à avoir été utilisée pour l’étude des maxima annuels. Il s’agit d’une loi à deux paramètres, le **paramètre de position** $\mu$ et le **paramètre d’échelle** $\lambda$. Ce dernier paramètre est également appelé le **gradex** en hydrologie francophone. La loi de Gumbel possède les propriétés suivantes :
+
+\begin{align}
+&f(x)=\frac{1}{\lambda}\exp \left( -\frac{x-\mu}{\lambda} -\exp \left( -\frac{x-\mu}{\lambda} \right) \right) \\
+&F(x)=\exp \left( - \exp \left( -\frac{x-\mu}{\lambda} \right) \right)\\
+&\lambda >0 \\
+&E(X)=\mu + \gamma \lambda, \gamma \approx 0.5772 \text{ (constante d'Euler-Mascheroni)}\\
+&Var(X)=\frac{\pi^2}{6}\lambda^2
+(\#eq:gumbel)
+\end{align}
+
+La **loi généralisée des valeurs extrêmes**, notée $GEV(\mu,\lambda,\xi)$, généralise la loi de Gumbel en lui ajoutant un troisième paramètre  appelé le **paramètre de forme**. Elle possède les propriétés suivantes :
+
+\begin{align}
+&\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda}\\
+&f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right)\\
+&F(x)=\exp \left( - z^{\frac{1}{\xi}}\right)\\
+&z>0,\lambda >0,\xi \neq 0 \\
+&E(X)=\mu + \frac{\lambda}{\xi} \left( 1-\Gamma(\xi+1)\right) \text{ (existe seulement si } \xi> -1 \text{)}\\
+&Var(X)= \left(\frac{\lambda}{\xi}\right)^2 \left( \Gamma(2\xi+1)-\Gamma^2(\xi+1)\right) \text{ (existe seulement si } \xi> -\frac{1}{2} \text{)}
+(\#eq:GEV)
+\end{align}
 
 ## Distributions des valeurs extrêmes : dépassements de seuil {#sec:GPD}
 

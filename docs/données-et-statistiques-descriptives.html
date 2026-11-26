@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-25" />
+<meta name="date" content="2026-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -108,7 +108,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#filtrage-et-autre-pré-traitements"><i class="fa fa-check"></i><b>1.1.1</b> Filtrage et autre pré-traitements</a></li>
 <li class="chapter" data-level="1.1.2" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-pour-les-moyennes-eaux"><i class="fa fa-check"></i><b>1.1.2</b> Variables pour les moyennes eaux</a></li>
-<li class="chapter" data-level="1.1.3" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-pour-les-hautes-eaux"><i class="fa fa-check"></i><b>1.1.3</b> Variables pour les hautes eaux</a></li>
+<li class="chapter" data-level="1.1.3" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#sec:HE"><i class="fa fa-check"></i><b>1.1.3</b> Variables pour les hautes eaux</a></li>
 <li class="chapter" data-level="1.1.4" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#BE"><i class="fa fa-check"></i><b>1.1.4</b> Variables pour les basses eaux</a></li>
 <li class="chapter" data-level="1.1.5" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#variables-de-saisonnalité"><i class="fa fa-check"></i><b>1.1.5</b> Variables de saisonnalité</a></li>
 <li class="chapter" data-level="1.1.6" data-path="données-et-statistiques-descriptives.html"><a href="données-et-statistiques-descriptives.html#discussion-choix-des-variables-hydrologiques"><i class="fa fa-check"></i><b>1.1.6</b> Discussion : choix des variables hydrologiques</a></li>
@@ -284,8 +284,8 @@ Figure 1.4: Exemples de courbes annuelles des débits classés.
 </p>
 </div>
 </div>
-<div id="variables-pour-les-hautes-eaux" class="section level3 hasAnchor" number="1.1.3">
-<h3><span class="header-section-number">1.1.3</span> Variables pour les hautes eaux<a href="données-et-statistiques-descriptives.html#variables-pour-les-hautes-eaux" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="sec:HE" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Variables pour les hautes eaux<a href="données-et-statistiques-descriptives.html#sec:HE" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Nous allons nous intéresser aux deux principales techniques utilisées par les hydrologues pour l’étude des crues: l’échantillonnage par valeurs maximales annuelles (MAXAN) et l’échantillonnage par valeurs supérieures à un seuil (SUPSEUIL).</p>
 <p>L’échantillonnage MAXAN consiste à sélectionner chaque année le débit observé le plus fort. L’échantillonnage SUPSEUIL consiste quant à lui à choisir un seuil de haut débit, puis à sélectionner les pointes des évènements dépassant ce seuil. Dans la pratique, plutôt qu’un seuil, on se donne en général un nombre d’évènements à sélectionner par an (en moyenne), et par itérations successives, on calcule le seuil conduisant à cet objectif.</p>
 <p>Chacune de ces méthodes présente des avantages et des inconvénients, notamment dans l’optique d’une analyse statistique. La mise en œuvre de l’approche MAXAN est très simple. En ne sélectionnant qu’un unique événement par an, on évite le risque de sélectionner deux valeurs de débits correspondant au même événement de crue (le risque de sélectionner, par exemple, un débit le 31 décembre 2000 et un autre le 1er janvier 2001 est limité par l’utilisation d’années hydrologiques). L’inconvénient est d’ignorer un certain nombre d’évènements lors des années où beaucoup de crues se sont produites (par exemple, année 2004-2005 dans la Figure <a href="données-et-statistiques-descriptives.html#fig:MAXANvsSUPSEUIL">1.5</a>), et inversement de prendre en compte des évènements peu importants lors des années peu actives (par exemple, année 2006-2007). L’homogénéité de l’échantillon n’est donc pas optimale.</p>

@@ -86,3 +86,7 @@ annexes
 annexe:distributions
 annexe:estimateurs
 annexe:tests
+sec:HE
+définitions
+eq:gumbel
+eq:GEV
