@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Renard" />
 
 
-<meta name="date" content="2026-11-26" />
+<meta name="date" content="2026-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -120,7 +120,11 @@
 <li class="chapter" data-level="2.5.1" data-path="probabilités.html"><a href="probabilités.html#définitions"><i class="fa fa-check"></i><b>2.5.1</b> Définitions</a></li>
 <li class="chapter" data-level="2.5.2" data-path="probabilités.html"><a href="probabilités.html#justification-théorique-1"><i class="fa fa-check"></i><b>2.5.2</b> Justification théorique</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="probabilités.html"><a href="probabilités.html#sec:GPD"><i class="fa fa-check"></i><b>2.6</b> Distributions des valeurs extrêmes : dépassements de seuil</a></li>
+<li class="chapter" data-level="2.6" data-path="probabilités.html"><a href="probabilités.html#sec:GPD"><i class="fa fa-check"></i><b>2.6</b> Distributions des valeurs extrêmes : dépassements de seuil</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="probabilités.html"><a href="probabilités.html#définitions-1"><i class="fa fa-check"></i><b>2.6.1</b> Définitions</a></li>
+<li class="chapter" data-level="2.6.2" data-path="probabilités.html"><a href="probabilités.html#justification-théorique-2"><i class="fa fa-check"></i><b>2.6.2</b> Justification théorique</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="inférence.html"><a href="inférence.html"><i class="fa fa-check"></i><b>3</b> Inférence</a>
 <ul>
@@ -330,7 +334,7 @@ Figure 2.5: Illustration du théorème central limite.
 <p>La distribution <strong>log-normale</strong>, également appelée <strong>loi de Galton</strong>, est une distribution dérivée de la loi normale de la manière suivante : la loi log-normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> est la distribution de la variable <span class="math inline">\(\exp(X)\)</span>, où <span class="math inline">\(X\)</span> suit une loi normale de paramètres <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span>. Inversement, le logarithme népérien d’une variable suivant une loi log-normale suit une loi normale. De par sa définition, une variable suivant une loi log-normale est strictement positive. Cette distribution est utilisée en hydrologie notamment pour modéliser des variables d’étiage ou parfois des modules annuels.</p>
 <p>La loi log-normale, notée <span class="math inline">\(\mathcal{LN}(\mu,\sigma)\)</span>, possède les propriétés suivantes :</p>
 <p><span class="math display" id="eq:logN">\[\begin{align}
-&amp;f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+&amp;f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \text{ si } x &gt; 0 \text{ (0 sinon)} \\
 &amp;F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d&#39;expression analytique)}\\
 &amp;x&gt;0, \sigma &gt;0 \\
 &amp;E(X)=\exp(\mu+\sigma^2/2)\\
@@ -346,7 +350,7 @@ Figure 2.6: Exemples de densités (gauche) et de fonctions de répartition (droi
 </div>
 <div id="sec:GEV" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Distributions des valeurs extrêmes : maxima<a href="probabilités.html#sec:GEV" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Dans cette section, nous nous focalisons sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section <a href="données-et-statistiques-descriptives.html#sec:HE">1.1.3</a>). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).</p>
+<p>Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Cette section focalise sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section <a href="données-et-statistiques-descriptives.html#sec:HE">1.1.3</a>). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).</p>
 <div id="définitions" class="section level3 hasAnchor" number="2.5.1">
 <h3><span class="header-section-number">2.5.1</span> Définitions<a href="probabilités.html#définitions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La <strong>loi de Gumbel</strong>, notée <span class="math inline">\(Gu(\mu,\lambda)\)</span>, est  la première loi des valeurs extrêmes à avoir été utilisée pour l’étude des maxima annuels. Il s’agit d’une loi à deux paramètres, le <strong>paramètre de position</strong> <span class="math inline">\(\mu\)</span> et le <strong>paramètre d’échelle</strong> <span class="math inline">\(\lambda\)</span>. Ce dernier paramètre est également appelé le <strong>gradex</strong> en hydrologie francophone. La loi de Gumbel possède les propriétés suivantes :</p>
@@ -360,9 +364,9 @@ Figure 2.6: Exemples de densités (gauche) et de fonctions de répartition (droi
 \end{align}\]</span></p>
 <p>La <strong>loi généralisée des valeurs extrêmes</strong>, notée <span class="math inline">\(GEV(\mu,\lambda,\xi)\)</span>, généralise la loi de Gumbel en lui ajoutant un troisième paramètre appelé le <strong>paramètre de forme</strong>. Elle possède les propriétés suivantes :</p>
 <p><span class="math display" id="eq:GEV">\[\begin{align}
-&amp;\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda}\\
-&amp;f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right)\\
-&amp;F(x)=\exp \left( - z^{\frac{1}{\xi}}\right)\\
+&amp;\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda} \\
+&amp;f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right) \text{ si } z &gt; 0 \text{ (0 sinon)}\\
+&amp;F(x)=\exp \left( - z^{\frac{1}{\xi}}\right) \text{ si } z &gt; 0 \\
 &amp;z&gt;0,\lambda &gt;0,\xi \neq 0 \\
 &amp;E(X)=\mu + \frac{\lambda}{\xi} \left( 1-\Gamma(\xi+1)\right) \text{ (existe seulement si } \xi&gt; -1 \text{)}\\
 &amp;Var(X)= \left(\frac{\lambda}{\xi}\right)^2 \left( \Gamma(2\xi+1)-\Gamma^2(\xi+1)\right) \text{ (existe seulement si } \xi&gt; -\frac{1}{2} \text{)}
@@ -380,9 +384,9 @@ Figure 2.7: Exemples de densités (gauche) et de fonctions de répartition (droi
 <div id="justification-théorique-1" class="section level3 hasAnchor" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> Justification théorique<a href="probabilités.html#justification-théorique-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>De même que le rôle central de la loi normale pour les valeurs « moyennes » est dû à l’existence d’un théorème central limite, la loi GEV trouve sa justification dans un théorème limite appelé le théorème des valeurs extrêmes.</p>
-<p>Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » <span class="math inline">\(\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i\)</span> est remplacée par la statistique <span class="math inline">\(M_n=\max(X_1,\ldots,X_n)\)</span>. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de <span class="math inline">\(M_n\)</span> converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes <span class="math inline">\(GEV(\mu,\lambda,\xi)\)</span>. Ce résultat est vrai quelle que soit la loi parente dont est issu l’échantillon <span class="math inline">\((X_1,\ldots,X_n)\)</span> : ce théorème justifie l’utilisation de la loi GEV pour décrire le comportement probabiliste des maxima annuels.</p>
+<p>Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » <span class="math inline">\(\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i\)</span> est remplacée par la statistique « maximum » <span class="math inline">\(M_n=\max(X_1,\ldots,X_n)\)</span>. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de <span class="math inline">\(M_n\)</span> converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes <span class="math inline">\(GEV(\mu,\lambda,\xi)\)</span>. Ce résultat est vrai quelle que soit la loi parente dont est issu l’échantillon <span class="math inline">\((X_1,\ldots,X_n)\)</span> : ce théorème justifie donc l’utilisation de la loi GEV pour décrire le comportement probabiliste des maxima annuels.</p>
 <p>La Figure <a href="probabilités.html#fig:evt">2.8</a> permet d’illustrer cette convergence dans le cas d’une loi parente normale <span class="math inline">\(\mathcal{N}(0,1)\)</span>.
-Cette figure a été obtenue de manière analogue à la Figure <a href="probabilités.html#fig:tcl">2.5</a>. Le panneau de gauche montre l’histogramme de 10 000 valeurs simulées dans la loi parente. Dans le panneau du milieu, on s’intéresse au maximum de 10 valeurs tirées dans la loi parente: l’histogramme correspondant indique que la distribution de ce maximum est asymétrique et n’est donc plus gaussienne. Si l’on refait l’exercice avec le maximum de 365 valeurs tirées dans la loi parente, on obtient un histogramme encore plus asymétrique et on peut montrer qu’il s’agit dans ce cas d’une distribution de Gumbel. Si l’on change de distribution parente, la distribution du maximum convergera toujours vers une loi GEV, mais par forcément de paramètre de forme nul (Gumbel). Par exemple, une loi parente uniforme conduira à une loi GEV à paramètre de forme positif pour le maximum (distribution bornée à droite), tandis qu’une une loi parente log-normale conduira à une loi GEV à paramètre de forme négatif (distribution à queue lourde).</p>
+Cette figure a été obtenue de manière analogue à la Figure <a href="probabilités.html#fig:tcl">2.5</a>. Le panneau de gauche montre l’histogramme de valeurs simulées dans la loi parente. Dans le panneau du milieu, on s’intéresse au maximum de 10 valeurs tirées dans la loi parente: l’histogramme correspondant indique que la distribution de ce maximum est asymétrique et n’est donc plus gaussienne. Si l’on refait l’exercice avec le maximum de 365 valeurs tirées dans la loi parente, on obtient un histogramme encore plus asymétrique et on peut montrer qu’il s’agit dans ce cas d’une distribution de Gumbel. Si l’on change de distribution parente, la distribution du maximum convergera toujours vers une loi GEV, mais par forcément avec un paramètre de forme nul (correspondant à une loi de Gumbel). Par exemple, une loi parente uniforme conduira à une loi GEV à paramètre de forme positif pour le maximum (distribution bornée à droite), tandis qu’une une loi parente de Student conduira à une loi GEV à paramètre de forme négatif (distribution à queue lourde).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:evt"></span>
 <img src="_main_files/figure-html/evt-1.png" alt="Illustration du théorème des valeurs extrêmes." width="100%" />
 <p class="caption">
@@ -393,7 +397,63 @@ Figure 2.8: Illustration du théorème des valeurs extrêmes.
 </div>
 <div id="sec:GPD" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Distributions des valeurs extrêmes : dépassements de seuil<a href="probabilités.html#sec:GPD" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>De même que la loi GEV et son cas particulier, la loi de Gumbel, sont des candidats naturels pour modéliser les maxima annuels, nous verrons dans cette section qu’il existe des distributions naturelles pour modéliser les dépassements de seuils obtenus par la méthode d’échantillonnage SUPSEUIL : la loi de Pareto généralisée, et son cas particulier la loi exponentielle.</p>
+<div id="définitions-1" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Définitions<a href="probabilités.html#définitions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>loi exponentielle</strong>, notée <span class="math inline">\(Exp(x_0,\lambda)\)</span>, est une distribution à deux paramètres : le <strong>seuil</strong> <span class="math inline">\(x_0\)</span>, et le <strong>paramètre d’échelle</strong> <span class="math inline">\(\lambda\)</span> (également appelé <strong>gradex</strong> en hydrologie francophone).</p>
+<p><span class="math display" id="eq:expo">\[\begin{align}
+&amp;f(x)=\frac{1}{\lambda}\exp \left( -\frac{x-x_0}{\lambda} \right) \text{ si } x \geq x_0 \text{ (0 sinon)} \\
+&amp;F(x)=1-\exp \left( -\frac{x-x_0}{\lambda} \right) \text{ si } x \geq x_0 \text{ (0 sinon)} \\
+&amp;x \geq x_0,\lambda &gt;0 \\
+&amp;E(X)=x_0 +  \lambda \\
+&amp;Var(X)=\lambda^2
+\tag{2.5}
+\end{align}\]</span></p>
+<p>La <strong>loi de Pareto généralisée</strong>, notée <span class="math inline">\(GPD(x_0,\lambda,\xi)\)</span>, généralise la loi exponentielle en lui ajoutant un troisième paramètre appelé le <strong>paramètre de forme</strong>. Elle possède les propriétés suivantes :</p>
+<p><span class="math display" id="eq:GPD">\[\begin{align}
+&amp;\text{Soit } z=1-\frac{\xi(x-x_0)}{\lambda} \\
+&amp;f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \text{ si } x \geq x_0 \text{ et } z &gt; 0  \text{ (0 sinon)}\\
+&amp;F(x)=1 - z^{\frac{1}{\xi}} \text{ si } x  \geq x_0 \text{ et } z &gt; 0   \\
+&amp;x  \geq x_0, z&gt;0,\lambda &gt;0,\xi \neq 0 \\
+&amp;E(X)=x_0 + \frac{\lambda}{1+\xi} \text{ (existe seulement si } \xi&gt; -1 \text{)}\\
+&amp;Var(X)= \frac{\lambda^2}{(1+\xi)^2(1+2\xi)} \text{ (existe seulement si } \xi&gt; -\frac{1}{2} \text{)}
+\tag{2.6}
+\end{align}\]</span></p>
+<p>La Figure <a href="probabilités.html#fig:gpd">2.9</a> présent les densités et fonctions de répartition pour trois lois GPD. Le rôle du paramètre de forme est similaire à ce que l’on observait pour la loi GEV (section <a href="probabilités.html#sec:GEV">2.5</a>) : lorsque <span class="math inline">\(\xi&lt;0\)</span>, la loi GPD est bornée à gauche par le seuil et possède une queue lourde à droite. Lorsque <span class="math inline">\(\xi&gt;0\)</span>, la loi GPD est bornée à gauche et à droite. Enfin, lorsque <span class="math inline">\(\xi\)</span> tend vers zéro, la densité de la loi GPD tend vers la densité d’une loi exponentielle, ce qui conduit à considérer la loi exponentielle comme un cas particulier de la loi GPD, obtenu en prenant un paramètre de forme nul.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gpd"></span>
+<img src="_main_files/figure-html/gpd-1.png" alt="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi GPD." width="100%" />
+<p class="caption">
+Figure 2.9: Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi GPD.
+</p>
+</div>
+<p>Par rapport à l’échantillonnage par la méthode MAXAN, l’échantillonnage SUPSEUIL présente l’avantage intéressant de pouvoir s’intéresser au processus d’occurrence des crues. Ainsi, si l’on considère la Figure <a href="#fig:MAXANvsSUPSEUIL"><strong>??</strong></a>), il est possible de dénombrer le nombre annuel d’événements de crue. Cette variable, que nous noterons <span class="math inline">\(N\)</span>, est en général modélisée à l’aide d’une <strong>loi de Poisson</strong> notée <span class="math inline">\(\mathcal{P}(\tau)\)</span>. Le paramètre <span class="math inline">\(\tau\)</span> de la loi de Poisson est appelé le <strong>taux d’occurrence</strong>. La loi de Poisson possède les caractéristiques suivantes :</p>
+<p><span class="math display" id="eq:Poisson">\[\begin{align}
+&amp;\Pr(N=k)= \exp(-\tau) \frac{\tau^k}{k!}\\
+&amp;\Pr(N\leq k)= \exp(-\tau) \sum_{i=0}^{k}\frac{\tau^i}{i!}\\
+&amp;k  \text{ entier positif}, \tau &gt;0\\
+&amp;E(N)=\tau\\
+&amp;Var(X)= \tau
+\tag{2.7}
+\end{align}\]</span></p>
+<p>La Figure <a href="probabilités.html#fig:poisson">2.10</a> illustre la loi de probabilité et la fonction de répartition d’une loi de Poisson.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:poisson"></span>
+<img src="_main_files/figure-html/poisson-1.png" alt="Exemples de lois de probabilté (gauche) et de fonctions de répartition (droite) pour la loi de Poisson" width="100%" />
+<p class="caption">
+Figure 2.10: Exemples de lois de probabilté (gauche) et de fonctions de répartition (droite) pour la loi de Poisson
+</p>
+</div>
+</div>
+<div id="justification-théorique-2" class="section level3 hasAnchor" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Justification théorique<a href="probabilités.html#justification-théorique-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>L’utilisation du couple loi de Poisson + loi GPD pour la modélisation des dépassements de seuil (échantillonnage SUPSEUIL) est justifiée par une relation forte avec l’utilisation de la loi GEV pour les maxima (échantillonnage MAXAN). En effet, il est possible de démontrer que si le processus d’occurrence suit une loi de Poisson <span class="math inline">\(\mathcal{P}(\tau)\)</span> et le processus de dépassement du seuil une loi <span class="math inline">\(GPD(x_0,\lambda_{GPD},\xi_{GPD})\)</span> (échantillonnage SUPSEUIL), ces deux variables étant supposées indépendantes, alors le maximum annuel suit une loi <span class="math inline">\(GEV(\mu,\lambda_{GEV},\xi_{GEV})\)</span> (MAXAN). De plus, les paramètres des distributions sont liés par les relations suivantes :</p>
+<p><span class="math display" id="eq:GEVGPD">\[\begin{align}
+\xi_{GEV} &amp;= \xi_{GPD} \\
+\lambda_{GEV} &amp;= \lambda_{GPD} \times \tau^{-\xi}\\
+\mu &amp;= x_0 + \frac{\lambda_{GPD}(1-\tau^{-\xi})}{\xi}
+\tag{2.8}
+\end{align}\]</span></p>
 
+</div>
 </div>
 </div>
             </section>

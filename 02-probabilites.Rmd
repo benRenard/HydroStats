@@ -26,7 +26,7 @@ Cette variabilité d’échantillonnage peut être illustrée en considérant le
 Précisons que l’utilisation de modèles probabilistes ne permet pas de s’affranchir totalement de cette difficulté : en effet, leur estimation est également soumise à la variabilité d’échantillonnage, mais dans une moindre mesure. De plus, l’approche probabiliste possède l’avantage majeur de permettre la quantification de cette variabilité, et de l'**incertitude** qui en résulte.
 
 ```{r var-echantillonnage, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Illustration du concept de variabilité d'échantillonnage : valeurs maximales annuelles pour l'Azergues à Lozanne sur 2 périodes de 14 ans (gauche), et courbes des fréquences cumulées correspondantes (droite).", out.width='100%',warning=FALSE}
-MAXAN=Azergues_QJ %>% mutate(civil=year(date),month=month(date),day=day(date),year=civil-ifelse(month<9,1,0),value=debit) %>% group_by(year) %>% 
+MAXAN28=Azergues_QJ %>% mutate(civil=year(date),month=month(date),day=day(date),year=civil-ifelse(month<9,1,0),value=debit) %>% group_by(year) %>% 
   summarise(debit=max(value)) %>% filter(year>1994,year<2023) %>%
   arrange(debit) %>% 
   mutate(groupe=ifelse(year<2009,1,2)) %>% group_by(groupe) %>% 
@@ -34,16 +34,16 @@ MAXAN=Azergues_QJ %>% mutate(civil=year(date),month=month(date),day=day(date),ye
 # Plot
 g1=ggplot()+
   geom_vline(xintercept=2008.5,linetype=2,color='gray')+
-  geom_line(data=MAXAN,aes(year,debit))+
-  geom_point(data=MAXAN %>% filter(groupe==1),aes(year,debit),color=myred)+
-  geom_point(data=MAXAN %>% filter(groupe==2),aes(year,debit),color=myblue)+
+  geom_line(data=MAXAN28,aes(year,debit))+
+  geom_point(data=MAXAN28 %>% filter(groupe==1),aes(year,debit),color=myred)+
+  geom_point(data=MAXAN28 %>% filter(groupe==2),aes(year,debit),color=myblue)+
   labs(x='Année',y='Débit (m3/s)',title='Maxima annuels')+
   theme_bw()+theme(panel.grid=element_blank())
 g2=ggplot()+
-  geom_line(data=MAXAN %>% filter(groupe==1),aes(debit,f),color=myred)+
-  geom_line(data=MAXAN %>% filter(groupe==2),aes(debit,f),color=myblue)+
-  geom_point(data=MAXAN %>% filter(groupe==1),aes(debit,f),color=myred)+
-  geom_point(data=MAXAN %>% filter(groupe==2),aes(debit,f),color=myblue)+
+  geom_line(data=MAXAN28 %>% filter(groupe==1),aes(debit,f),color=myred)+
+  geom_line(data=MAXAN28 %>% filter(groupe==2),aes(debit,f),color=myblue)+
+  geom_point(data=MAXAN28 %>% filter(groupe==1),aes(debit,f),color=myred)+
+  geom_point(data=MAXAN28 %>% filter(groupe==2),aes(debit,f),color=myblue)+
   geom_hline(yintercept=0.9,linetype=2)+
   labs(x='Débit (m3/s)',y='fréquence au non-dépassement',title='Courbes des fréquences cumulées')+
   theme_bw()+theme(panel.grid=element_blank())
@@ -264,7 +264,7 @@ La distribution **log-normale**, également appelée **loi de Galton**, est une 
 La loi log-normale, notée $\mathcal{LN}(\mu,\sigma)$, possède les propriétés suivantes :
 
 \begin{align}
-&f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \\
+&f(x)=\frac{1}{x\sqrt{2\pi}\sigma}\exp \left( -\frac{(\log(x)-\mu)^2}{2\sigma^2}\right) \text{ si } x > 0 \text{ (0 sinon)} \\
 &F(x)=\int_{-\infty}^{x}f(u)\text{d}u \text{ (pas d'expression analytique)}\\
 &x>0, \sigma >0 \\
 &E(X)=\exp(\mu+\sigma^2/2)\\
@@ -298,7 +298,7 @@ print(final)
 
 ## Distributions des valeurs extrêmes : maxima {#sec:GEV}
 
-Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Dans cette section, nous nous focalisons sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section \@ref(sec:HE)). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).
+Les distributions des valeurs extrêmes jouent un rôle central en hydrologie, notamment pour l’estimation des crues. Inversement, l’hydrologie a été une des motivations premières au développement d’une théorie des valeurs extrêmes, puisque les travaux précurseurs d’Emil Julius Gumbel avaient pour ambition de fournir un cadre théorique aux problèmes d’estimation des crues. Cette section focalise sur les distributions utilisées pour modéliser les maxima annuels (méthode d’échantillonnages MAXAN, section \@ref(sec:HE)). Une autre section sera consacrée à l’étude des dépassements de seuil (méthode d’échantillonnage SUPSEUIL).
 
 ### Définitions
 
@@ -316,9 +316,9 @@ La **loi de Gumbel**, notée $Gu(\mu,\lambda)$, est  la première loi des valeu
 La **loi généralisée des valeurs extrêmes**, notée $GEV(\mu,\lambda,\xi)$, généralise la loi de Gumbel en lui ajoutant un troisième paramètre  appelé le **paramètre de forme**. Elle possède les propriétés suivantes :
 
 \begin{align}
-&\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda}\\
-&f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right)\\
-&F(x)=\exp \left( - z^{\frac{1}{\xi}}\right)\\
+&\text{Soit } z=1-\frac{\xi(x-\mu)}{\lambda} \\
+&f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \exp \left( - z^{\frac{1}{\xi}}\right) \text{ si } z > 0 \text{ (0 sinon)}\\
+&F(x)=\exp \left( - z^{\frac{1}{\xi}}\right) \text{ si } z > 0 \\
 &z>0,\lambda >0,\xi \neq 0 \\
 &E(X)=\mu + \frac{\lambda}{\xi} \left( 1-\Gamma(\xi+1)\right) \text{ (existe seulement si } \xi> -1 \text{)}\\
 &Var(X)= \left(\frac{\lambda}{\xi}\right)^2 \left( \Gamma(2\xi+1)-\Gamma^2(\xi+1)\right) \text{ (existe seulement si } \xi> -\frac{1}{2} \text{)}
@@ -339,6 +339,7 @@ g1=ggplot(DF)+
   labs(x='x',y='f(x)')
 g2=ggplot(DF)+
   geom_line(aes(x,cdf,color=dist))+
+  geom_hline(yintercept=0.95,color='lightgray',linetype=2)+
   scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
   labs(x='x',y='F(x)')
 final=wrap_plots(g1,g2,nrow=1)
@@ -357,10 +358,10 @@ Le paramètre de forme joue un rôle majeur dans l’estimation de quantiles de 
 
 De même que le rôle central de la loi normale pour les valeurs « moyennes » est dû à l’existence d’un théorème central limite, la loi GEV trouve sa justification dans un théorème limite appelé le théorème des valeurs extrêmes.
 
-Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » $\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i$ est remplacée par la statistique $M_n=\max(X_1,\ldots,X_n)$. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de $M_n$ converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes $GEV(\mu,\lambda,\xi)$. Ce résultat est vrai quelle que soit la loi parente dont est issu l’échantillon $(X_1,\ldots,X_n)$ : ce théorème justifie l’utilisation de la loi GEV pour décrire le comportement probabiliste des maxima annuels. 
+Le théorème des valeurs extrêmes est, en quelque sorte, l’équivalent du théorème central limite, mais où la statistique « moyenne empirique » $\bar{X}_n=\frac{1}{n} \sum_{i=1}^{n}X_i$ est remplacée par la statistique « maximum » $M_n=\max(X_1,\ldots,X_n)$. La formulation exacte du théorème est un peu délicate, nous le retiendrons donc sous la forme suivante : si la distribution de $M_n$ converge, alors c’est forcément vers une loi généralisée des valeurs extrêmes $GEV(\mu,\lambda,\xi)$. Ce résultat est vrai quelle que soit la loi parente dont est issu l’échantillon $(X_1,\ldots,X_n)$ : ce théorème justifie donc l’utilisation de la loi GEV pour décrire le comportement probabiliste des maxima annuels. 
 
 La Figure \@ref(fig:evt) permet d’illustrer cette convergence dans le cas d'une loi parente normale $\mathcal{N}(0,1)$. 
-Cette figure a été obtenue de manière analogue à la Figure  \@ref(fig:tcl). Le panneau de gauche montre l'histogramme de 10 000 valeurs simulées dans la loi parente. Dans le panneau du milieu, on s'intéresse au maximum de 10 valeurs tirées dans la loi parente: l'histogramme correspondant indique que la distribution de ce maximum est asymétrique et n'est donc plus gaussienne. Si l'on refait l'exercice avec le maximum de 365 valeurs tirées dans la loi parente, on obtient un histogramme encore plus asymétrique et on peut montrer qu'il s'agit dans ce cas d'une distribution de Gumbel. Si l'on change de distribution parente, la distribution du maximum convergera toujours vers une loi GEV, mais par forcément de paramètre de forme nul (Gumbel). Par exemple, une loi parente uniforme conduira à une loi GEV à paramètre de forme positif pour le maximum (distribution bornée à droite), tandis qu'une une loi parente log-normale conduira à une loi GEV à paramètre de forme négatif (distribution à queue lourde).
+Cette figure a été obtenue de manière analogue à la Figure  \@ref(fig:tcl). Le panneau de gauche montre l'histogramme de valeurs simulées dans la loi parente. Dans le panneau du milieu, on s'intéresse au maximum de 10 valeurs tirées dans la loi parente: l'histogramme correspondant indique que la distribution de ce maximum est asymétrique et n'est donc plus gaussienne. Si l'on refait l'exercice avec le maximum de 365 valeurs tirées dans la loi parente, on obtient un histogramme encore plus asymétrique et on peut montrer qu'il s'agit dans ce cas d'une distribution de Gumbel. Si l'on change de distribution parente, la distribution du maximum convergera toujours vers une loi GEV, mais par forcément avec un paramètre de forme nul (correspondant à une loi de Gumbel). Par exemple, une loi parente uniforme conduira à une loi GEV à paramètre de forme positif pour le maximum (distribution bornée à droite), tandis qu'une une loi parente de Student conduira à une loi GEV à paramètre de forme négatif (distribution à queue lourde).
 
 
 ```{r evt, echo=FALSE, fig.align='center', fig.asp=0.4, fig.cap="Illustration du théorème des valeurs extrêmes.", message=FALSE, warning=FALSE, out.width='100%'}
@@ -373,15 +374,117 @@ g1=ggplot(data.frame(x))+
 x=apply(matrix(rfunk(10*n),ncol=10),1,max)
 g2=ggplot(data.frame(x))+
   geom_histogram(aes(x))+
-  labs(x='valeur',y='fréquence',title='maximum de 10 valeurs')
+  labs(x='valeur',y='fréquence',title='Max de 10 valeurs')
 x=apply(matrix(rfunk(365*n),ncol=365),1,max)
 g3=ggplot(data.frame(x))+
   geom_histogram(aes(x))+
-  labs(x='valeur',y='fréquence',title='maximum de 365 valeurs')
+  labs(x='valeur',y='fréquence',title='Max de 365 valeurs')
 final=wrap_plots(g1,g2,g3,nrow=1)
 final=final&theme_bw()&theme(panel.grid=element_blank())
 print(final+plot_layout(axes='collect')) 
 ```
 
 ## Distributions des valeurs extrêmes : dépassements de seuil {#sec:GPD}
+
+De même que la loi GEV et son cas particulier, la loi de Gumbel, sont des candidats naturels pour modéliser les maxima annuels, nous verrons dans cette section qu’il existe des distributions naturelles pour modéliser les dépassements de seuils obtenus par la méthode d’échantillonnage SUPSEUIL : la loi de Pareto généralisée, et son cas particulier la loi exponentielle.
+
+### Définitions
+
+La **loi exponentielle**, notée $Exp(x_0,\lambda)$, est une distribution à deux paramètres : le **seuil** $x_0$, et le **paramètre d’échelle** $\lambda$ (également appelé **gradex** en hydrologie francophone).
+
+\begin{align}
+&f(x)=\frac{1}{\lambda}\exp \left( -\frac{x-x_0}{\lambda} \right) \text{ si } x \geq x_0 \text{ (0 sinon)} \\
+&F(x)=1-\exp \left( -\frac{x-x_0}{\lambda} \right) \text{ si } x \geq x_0 \text{ (0 sinon)} \\
+&x \geq x_0,\lambda >0 \\
+&E(X)=x_0 +  \lambda \\
+&Var(X)=\lambda^2
+(\#eq:expo)
+\end{align}
+
+La **loi de Pareto généralisée**, notée $GPD(x_0,\lambda,\xi)$, généralise la loi exponentielle en lui ajoutant un troisième paramètre  appelé le **paramètre de forme**. Elle possède les propriétés suivantes :
+
+\begin{align}
+&\text{Soit } z=1-\frac{\xi(x-x_0)}{\lambda} \\
+&f(x)= \frac{1}{\lambda} z^{\frac{1}{\xi}-1} \text{ si } x \geq x_0 \text{ et } z > 0  \text{ (0 sinon)}\\
+&F(x)=1 - z^{\frac{1}{\xi}} \text{ si } x  \geq x_0 \text{ et } z > 0   \\
+&x  \geq x_0, z>0,\lambda >0,\xi \neq 0 \\
+&E(X)=x_0 + \frac{\lambda}{1+\xi} \text{ (existe seulement si } \xi> -1 \text{)}\\
+&Var(X)= \frac{\lambda^2}{(1+\xi)^2(1+2\xi)} \text{ (existe seulement si } \xi> -\frac{1}{2} \text{)}
+(\#eq:GPD)
+\end{align}
+
+La Figure \@ref(fig:gpd) présent les densités et fonctions de répartition pour trois lois GPD. Le rôle du paramètre de forme est similaire à ce que l’on observait pour la loi GEV (section \@ref(sec:GEV)) : lorsque $\xi<0$, la loi GPD est bornée à gauche par le seuil et possède une queue lourde à droite. Lorsque $\xi>0$, la loi GPD est bornée à gauche et à droite. Enfin, lorsque $\xi$ tend vers zéro, la densité de la loi GPD tend vers la densité d’une loi exponentielle, ce qui conduit à considérer la loi exponentielle comme un cas particulier de la loi GPD, obtenu en prenant un paramètre de forme nul.
+
+```{r gpd, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de densités (gauche) et de fonctions de répartition (droite) pour la loi GPD.", out.width='100%',warning=FALSE}
+x=seq(50,300)
+DF=data.frame(x=rep(x,3))
+DF$pdf=c(dgpd(x,100,25,0.5),dgpd(x,100,25,0),dgpd(x,100,25,-0.5))
+DF$cdf=c(pgpd(x,100,25,0.5),pgpd(x,100,25,0),pgpd(x,100,25,-0.5))
+DF$dist=rep(c('GPD(100,25,-0.5)','Exp(100,25)','GPD(100,25,0.5)'),each=length(x))
+g1=ggplot(DF)+
+  geom_line(aes(x,pdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen),guide=NULL)+
+  labs(x='x',y='f(x)')
+g2=ggplot(DF)+
+  geom_line(aes(x,cdf,color=dist))+
+  geom_hline(yintercept=0.95,color='lightgray',linetype=2)+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
+  labs(x='x',y='F(x)')
+final=wrap_plots(g1,g2,nrow=1)
+final=final&
+  theme_bw()&
+  theme(panel.grid=element_blank(),axis.text=element_text(size=12),
+        axis.title=element_text(size=16),legend.position=c(0.99,0.01),
+        legend.justification=c(1,0),legend.text=element_text(size=10),
+        legend.background=element_rect(linewidth=0.2,color='black'))
+print(final) 
+```
+
+Par rapport à l’échantillonnage par la méthode MAXAN, l’échantillonnage SUPSEUIL présente l’avantage intéressant de pouvoir s’intéresser au processus d’occurrence des crues. Ainsi, si l’on considère la Figure \@ref(fig:MAXANvsSUPSEUIL)), il est possible de dénombrer le nombre annuel d’événements de crue. Cette variable, que nous noterons $N$, est en général modélisée à l’aide d’une **loi de Poisson** notée $\mathcal{P}(\tau)$. Le paramètre $\tau$ de la loi de Poisson est appelé le **taux d’occurrence**. La loi de Poisson possède les caractéristiques suivantes :
+
+\begin{align}
+&\Pr(N=k)= \exp(-\tau) \frac{\tau^k}{k!}\\
+&\Pr(N\leq k)= \exp(-\tau) \sum_{i=0}^{k}\frac{\tau^i}{i!}\\
+&k  \text{ entier positif}, \tau >0\\
+&E(N)=\tau\\
+&Var(X)= \tau
+(\#eq:Poisson)
+\end{align}
+
+La Figure \@ref(fig:poisson) illustre la loi de probabilité et la fonction de répartition d'une loi de Poisson.
+
+```{r poisson, echo=FALSE, fig.align='center', fig.asp=0.5, fig.cap="Exemples de lois de probabilté (gauche) et de fonctions de répartition (droite) pour la loi de Poisson", out.width='100%',warning=FALSE}
+x=seq(-1,12)
+DF=data.frame(x=rep(x,3))
+DF$pdf=c(dpois(x,1),dpois(x,2),dpois(x,5))
+DF$cdf=c(ppois(x,1),ppois(x,2),ppois(x,5))
+DF$dist=rep(c('P(1)','P(2)','P(5)'),each=length(x))
+g1=ggplot(DF)+
+  geom_col(aes(x,pdf,fill=dist),position=position_dodge())+
+  scale_fill_manual(NULL,values=c(myblue,myred,mygreen),guide=NULL)+
+  labs(x='k',y='Pr(N=k)')
+g2=ggplot(DF)+
+  geom_step(aes(x,cdf,color=dist))+
+  scale_color_manual(NULL,values=c(myblue,myred,mygreen))+
+  labs(x='k',y='Pr(N≤k)')
+final=wrap_plots(g1,g2,nrow=1)
+final=final&
+  theme_bw()&
+  theme(panel.grid=element_blank(),axis.text=element_text(size=12),
+        axis.title=element_text(size=16),legend.position=c(0.99,0.01),
+        legend.justification=c(1,0),legend.text=element_text(size=10),
+        legend.background=element_rect(linewidth=0.2,color='black'))
+print(final) 
+```
+
+### Justification théorique
+
+L’utilisation du couple loi de Poisson + loi GPD pour la modélisation des dépassements de seuil (échantillonnage SUPSEUIL) est justifiée par une relation forte avec l’utilisation de la loi GEV pour les maxima (échantillonnage MAXAN). En effet, il est possible de démontrer que si le processus d’occurrence suit une loi de Poisson $\mathcal{P}(\tau)$ et le processus de dépassement du seuil une loi $GPD(x_0,\lambda_{GPD},\xi_{GPD})$ (échantillonnage SUPSEUIL), ces deux variables étant supposées indépendantes, alors le maximum annuel suit une loi $GEV(\mu,\lambda_{GEV},\xi_{GEV})$ (MAXAN). De plus, les paramètres des distributions sont liés par les relations suivantes :
+
+\begin{align}
+\xi_{GEV} &= \xi_{GPD} \\
+\lambda_{GEV} &= \lambda_{GPD} \times \tau^{-\xi}\\
+\mu &= x_0 + \frac{\lambda_{GPD}(1-\tau^{-\xi})}{\xi}
+(\#eq:GEVGPD)
+\end{align}
 
